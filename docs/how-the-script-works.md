@@ -396,3 +396,7 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 - The boss's gold card (widget 20) cycles on each click: Juggernaut (14) -> Brute Chieftain (15) -> Spartan Boss (16) -> Juggernaut. Its text names the selected boss. `pick_form()` blocks every boss class (`class >= juggernaut`) for anyone but the boss, and once `boss_used` is 1.
 - Brute Chieftain: brute_chieftain body, chieftain_armor look, scale 300 (the maximum), trait set 13 (speed 300 percent, shared with the Turret Stalker), and `give_equipment(invincibility)` on its body.
 - Spartan Boss: a first-person Spartan with an Energy Sword in the Infected team's green-yellow; trait set 14 (camouflage 4 = invisible, headshots 1 = immune, speed 9 = 200 percent, recharge 4 = shields never recharge, v20); normal health and shields.
+
+## Tiers by wave (v0.21)
+
+`unlock` is no longer the share of Survivors converted. Once the outbreak has happened, `unlock = (wave - 1) / tier_step_waves`, capped at 3 and never lowered: wave 1 tier 1 only, wave 2 opens tier 2, and so on. `tier_step_waves` (option 10, the slot `unlock_step_percent` had; minimum 1, so it can't divide by zero) sets how many waves each tier takes. The picker title says `tier N opens in wave W` with W = (unlock + 1) x step + 1. The Sword Spartan still needs `wave >= wave_count` (default 5). `converted` and `total` remain only for the Infected HUD line.

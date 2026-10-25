@@ -31,7 +31,7 @@ placeable_limit = 6
 start_infected_percent = 7
 start_points = 8
 test_keys = 9
-unlock_step_percent = 10
+tier_step_waves = 10
 warmup_seconds = 11
 wave1_seconds = 12
 wave_bonus = 13
@@ -111,7 +111,6 @@ alias survivors = global.number[4]
 alias infected = global.number[5]
 alias converted = global.number[6]
 alias seconds = global.number[7]
-alias share = global.number[8]
 alias avail = global.number[9]
 alias boss_used = global.number[10]
 alias crate = global.object[0]
@@ -638,12 +637,13 @@ script_widget[13].set_text_for(current_player, "Tank Stalker  |  tier 4  |  turn
 script_widget[14].set_text_for(current_player, "Flood Tank  |  tier 4")
 script_widget[19].set_text_for(current_player, "Sword Spartan  |  last wave only")
 if unlock < 3 then
-limit = script_option[Option.unlock_step_percent]
+limit = script_option[Option.tier_step_waves]
 scratch = unlock
 scratch += 1
 limit *= scratch
+limit += 1
 scratch += 1
-script_widget[5].set_text_for(current_player, "INFECTED  |  tier %n opens at %n percent converted", scratch, limit)
+script_widget[5].set_text_for(current_player, "INFECTED  |  tier %n opens in wave %n", scratch, limit)
 end
 if unlock < 1 then
 script_widget[8].set_color(current_player, 110, 118, 130, 255)
@@ -1143,18 +1143,14 @@ end
 
 total = converted
 total += survivors
-if total > 0 then
-share = converted
-share *= 100
-share /= total
+if wave > 0 then
+scratch = wave
+scratch -= 1
+need = script_option[Option.tier_step_waves]
+scratch /= need
+if scratch > 3 then scratch = 3 end
+if scratch > unlock then unlock = scratch end
 end
-need = script_option[Option.unlock_step_percent]
-limit = need
-if unlock == 0 and share >= limit then unlock = 1 end
-limit += need
-if unlock == 1 and share >= limit then unlock = 2 end
-limit += need
-if unlock == 2 and share >= limit then unlock = 3 end
 
 for each player do
 class = current_player.get_deployment_class()

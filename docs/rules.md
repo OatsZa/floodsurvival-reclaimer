@@ -1,13 +1,13 @@
-# Zombie Survival v0.20: rules
+# Zombie Survival v0.21: rules
 
-Everything a player or host needs, as built in v0.20. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.20**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.21. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.21**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
 1. **Traits first.** Each Survivor picks traits before their first spawn. Meanwhile the **purge** clears the map's weapons, vehicles, grenades and equipment.
 2. **Warmup** (45 s, needs 2 players). Survivors are first-person Spartans with a **Magnum and fists**, no grenades, at **half shields**. The arsenal is open anywhere.
 3. **Outbreak.** 10% of players, rounded up, become Infected (at least 1, never everyone). Their Survivor body is killed without the death counting.
-4. **Waves** (220 s, +15 s each, 4 waves). A dead Survivor turns Infected. Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**).
+4. **Waves** (120 s, +15 s each, 5 waves). Each wave opens the next tier of Flood forms. A dead Survivor turns Infected. Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**).
 5. **Breaks** (60 s). Living Flood fight on. Infected who die get only the **Monitor** (flies, harmless). It dies by itself when the wave starts. In the last 6 s of a break the picker offers Flood forms instead.
 6. **End.** Survivors win when the last wave ends with any Survivor left. Infected win when none is left.
 
@@ -55,17 +55,17 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 
 ## Infected
 
-### Forms by tier (opened by Survivors converted)
+### Forms by tier (one tier opens per wave)
 
 | Tier | Opens at | Forms |
 | --- | --- | --- |
-| 1 | start | Flood Human (300% speed, 200% damage) |
-| 2 | 25% | Flood Brute, Flood Stalker |
-| 3 | 50% | Flood Elite (shields on); **Nest Stalker** (1 per team, slower, 150% health) |
-| 4 | 75% | **Turret Stalker** (75% size, 300% speed, 75% health); **Tank Stalker** (125% size, 150% health); Flood Tank (150% size, 200% health) |
-| 5 | **last wave only** | **Sword Spartan**: first-person Spartan with an Energy Sword, in the Infected team's green-yellow |
+| 1 | wave 1 | Flood Human (300% speed, 200% damage) |
+| 2 | wave 2 | Flood Brute, Flood Stalker |
+| 3 | wave 3 | Flood Elite (shields on); **Nest Stalker** (1 per team, slower, 150% health) |
+| 4 | wave 4 | **Turret Stalker** (75% size, 300% speed, 75% health); **Tank Stalker** (125% size, 150% health); Flood Tank (150% size, 200% health) |
+| 5 | **last wave (5) only** | **Sword Spartan**: first-person Spartan with an Energy Sword, in the Infected team's green-yellow |
 
-The picker's title says which tier opens next and at what percent. Locked cards are grey.
+The picker's title says which tier opens next and in which wave. Locked cards are grey. Tiers never lock again.
 
 ### Special forms
 
@@ -99,9 +99,9 @@ When a wave starts from wave 2 on, the Infected player with the **most kills thi
 | start_infected_percent | 10 | Share of players who start Infected (rounded up) |
 | start_points | 100 | Points each Survivor starts with |
 | test_keys | 1 | 1 = Ability 4 skips the current timer |
-| unlock_step_percent | 25 | Tier 2 at 1 step, tier 3 at 2, tier 4 at 3 |
+| tier_step_waves | 1 | Waves per tier: 1 = a new tier every wave, 2 = every second wave |
 | warmup_seconds | 45 | Warmup length |
-| wave1_seconds | 220 | Wave 1 length |
+| wave1_seconds | 120 | Wave 1 length |
 | wave_bonus | 25 | Points for each wave survived |
-| wave_count | 4 | Waves to survive (set 1 to reach the last-wave Sword Spartan quickly) |
+| wave_count | 5 | Waves to survive (the Sword Spartan comes on the last one) |
 | wave_increase_seconds | 15 | Added to each later wave |
