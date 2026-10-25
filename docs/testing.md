@@ -2,12 +2,12 @@
 
 Two players plus **Ability 4** (with `test_keys` = 1) to skip timers is the quickest way. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
 
-## Still to test (v0.23)
+## Still to test (v0.24)
 
 Fill in and paste back.
 
 ```text
-ZS v0.23 RESULTS
+ZS v0.24 RESULTS
 -- Fixed or changed in v0.22-v0.23 --
 E1. Bought equipment (cover, radar jammer...) stays in your hands; after using it you can buy another (no softlock)? ->
 E2. Equipment and grenades you pick up from the map are no longer deleted? ->
@@ -20,6 +20,7 @@ B2. Only the boss sees the gold card? ->
 B3. After dying as a boss the card is gone; the next wave picks again? ->
 B4. Anyone else trying to spawn as a boss can't? ->
 B5. Clicking the gold card cycles Juggernaut / Brute Chieftain / Master Chief? ->
+B8. Juggernaut clearly tougher than a Flood Tank (about 3x)? ->
 B6. Brute Chieftain: giant, very fast, invincibility works? Fits through doorways? ->
 B7. Master Chief boss: first person, sword, invisible, headshot-immune, shields never come back? ->
 G1. Arsenal card prices match what you're charged (free_shop 0)? ->

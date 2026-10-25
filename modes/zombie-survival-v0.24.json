@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "Zombie Survival v0.23",
+  "name": "Zombie Survival v0.24",
   "base_map": {
     "id": 320,
     "stem": "guardian",
@@ -33,7 +33,7 @@
   },
   "script": {
     "version": 2,
-    "name": "Zombie Survival v0.23",
+    "name": "Zombie Survival v0.24",
     "initial": [],
     "on_spawn": [],
     "on_kill": [],
@@ -344,6 +344,7 @@
             ],
             "traits": {
               "pickup": 2,
+              "resistance": 8,
               "shields": 1,
               "vehicles": 1
             },

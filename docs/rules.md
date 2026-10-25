@@ -1,6 +1,6 @@
-# Zombie Survival v0.23: rules
+# Zombie Survival v0.24: rules
 
-Everything a player or host needs, as built in v0.23. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.23**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.24. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.24**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -62,7 +62,7 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 | 1 | wave 1 | Flood Human (300% speed, 200% damage) |
 | 2 | wave 2 | Flood Brute, Flood Stalker |
 | 3 | wave 3 | Flood Elite (shields on); **Nest Stalker** (1 per team, slower, 150% health) |
-| 4 | wave 4 | **Turret Stalker** (75% size, 300% speed, 75% health); **Tank Stalker** (125% size, 125% health; its Tank form is 120%, weaker than the Flood Tank); Flood Tank (150% size, 200% health) |
+| 4 | wave 4 | **Turret Stalker** (75% size, 300% speed, 75% health); **Tank Stalker** (125% size, 125% health; its Tank form is 120%, weaker than the Flood Tank); Flood Tank (150% size, 200% health, takes 50% less damage) |
 | 5 | **last wave (5) only** | **Sword Spartan**: first-person Spartan with an Energy Sword, 150% speed, in the Infected team's green-yellow |
 
 The picker's title says which tier opens next and in which wave. Locked cards are grey. Tiers never lock again.
@@ -81,7 +81,7 @@ When a wave starts from wave 2 on, the Infected player with the **most kills thi
 
 | Boss | What |
 | --- | --- |
-| Juggernaut | Flood Tank, 200% size, 4× health |
+| Juggernaut | Flood Tank, 200% size, 4× health, takes 67% less damage (about 3× a Flood Tank's toughness) |
 | Brute Chieftain | 300% size, 300% speed, spawns with invincibility equipment |
 | Master Chief | First person, Energy Sword, invisible, headshot-immune, 200% speed, normal health and shields, **no shield recharge** |
 

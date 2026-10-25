@@ -464,7 +464,8 @@
             "traits": {
               "pickup": 2,
               "shields": 1,
-              "vehicles": 1
+              "vehicles": 1,
+              "resistance": 8
             },
             "max_active": 1
           },
