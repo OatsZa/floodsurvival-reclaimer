@@ -1,0 +1,1346 @@
+-- Zombie Survival. Compile with zombie-survival-template.json (tools\build.ps1). Explanations: docs\how-the-script-works.md.
+
+enum ZsClass
+survivor = 0
+human = 1
+elite = 2
+brute = 3
+stalker = 4
+monitor = 5
+grenadier = 6
+assault = 7
+assault_grenadier = 8
+nest_stalker = 9
+turret_stalker = 10
+tank_stalker = 11
+tank = 12
+sword_spartan = 13
+juggernaut = 14
+brute_chieftain = 15
+spartan_boss = 16
+end
+
+enum Option
+break_seconds = 0
+crate_radius = 1
+free_shop = 2
+gun_cap = 3
+kill_points = 4
+min_players = 5
+placeable_limit = 6
+start_infected_percent = 7
+start_points = 8
+test_keys = 9
+unlock_step_percent = 10
+warmup_seconds = 11
+wave1_seconds = 12
+wave_bonus = 13
+wave_count = 14
+wave_increase_seconds = 15
+end
+
+enum Phase
+warmup
+wave
+intermission
+over
+end
+
+enum Role
+arrival
+survivor
+infected
+end
+
+enum Menu
+closed
+shop
+picker
+traits
+end
+
+enum Perk
+fast = 1
+slow = 2
+overshield = 4
+frail = 8
+hard_hitter = 16
+weak_arm = 32
+grenadier = 64
+tough = 128
+ready = 256
+assault = 512
+end
+
+enum Item
+shotgun = 0
+battle_rifle = 1
+smg = 2
+sniper_rifle = 3
+rocket_launcher = 4
+carbine = 5
+mauler = 6
+energy_sword = 7
+flamethrower = 8
+spartan_laser = 9
+brute_shot = 10
+gravity_hammer = 11
+needler = 12
+plasma_rifle = 13
+beam_rifle = 14
+fuel_rod_gun = 15
+ammo = 16
+cover = 17
+bubble_shield = 18
+regenerator = 19
+trip_mine = 20
+radar_jammer = 21
+active_camo = 22
+invincibility = 23
+turret = 24
+wall = 25
+plasma_cannon = 26
+missile_pod = 27
+end
+
+alias phase = global.number[0]
+alias wave = global.number[1]
+alias unlock = global.number[2]
+alias players = global.number[3]
+alias survivors = global.number[4]
+alias infected = global.number[5]
+alias converted = global.number[6]
+alias seconds = global.number[7]
+alias share = global.number[8]
+alias avail = global.number[9]
+alias boss_used = global.number[10]
+alias crate = global.object[0]
+alias made = global.object[1]
+alias nest = global.object[2]
+alias holder = global.player[0]
+alias boss = global.player[1]
+alias phase_timer = global.timer[0]
+alias pulse = global.timer[1]
+alias purge_timer = global.timer[2]
+alias nest_wait = global.timer[3]
+
+alias class = temporaries.number[0]
+alias scratch = temporaries.number[1]
+alias item = temporaries.number[2]
+alias price = temporaries.number[3]
+alias count = temporaries.number[4]
+alias ok = temporaries.number[5]
+alias picks = temporaries.number[6]
+alias total = temporaries.number[7]
+alias need = temporaries.number[8]
+alias limit = temporaries.number[9]
+
+alias role = player.number[0]
+alias deaths = player.number[1]
+alias kills = player.number[2]
+alias points = player.number[3]
+alias menu = player.number[4]
+alias page = player.number[5]
+alias pending = player.number[6]
+alias swap = player.number[7]
+alias tool = player.object[0]
+alias morph_new = player.object[1]
+alias morph_old = player.object[2]
+alias form = player.number[3]
+alias morph_wait = player.timer[0]
+alias morph_delay = player.timer[2]
+alias body = player.object[3]
+alias buy_wait = player.timer[0]
+alias carrying = player.timer[1]
+alias watch = player.timer[2]
+alias perks = player.timer[3]
+
+alias age = object.number[0]
+alias claimed = object.number[1]
+alias seen = object.number[2]
+alias kept = object.number[3]
+
+on init: do
+phase_timer = script_option[Option.warmup_seconds]
+pulse = 5
+pulse.set_rate(-100%)
+purge_timer = 3
+purge_timer.set_rate(-100%)
+script_widget[0].set_position(all_players, 640, 16)
+script_widget[0].set_anchor(all_players, top)
+script_widget[0].set_font_size(all_players, 20)
+script_widget[0].set_background(all_players, 8, 16, 28, 190)
+script_widget[1].set_position(all_players, 640, 46)
+script_widget[1].set_anchor(all_players, top)
+script_widget[1].set_font_size(all_players, 15)
+script_widget[18].set_position(all_players, 640, 70)
+script_widget[18].set_anchor(all_players, top)
+script_widget[18].set_font_size(all_players, 14)
+script_widget[2].set_position(all_players, 24, 696)
+script_widget[2].set_anchor(all_players, bottom_left)
+script_widget[2].set_font_size(all_players, 16)
+script_widget[2].set_color(all_players, 232, 184, 82, 255)
+script_widget[3].set_position(all_players, 24, 670)
+script_widget[3].set_anchor(all_players, bottom_left)
+script_widget[3].set_font_size(all_players, 14)
+script_widget[6].set_position(all_players, 640, 640)
+script_widget[6].set_anchor(all_players, top)
+script_widget[6].set_font_size(all_players, 16)
+script_widget[6].set_color(all_players, 232, 184, 82, 255)
+script_widget[4].set_position(all_players, 640, 110)
+script_widget[4].set_anchor(all_players, top)
+script_widget[4].set_size(all_players, 900, 490)
+script_widget[4].set_background(all_players, 7, 14, 23, 235)
+script_widget[5].set_position(all_players, 640, 125)
+script_widget[5].set_anchor(all_players, top)
+script_widget[5].set_font_size(all_players, 22)
+script_widget[7].set_position(all_players, 210, 170)
+script_widget[8].set_position(all_players, 650, 170)
+script_widget[9].set_position(all_players, 210, 240)
+script_widget[10].set_position(all_players, 650, 240)
+script_widget[11].set_position(all_players, 210, 310)
+script_widget[12].set_position(all_players, 650, 310)
+script_widget[13].set_position(all_players, 210, 380)
+script_widget[14].set_position(all_players, 650, 380)
+script_widget[7].set_size(all_players, 420, 60)
+script_widget[8].set_size(all_players, 420, 60)
+script_widget[9].set_size(all_players, 420, 60)
+script_widget[10].set_size(all_players, 420, 60)
+script_widget[11].set_size(all_players, 420, 60)
+script_widget[12].set_size(all_players, 420, 60)
+script_widget[13].set_size(all_players, 420, 60)
+script_widget[14].set_size(all_players, 420, 60)
+script_widget[7].set_clickable(all_players, true)
+script_widget[8].set_clickable(all_players, true)
+script_widget[9].set_clickable(all_players, true)
+script_widget[10].set_clickable(all_players, true)
+script_widget[11].set_clickable(all_players, true)
+script_widget[12].set_clickable(all_players, true)
+script_widget[13].set_clickable(all_players, true)
+script_widget[14].set_clickable(all_players, true)
+script_widget[15].set_position(all_players, 210, 520)
+script_widget[15].set_size(all_players, 200, 50)
+script_widget[15].set_background(all_players, 30, 45, 60, 255)
+script_widget[15].set_clickable(all_players, true)
+script_widget[16].set_position(all_players, 430, 520)
+script_widget[16].set_size(all_players, 300, 50)
+script_widget[16].set_background(all_players, 30, 45, 60, 255)
+script_widget[16].set_clickable(all_players, true)
+script_widget[19].set_position(all_players, 210, 450)
+script_widget[19].set_size(all_players, 420, 60)
+team[1].set_color(170, 200, 40)
+script_widget[19].set_background(all_players, 15, 27, 39, 255)
+script_widget[19].set_clickable(all_players, true)
+script_widget[20].set_position(all_players, 650, 450)
+script_widget[20].set_size(all_players, 420, 60)
+script_widget[20].set_clickable(all_players, true)
+script_widget[20].set_color(all_players, 232, 184, 82, 255)
+script_widget[20].set_text("BOSS  |  Juggernaut: a giant Tank with 4x health")
+script_widget[17].set_position(all_players, 870, 520)
+script_widget[17].set_size(all_players, 200, 50)
+script_widget[17].set_background(all_players, 90, 40, 40, 255)
+script_widget[17].set_clickable(all_players, true)
+end
+
+function start_wave()
+scratch = wave
+scratch -= 1
+limit = script_option[Option.wave_increase_seconds]
+scratch *= limit
+limit = script_option[Option.wave1_seconds]
+scratch += limit
+phase_timer = scratch
+phase_timer.set_rate(-100%)
+phase = Phase.wave
+end
+
+function close_menu()
+if current_player.menu != Menu.closed then current_player.set_ui_menu(false) end
+current_player.menu = Menu.closed
+end
+
+function make_infected()
+close_menu()
+current_player.role = Role.infected
+current_player.pending = 0
+current_player.form = 0
+current_player.page = ZsClass.human
+if current_player.is_not_respawning() then current_player.swap = 2 end
+end
+
+function open_shop()
+ok = 0
+if phase == Phase.warmup or phase == Phase.intermission then ok = 1 end
+if phase == Phase.wave and crate != no_object then
+scratch = current_player.biped.get_distance_to(crate)
+limit = script_option[Option.crate_radius]
+if scratch <= limit then ok = 1 end
+end
+if current_player.menu != Menu.closed then ok = 0 end
+if ok == 0 then script_widget[6].set_text_for(current_player, "During a wave the arsenal opens only near the crate") end
+if ok == 1 then
+current_player.menu = Menu.shop
+current_player.set_ui_menu(true)
+script_widget[6].set_text_for(current_player, "")
+end
+end
+
+function find_price()
+price = 0
+if item == Item.shotgun then price = 40 end
+if item == Item.battle_rifle then price = 30 end
+if item == Item.smg then price = 20 end
+if item == Item.sniper_rifle then price = 60 end
+if item == Item.rocket_launcher then price = 100 end
+if item == Item.carbine then price = 30 end
+if item == Item.mauler then price = 40 end
+if item == Item.energy_sword then price = 80 end
+if item == Item.flamethrower then price = 80 end
+if item == Item.spartan_laser then price = 120 end
+if item == Item.brute_shot then price = 60 end
+if item == Item.gravity_hammer then price = 80 end
+if item == Item.needler then price = 30 end
+if item == Item.plasma_rifle then price = 30 end
+if item == Item.beam_rifle then price = 60 end
+if item == Item.fuel_rod_gun then price = 100 end
+if item == Item.ammo then price = 10 end
+if item == Item.cover then price = 30 end
+if item == Item.bubble_shield then price = 40 end
+if item == Item.regenerator then price = 40 end
+if item == Item.trip_mine then price = 30 end
+if item == Item.radar_jammer then price = 20 end
+if item == Item.active_camo then price = 50 end
+if item == Item.invincibility then price = 80 end
+if item == Item.turret then price = 80 end
+if item == Item.wall then price = 60 end
+if item == Item.plasma_cannon then price = 100 end
+if item == Item.missile_pod then price = 120 end
+end
+
+function check_map()
+need = 0
+if item == Item.plasma_cannon then need = 1 end
+if item == Item.missile_pod then need = 2 end
+count = 0
+if need != 0 then
+scratch = avail
+scratch &= need
+if scratch == 0 then count = 1 end
+end
+end
+
+function buy()
+find_price()
+ok = 1
+scratch = script_option[Option.free_shop]
+if scratch == 1 then price = 0 end
+if current_player.points < price then
+ok = 0
+script_widget[6].set_text_for(current_player, "Not enough points: that costs %n", price)
+end
+if not current_player.buy_wait.is_zero() then
+ok = 0
+script_widget[6].set_text_for(current_player, "One purchase a second")
+end
+if item >= Item.cover and not current_player.carrying.is_zero() then
+ok = 0
+script_widget[6].set_text_for(current_player, "You already carry equipment: use it first")
+end
+if item >= Item.cover and current_player.pending > 0 then
+ok = 0
+script_widget[6].set_text_for(current_player, "Your grav lift's item isn't built yet")
+end
+check_map()
+if count == 1 then
+ok = 0
+script_widget[6].set_text_for(current_player, "This map doesn't have that")
+end
+if item <= Item.fuel_rod_gun then
+count = 0
+for each object with label "zs_gun" do count += 1 end
+limit = script_option[Option.gun_cap]
+if count >= limit then
+ok = 0
+script_widget[6].set_text_for(current_player, "Too many bought guns lying around; pick some up first")
+end
+end
+if ok == 1 then
+current_player.points -= price
+current_player.buy_wait = 1
+current_player.buy_wait.set_rate(-100%)
+if item == Item.shotgun then made = current_player.biped.place_at_me(shotgun, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.battle_rifle then made = current_player.biped.place_at_me(battle_rifle, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.smg then made = current_player.biped.place_at_me(smg, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.sniper_rifle then made = current_player.biped.place_at_me(sniper_rifle, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.rocket_launcher then made = current_player.biped.place_at_me(rocket_launcher, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.carbine then made = current_player.biped.place_at_me(carbine, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.mauler then made = current_player.biped.place_at_me(mauler, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.energy_sword then made = current_player.biped.place_at_me(energy_sword, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.flamethrower then made = current_player.biped.place_at_me(flamethrower, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.spartan_laser then made = current_player.biped.place_at_me(spartan_laser, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.brute_shot then made = current_player.biped.place_at_me(brute_shot, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.gravity_hammer then made = current_player.biped.place_at_me(gravity_hammer, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.needler then made = current_player.biped.place_at_me(needler, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.plasma_rifle then made = current_player.biped.place_at_me(plasma_rifle, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.beam_rifle then made = current_player.biped.place_at_me(beam_rifle, "zs_gun", none, 5, 0, 3, none) end
+if item == Item.fuel_rod_gun then made = current_player.biped.place_at_me(fuel_rod_gun, "zs_gun", none, 5, 0, 3, none) end
+if item <= Item.fuel_rod_gun then script_widget[6].set_text_for(current_player, "Bought: it's at your feet. Hold your pickup key on it") end
+if item == Item.ammo then
+current_player.refill_ammo()
+script_widget[6].set_text_for(current_player, "Ammunition refilled")
+end
+if item == Item.cover then current_player.give_equipment(deployable_cover) end
+if item == Item.bubble_shield then current_player.give_equipment(bubble_shield) end
+if item == Item.regenerator then current_player.give_equipment(regenerator) end
+if item == Item.trip_mine then current_player.give_equipment(trip_mine) end
+if item == Item.radar_jammer then current_player.give_equipment(radar_jammer) end
+if item == Item.active_camo then current_player.give_equipment(active_camo) end
+if item == Item.invincibility then current_player.give_equipment(invincibility) end
+if item >= Item.cover and item <= Item.invincibility then
+current_player.carrying = 1
+script_widget[6].set_text_for(current_player, "Bought: use it with your Use Equipment key")
+end
+if item >= Item.turret then
+current_player.pending = item
+current_player.give_equipment(grav_lift)
+current_player.carrying = 1
+script_widget[6].set_text_for(current_player, "Bought: throw the grav lift (Use Equipment) where it should go")
+end
+end
+end
+
+function reset_cards()
+script_widget[7].set_color(current_player, 235, 240, 245, 255)
+script_widget[8].set_color(current_player, 235, 240, 245, 255)
+script_widget[9].set_color(current_player, 235, 240, 245, 255)
+script_widget[10].set_color(current_player, 235, 240, 245, 255)
+script_widget[11].set_color(current_player, 235, 240, 245, 255)
+script_widget[12].set_color(current_player, 235, 240, 245, 255)
+script_widget[13].set_color(current_player, 235, 240, 245, 255)
+script_widget[14].set_color(current_player, 235, 240, 245, 255)
+script_widget[7].set_background(current_player, 15, 27, 39, 255)
+script_widget[8].set_background(current_player, 15, 27, 39, 255)
+script_widget[9].set_background(current_player, 15, 27, 39, 255)
+script_widget[10].set_background(current_player, 15, 27, 39, 255)
+script_widget[11].set_background(current_player, 15, 27, 39, 255)
+script_widget[12].set_background(current_player, 15, 27, 39, 255)
+script_widget[13].set_background(current_player, 15, 27, 39, 255)
+script_widget[14].set_background(current_player, 15, 27, 39, 255)
+end
+
+function draw_shop()
+reset_cards()
+script_widget[15].set_text_for(current_player, "<  Previous")
+script_widget[16].set_text_for(current_player, "Next  >")
+script_widget[17].set_text_for(current_player, "Close")
+if current_player.page == 0 then
+script_widget[5].set_text_for(current_player, "ARSENAL  -  GUNS  (1 / 4)")
+script_widget[7].set_text_for(current_player, "Shotgun  |  40 pts")
+script_widget[8].set_text_for(current_player, "Battle Rifle  |  30 pts")
+script_widget[9].set_text_for(current_player, "SMG  |  20 pts")
+script_widget[10].set_text_for(current_player, "Sniper Rifle  |  60 pts")
+script_widget[11].set_text_for(current_player, "Rocket Launcher  |  100 pts")
+script_widget[12].set_text_for(current_player, "Carbine  |  30 pts")
+script_widget[13].set_text_for(current_player, "Mauler  |  40 pts")
+script_widget[14].set_text_for(current_player, "Energy Sword  |  80 pts")
+end
+if current_player.page == 1 then
+script_widget[5].set_text_for(current_player, "ARSENAL  -  HEAVY GUNS  (2 / 4)")
+script_widget[7].set_text_for(current_player, "Flamethrower  |  80 pts")
+script_widget[8].set_text_for(current_player, "Spartan Laser  |  120 pts")
+script_widget[9].set_text_for(current_player, "Brute Shot  |  60 pts")
+script_widget[10].set_text_for(current_player, "Gravity Hammer  |  80 pts")
+script_widget[11].set_text_for(current_player, "Needler  |  30 pts")
+script_widget[12].set_text_for(current_player, "Plasma Rifle  |  30 pts")
+script_widget[13].set_text_for(current_player, "Beam Rifle  |  60 pts")
+script_widget[14].set_text_for(current_player, "Fuel Rod Gun  |  100 pts")
+end
+if current_player.page == 2 then
+script_widget[5].set_text_for(current_player, "ARSENAL  -  EQUIPMENT  (3 / 4)")
+script_widget[7].set_text_for(current_player, "Ammo refill (all your guns)  |  10 pts")
+script_widget[8].set_text_for(current_player, "Deployable Cover  |  30 pts")
+script_widget[9].set_text_for(current_player, "Bubble Shield  |  40 pts")
+script_widget[10].set_text_for(current_player, "Regenerator  |  40 pts")
+script_widget[11].set_text_for(current_player, "Trip Mine  |  30 pts")
+script_widget[12].set_text_for(current_player, "Radar Jammer  |  20 pts")
+script_widget[13].set_text_for(current_player, "Active Camo  |  50 pts")
+script_widget[14].set_text_for(current_player, "Invincibility  |  80 pts")
+end
+if current_player.page == 3 then
+script_widget[5].set_text_for(current_player, "ARSENAL  -  PLACEABLES  (4 / 4)")
+script_widget[7].set_text_for(current_player, "Machine Gun Emplacement  |  80 pts")
+script_widget[8].set_text_for(current_player, "Barrier (standing Hunter)  |  60 pts")
+item = Item.plasma_cannon
+script_widget[9].set_text_for(current_player, "Plasma Cannon Emplacement  |  100 pts")
+check_map()
+if count == 1 then
+script_widget[9].set_text_for(current_player, "Plasma Cannon  |  not on this map")
+script_widget[9].set_color(current_player, 110, 118, 130, 255)
+end
+item = Item.missile_pod
+script_widget[10].set_text_for(current_player, "Missile Pod Emplacement  |  120 pts")
+check_map()
+if count == 1 then
+script_widget[10].set_text_for(current_player, "Missile Pod  |  not on this map")
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+end
+end
+if not current_player.carrying.is_zero() or current_player.pending > 0 then
+if current_player.page >= 2 then
+script_widget[5].set_text_for(current_player, "ARSENAL  -  use what you carry first")
+if current_player.page != 2 then script_widget[7].set_color(current_player, 110, 118, 130, 255) end
+script_widget[8].set_color(current_player, 110, 118, 130, 255)
+script_widget[9].set_color(current_player, 110, 118, 130, 255)
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+script_widget[12].set_color(current_player, 110, 118, 130, 255)
+script_widget[13].set_color(current_player, 110, 118, 130, 255)
+script_widget[14].set_color(current_player, 110, 118, 130, 255)
+end
+end
+end
+
+function trait_cost()
+price = 0
+scratch = current_player.perks
+need = scratch
+need &= Perk.fast
+if need != 0 then price += 40 end
+need = scratch
+need &= Perk.slow
+if need != 0 then price -= 30 end
+need = scratch
+need &= Perk.overshield
+if need != 0 then price += 50 end
+need = scratch
+need &= Perk.frail
+if need != 0 then price -= 40 end
+need = scratch
+need &= Perk.hard_hitter
+if need != 0 then price += 40 end
+need = scratch
+need &= Perk.weak_arm
+if need != 0 then price -= 30 end
+need = scratch
+need &= Perk.grenadier
+if need != 0 then price += 30 end
+need = scratch
+need &= Perk.tough
+if need != 0 then price += 40 end
+need = scratch
+need &= Perk.assault
+if need != 0 then price += 50 end
+limit = script_option[Option.free_shop]
+if limit == 1 then price = 0 end
+end
+
+function draw_traits()
+reset_cards()
+trait_cost()
+script_widget[5].set_text_for(current_player, "TRAITS  |  cost %n  |  you have %n points", price, current_player.points)
+script_widget[17].set_text_for(current_player, "Ready: spawn")
+script_widget[7].set_text_for(current_player, "Fast Feet: 25 percent faster  |  costs 40")
+script_widget[8].set_text_for(current_player, "Slow: 10 percent slower  |  gives 30")
+script_widget[9].set_text_for(current_player, "Overshield: double shields  |  costs 50")
+script_widget[10].set_text_for(current_player, "Frail: no shields  |  gives 40")
+script_widget[11].set_text_for(current_player, "Hard Hitter: 25 percent more damage  |  costs 40")
+script_widget[12].set_text_for(current_player, "Weak Arm: 25 percent less damage  |  gives 30")
+script_widget[13].set_text_for(current_player, "Grenadier: 2 frags that come back  |  costs 30")
+script_widget[14].set_text_for(current_player, "Tough: 50 percent more health  |  costs 40")
+script_widget[19].set_text_for(current_player, "Assault: spawn with an Assault Rifle too  |  costs 50")
+script_widget[19].set_color(current_player, 235, 240, 245, 255)
+scratch = current_player.perks
+need = scratch
+need &= Perk.assault
+if need != 0 then script_widget[19].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.fast
+if need != 0 then script_widget[7].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.slow
+if need != 0 then script_widget[8].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.overshield
+if need != 0 then script_widget[9].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.frail
+if need != 0 then script_widget[10].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.hard_hitter
+if need != 0 then script_widget[11].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.weak_arm
+if need != 0 then script_widget[12].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.grenadier
+if need != 0 then script_widget[13].set_color(current_player, 232, 184, 82, 255) end
+need = scratch
+need &= Perk.tough
+if need != 0 then script_widget[14].set_color(current_player, 232, 184, 82, 255) end
+end
+
+function form_need()
+need = 0
+if class == ZsClass.brute or class == ZsClass.stalker then need = 1 end
+if class == ZsClass.elite or class == ZsClass.nest_stalker then need = 2 end
+if class >= ZsClass.turret_stalker then need = 3 end
+if class >= ZsClass.sword_spartan then need = 0 end
+end
+
+function pick_form()
+class = current_player.page
+if class < ZsClass.human or class > ZsClass.spartan_boss then class = ZsClass.human end
+if class > ZsClass.stalker and class < ZsClass.nest_stalker then class = ZsClass.human end
+if class >= ZsClass.juggernaut then
+if current_player != boss or boss_used == 1 then class = ZsClass.human end
+end
+ok = 0
+scratch = phase_timer
+if phase == Phase.intermission and scratch > 6 then ok = 1 end
+if ok == 1 then class = ZsClass.monitor end
+if ok == 0 and class == ZsClass.monitor then class = ZsClass.human end
+end
+
+function spawn_form()
+pick_form()
+form_need()
+if class == ZsClass.monitor then need = 0 end
+count = 1
+if unlock < need then count = 0 end
+limit = script_option[Option.wave_count]
+if class == ZsClass.sword_spartan then
+if phase != Phase.wave or wave < limit then count = 0 end
+end
+if count == 0 then script_widget[6].set_text_for(current_player, "That form is still locked") end
+if count == 1 then
+count = current_player.deploy_class(class)
+if count == 0 then script_widget[6].set_text_for(current_player, "Can't take that form right now (Nest Stalker taken?)") end
+if count == 1 then script_widget[6].set_text_for(current_player, "") end
+if count == 1 and class >= ZsClass.juggernaut then boss_used = 1 end
+end
+end
+
+function draw_picker()
+reset_cards()
+pick_form()
+script_widget[5].set_text_for(current_player, "INFECTED  -  CHOOSE A FORM, THEN SPAWN")
+script_widget[15].set_text_for(current_player, "Spawn")
+script_widget[16].set_text_for(current_player, "Spawn at Nest")
+script_widget[19].set_color(current_player, 235, 240, 245, 255)
+script_widget[19].set_background(current_player, 15, 27, 39, 255)
+script_widget[7].set_text_for(current_player, "Flood Human  |  tier 1")
+script_widget[8].set_text_for(current_player, "Flood Brute  |  tier 2")
+script_widget[9].set_text_for(current_player, "Flood Stalker  |  tier 2")
+script_widget[10].set_text_for(current_player, "Flood Elite  |  tier 3  |  shields")
+script_widget[11].set_text_for(current_player, "Nest Stalker  |  tier 3  |  builds the nest, 1 per team")
+script_widget[12].set_text_for(current_player, "Turret Stalker  |  tier 4  |  turns into a turret")
+script_widget[13].set_text_for(current_player, "Tank Stalker  |  tier 4  |  turns into a Tank")
+script_widget[14].set_text_for(current_player, "Flood Tank  |  tier 4")
+script_widget[19].set_text_for(current_player, "Sword Spartan  |  last wave only")
+if unlock < 3 then
+limit = script_option[Option.unlock_step_percent]
+scratch = unlock
+scratch += 1
+limit *= scratch
+scratch += 1
+script_widget[5].set_text_for(current_player, "INFECTED  |  tier %n opens at %n percent converted", scratch, limit)
+end
+if unlock < 1 then
+script_widget[8].set_color(current_player, 110, 118, 130, 255)
+script_widget[9].set_color(current_player, 110, 118, 130, 255)
+end
+if unlock < 2 then
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+end
+if unlock < 3 then
+script_widget[12].set_color(current_player, 110, 118, 130, 255)
+script_widget[13].set_color(current_player, 110, 118, 130, 255)
+script_widget[14].set_color(current_player, 110, 118, 130, 255)
+end
+count = game.get_deployment_occupied(ZsClass.nest_stalker)
+if unlock >= 2 and count > 0 then
+script_widget[11].set_text_for(current_player, "Nest Stalker  |  taken")
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+end
+limit = script_option[Option.wave_count]
+if phase != Phase.wave or wave < limit then script_widget[19].set_color(current_player, 110, 118, 130, 255) end
+if ok == 1 then
+script_widget[5].set_text_for(current_player, "BREAK  -  YOU RISE AS A MONITOR")
+script_widget[7].set_text_for(current_player, "Infected Monitor  |  flies, harmless  |  Flood again next wave")
+end
+if nest != no_object then
+scratch = nest.health
+script_widget[16].set_text_for(current_player, "Spawn at Nest (health %n)", scratch)
+end
+if class == ZsClass.human or class == ZsClass.monitor then script_widget[7].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.brute then script_widget[8].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.stalker then script_widget[9].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.elite then script_widget[10].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.nest_stalker then script_widget[11].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.turret_stalker then script_widget[12].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.tank_stalker then script_widget[13].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.tank then script_widget[14].set_background(current_player, 45, 75, 105, 255) end
+if class == ZsClass.sword_spartan then script_widget[19].set_background(current_player, 45, 75, 105, 255) end
+script_widget[20].set_background(current_player, 60, 45, 15, 255)
+script_widget[20].set_text_for(current_player, "BOSS  |  Juggernaut: giant Tank, 4x health  |  click to change")
+if class >= ZsClass.juggernaut then script_widget[20].set_background(current_player, 120, 90, 30, 255) end
+if class == ZsClass.brute_chieftain then script_widget[20].set_text_for(current_player, "BOSS  |  Brute Chieftain: giant, fastest, invincibility  |  click") end
+if class == ZsClass.spartan_boss then script_widget[20].set_text_for(current_player, "BOSS  |  Spartan: invisible, sword, no headshots  |  click") end
+end
+
+function build_nest()
+if nest == no_object and nest_wait.is_zero() then
+nest = current_player.biped.place_at_me(flood_carrier, "zs_nest", never_garbage_collect, 5, 0, 0, shielded)
+nest.copy_rotation_from(current_player.biped, false)
+nest.set_scale(150)
+nest.set_garbage_collection_disabled(true)
+nest.max_health = 400
+nest_wait = 30
+nest_wait.set_rate(-100%)
+end
+end
+
+function place_object()
+count = 0
+limit = script_option[Option.placeable_limit]
+if current_player.pending == Item.turret then
+for each object with label "zs_turret" do count += 1 end
+end
+if current_player.pending == Item.wall then
+for each object with label "zs_wall" do count += 1 end
+end
+if current_player.pending == Item.plasma_cannon then
+for each object with label "zs_plasma" do count += 1 end
+end
+if current_player.pending == Item.missile_pod then
+for each object with label "zs_pod" do count += 1 end
+end
+if count >= limit then script_widget[6].set_text_for(current_player, "Your team already has %n of those: grav lift returned", count) end
+if count < limit then
+if current_player.pending == Item.turret then made = current_player.tool.place_at_me(machine_gun_emplacement, "zs_turret", none, 0, 0, 0, none) end
+if current_player.pending == Item.wall then
+made = current_player.tool.place_at_me(hunter, "zs_wall", never_garbage_collect, 0, 0, 0, none)
+made.set_garbage_collection_disabled(true)
+made.max_health = 300
+end
+if current_player.pending == Item.plasma_cannon then made = current_player.tool.place_at_me(plasma_cannon_emplacement, "zs_plasma", none, 0, 0, 0, none) end
+if current_player.pending == Item.missile_pod then made = current_player.tool.place_at_me(missile_pod_emplacement, "zs_pod", none, 0, 0, 0, none) end
+made.copy_rotation_from(current_player.biped, false)
+current_player.pending = 0
+script_widget[6].set_text_for(current_player, "Placed")
+end
+current_player.tool.delete()
+current_player.tool = no_object
+end
+
+function purge()
+for each object do
+if current_object.is_of_type(vehicle) then
+ok = 1
+if current_object.has_forge_label("zs_turret") or current_object.has_forge_label("zs_plasma") then ok = 0 end
+if current_object.has_forge_label("zs_pod") then ok = 0 end
+if ok == 1 then
+if current_object.is_of_type(plasma_cannon_emplacement) then avail |= 1 end
+if current_object.is_of_type(missile_pod_emplacement) then avail |= 2 end
+current_object.delete()
+end
+end
+ok = 2
+if current_object.is_of_type(weapon) and not current_object.has_forge_label("zs_gun") then
+ok = 1
+limit = 6
+end
+if current_object.is_of_type(equipment) and current_object.seen == 0 and current_object.claimed == 0 then
+ok = 1
+limit = 30
+end
+if ok == 1 then
+holder = current_object.get_carrier()
+if holder != no_player then ok = 0 end
+for each player do
+if current_player.is_not_respawning() then
+scratch = current_player.biped.get_distance_to(current_object)
+if scratch < limit then ok = 0 end
+end
+end
+if ok == 0 and limit == 30 then current_object.seen = 1 end
+if ok == 1 then current_object.delete() end
+end
+end
+end
+
+function hide_menu()
+script_widget[4].set_visibility(current_player, false)
+script_widget[5].set_visibility(current_player, false)
+script_widget[7].set_visibility(current_player, false)
+script_widget[8].set_visibility(current_player, false)
+script_widget[9].set_visibility(current_player, false)
+script_widget[10].set_visibility(current_player, false)
+script_widget[11].set_visibility(current_player, false)
+script_widget[12].set_visibility(current_player, false)
+script_widget[13].set_visibility(current_player, false)
+script_widget[14].set_visibility(current_player, false)
+script_widget[15].set_visibility(current_player, false)
+script_widget[16].set_visibility(current_player, false)
+script_widget[17].set_visibility(current_player, false)
+script_widget[19].set_visibility(current_player, false)
+script_widget[20].set_visibility(current_player, false)
+end
+
+on widget click: do
+if current_player.menu == Menu.picker then
+if clicked_widget == 7 then current_player.page = ZsClass.human end
+if clicked_widget == 8 then current_player.page = ZsClass.brute end
+if clicked_widget == 9 then current_player.page = ZsClass.stalker end
+if clicked_widget == 10 then current_player.page = ZsClass.elite end
+if clicked_widget == 11 then current_player.page = ZsClass.nest_stalker end
+if clicked_widget == 12 then current_player.page = ZsClass.turret_stalker end
+if clicked_widget == 13 then current_player.page = ZsClass.tank_stalker end
+if clicked_widget == 14 then current_player.page = ZsClass.tank end
+if clicked_widget == 19 then current_player.page = ZsClass.sword_spartan end
+if clicked_widget == 20 then
+scratch = current_player.page
+current_player.page = ZsClass.juggernaut
+if scratch == ZsClass.juggernaut then current_player.page = ZsClass.brute_chieftain end
+if scratch == ZsClass.brute_chieftain then current_player.page = ZsClass.spartan_boss end
+end
+if clicked_widget == 15 then
+current_player.set_primary_respawn_object(no_object)
+spawn_form()
+end
+if clicked_widget == 16 and nest != no_object then
+current_player.set_primary_respawn_object(nest)
+spawn_form()
+end
+end
+if current_player.menu == Menu.traits then
+if clicked_widget >= 7 and clicked_widget <= 14 then
+need = 1
+count = clicked_widget
+count -= 7
+need <<= count
+scratch = current_player.perks
+scratch ^= need
+if clicked_widget == 7 then scratch ~= Perk.slow end
+if clicked_widget == 8 then scratch ~= Perk.fast end
+if clicked_widget == 9 then scratch ~= Perk.frail end
+if clicked_widget == 10 then scratch ~= Perk.overshield end
+if clicked_widget == 11 then scratch ~= Perk.weak_arm end
+if clicked_widget == 12 then scratch ~= Perk.hard_hitter end
+current_player.perks = scratch
+end
+if clicked_widget == 19 then
+scratch = current_player.perks
+scratch ^= Perk.assault
+current_player.perks = scratch
+end
+if clicked_widget == 17 then
+trait_cost()
+if current_player.points < price then script_widget[6].set_text_for(current_player, "Those traits cost %n: drop a boost or take a drawback", price) end
+if current_player.points >= price then
+current_player.points -= price
+scratch = current_player.perks
+scratch |= Perk.ready
+current_player.perks = scratch
+close_menu()
+script_widget[6].set_text_for(current_player, "Traits set")
+end
+end
+end
+if current_player.menu == Menu.shop then
+if clicked_widget >= 7 and clicked_widget <= 14 then
+item = current_player.page
+item *= 8
+item += clicked_widget
+item -= 7
+ok = 1
+if item > Item.missile_pod then ok = 0 end
+if ok == 1 then buy() end
+end
+if clicked_widget == 15 then
+current_player.page -= 1
+if current_player.page < 0 then current_player.page = 3 end
+end
+if clicked_widget == 16 then
+current_player.page += 1
+if current_player.page > 3 then current_player.page = 0 end
+end
+if clicked_widget == 17 then close_menu() end
+end
+end
+
+on button press: do
+if pressed_button == button.equipment then
+current_player.carrying = 0
+if current_player.pending > 0 then
+current_player.watch = 3
+current_player.watch.set_rate(-100%)
+end
+end
+if current_player.role == Role.survivor and current_player.is_not_respawning() then
+if pressed_button == button.ability_1 then open_shop() end
+end
+class = current_player.get_deployment_class()
+if current_player.is_not_respawning() then
+if class == ZsClass.nest_stalker and pressed_button == button.ability_1 then build_nest() end
+if class == ZsClass.turret_stalker or class == ZsClass.tank_stalker then
+if pressed_button == button.ability_2 and current_player.morph_wait.is_zero() and current_player.morph_new == no_object and current_player.form <= 1 then
+current_player.form += 2
+current_player.morph_delay = 1
+current_player.morph_delay.set_rate(-100%)
+end
+end
+end
+scratch = script_option[Option.test_keys]
+if scratch == 1 and pressed_button == button.ability_4 then phase_timer = 0 end
+end
+
+players = 0
+survivors = 0
+infected = 0
+for each player do
+if current_player.role == Role.arrival then
+current_player.role = Role.survivor
+limit = script_option[Option.start_points]
+current_player.points = limit
+current_player.deaths = current_player.get_death_count()
+current_player.kills = current_player.get_kill_count()
+if wave >= 2 then make_infected() end
+end
+players += 1
+if current_player.role == Role.survivor then survivors += 1 end
+if current_player.role == Role.infected then infected += 1 end
+end
+
+if purge_timer.is_zero() then
+purge()
+purge_timer = 2
+purge_timer.set_rate(-100%)
+end
+
+if phase == Phase.warmup then
+limit = script_option[Option.min_players]
+phase_timer.set_rate(-100%)
+if players < limit then
+phase_timer = script_option[Option.warmup_seconds]
+phase_timer.set_rate(0%)
+end
+if players >= limit and phase_timer.is_zero() then
+picks = players
+need = script_option[Option.start_infected_percent]
+picks *= need
+picks += 99
+picks /= 100
+if picks < 1 then picks = 1 end
+if picks >= players then
+picks = players
+picks -= 1
+end
+for each player randomly do
+if picks > 0 and current_player.role == Role.survivor then
+make_infected()
+picks -= 1
+infected += 1
+survivors -= 1
+end
+end
+converted = 0
+wave = 1
+start_wave()
+end
+end
+
+if phase == Phase.wave and phase_timer.is_zero() then
+limit = script_option[Option.wave_count]
+if wave >= limit and survivors > 0 then
+script_widget[0].set_text("The Survivors held out. SURVIVORS WIN")
+team[0].end_round()
+phase = Phase.over
+end
+if phase == Phase.wave then
+limit = script_option[Option.wave_bonus]
+for each player do
+if current_player.role == Role.survivor then current_player.points += limit end
+end
+phase_timer = script_option[Option.break_seconds]
+phase_timer.set_rate(-100%)
+phase = Phase.intermission
+boss = no_player
+end
+end
+
+if phase == Phase.intermission and phase_timer.is_zero() then
+wave += 1
+start_wave()
+boss = no_player
+boss_used = 0
+limit = 0
+for each player do
+scratch = current_player.get_kill_count()
+if current_player.role == Role.infected and scratch > limit then
+limit = scratch
+boss = current_player
+end
+end
+if boss != no_player then script_widget[6].set_text_for(boss, "You're the Juggernaut boss this wave: pick it when you next spawn") end
+end
+
+if phase == Phase.wave or phase == Phase.intermission then
+if infected == 0 and players >= 2 then
+for each player randomly do
+if infected == 0 and current_player.role == Role.survivor then
+make_infected()
+infected += 1
+survivors -= 1
+end
+end
+end
+if survivors == 0 and players > 0 then
+script_widget[0].set_text("The Flood consumed every Survivor. INFECTED WIN")
+team[1].end_round()
+phase = Phase.over
+end
+end
+
+for each player do
+if current_player.swap == 2 and current_player.is_not_respawning() then current_player.biped.kill(false) end
+if current_player.swap == 2 and not current_player.is_not_respawning() then current_player.swap = 0 end
+if current_player.swap == 1 then current_player.swap = 2 end
+class = current_player.get_deployment_class()
+if phase == Phase.wave and class == ZsClass.monitor and current_player.is_not_respawning() and current_player.swap == 0 then current_player.swap = 1 end
+if current_player.is_not_respawning() then
+if class == ZsClass.monitor and current_player.swap == 0 then current_player.apply_traits(script_traits[0]) end
+if class == ZsClass.human then current_player.apply_traits(script_traits[1]) end
+if class == ZsClass.elite then current_player.apply_traits(script_traits[10]) end
+if class == ZsClass.brute then current_player.apply_traits(script_traits[11]) end
+if class == ZsClass.stalker or class == ZsClass.tank_stalker then current_player.apply_traits(script_traits[12]) end
+if class == ZsClass.nest_stalker then current_player.apply_traits(script_traits[2]) end
+if class == ZsClass.turret_stalker or class == ZsClass.brute_chieftain then current_player.apply_traits(script_traits[13]) end
+if class == ZsClass.spartan_boss then current_player.apply_traits(script_traits[14]) end
+if current_player.role == Role.infected then
+current_player.set_max_health(100)
+if class == ZsClass.nest_stalker or class == ZsClass.tank_stalker then current_player.set_max_health(150) end
+if class == ZsClass.turret_stalker then current_player.set_max_health(75) end
+if class == ZsClass.tank then current_player.set_max_health(200) end
+if class == ZsClass.juggernaut then current_player.set_max_health(400) end
+end
+if current_player.form >= 2 and current_player.morph_delay.is_zero() and current_player.morph_new == no_object then
+current_player.morph_old = current_player.biped
+if current_player.form == 3 then current_player.morph_new = current_player.biped.place_at_me(flood_stalker, none, none, 0, 0, 0, none) end
+if current_player.form == 2 and class == ZsClass.turret_stalker then current_player.morph_new = current_player.biped.place_at_me(flood_ranged, none, none, 0, 0, 0, none) end
+if current_player.form == 2 and class == ZsClass.tank_stalker then current_player.morph_new = current_player.biped.place_at_me(flood_tank, none, none, 0, 0, 0, none) end
+current_player.morph_new.kept = current_player.biped.health
+current_player.set_biped(current_player.morph_new)
+end
+if current_player.morph_new != no_object then
+current_player.morph_new.age += 1
+if current_player.biped == current_player.morph_new then
+current_player.morph_old.delete()
+scratch = current_player.morph_new.kept
+if scratch > 0 then current_player.morph_new.health = scratch end
+scratch = current_player.form
+current_player.form = 1
+if scratch == 3 then current_player.form = 0 end
+current_player.morph_new = no_object
+current_player.morph_wait = 3
+current_player.morph_wait.set_rate(-100%)
+end
+if current_player.morph_new != no_object then
+scratch = current_player.morph_new.age
+if scratch >= 30 then
+current_player.morph_new.delete()
+current_player.morph_new = no_object
+current_player.form -= 2
+end
+end
+end
+if current_player.body != current_player.biped then
+current_player.body = current_player.biped
+if class == ZsClass.turret_stalker and current_player.form == 0 then current_player.biped.set_scale(75) end
+if class == ZsClass.tank_stalker and current_player.form == 0 then current_player.biped.set_scale(125) end
+if class == ZsClass.tank_stalker and current_player.form == 1 then current_player.biped.set_scale(150) end
+if class == ZsClass.tank then current_player.biped.set_scale(150) end
+if class == ZsClass.juggernaut then current_player.biped.set_scale(200) end
+if class == ZsClass.brute_chieftain then
+current_player.biped.set_scale(300)
+current_player.give_equipment(invincibility)
+end
+end
+end
+if not current_player.is_not_respawning() and current_player.role == Role.infected then
+current_player.form = 0
+if current_player.morph_new != no_object then
+current_player.morph_new.delete()
+current_player.morph_new = no_object
+end
+end
+if class == ZsClass.monitor then
+current_player.set_vehicle_use(false)
+current_player.set_turret_use(false)
+end
+if class >= ZsClass.survivor and class != ZsClass.monitor then
+current_player.set_vehicle_use(true)
+current_player.set_turret_use(true)
+end
+if current_player.role == Role.survivor then
+current_player.set_max_shields(50)
+if current_player.is_not_respawning() then
+scratch = current_player.perks
+need = scratch
+need &= Perk.fast
+if need != 0 then current_player.apply_traits(script_traits[2]) end
+need = scratch
+need &= Perk.slow
+if need != 0 then current_player.apply_traits(script_traits[3]) end
+need = scratch
+need &= Perk.overshield
+if need != 0 then current_player.apply_traits(script_traits[4]) end
+need = scratch
+need &= Perk.frail
+if need != 0 then current_player.apply_traits(script_traits[5]) end
+need = scratch
+need &= Perk.hard_hitter
+if need != 0 then current_player.apply_traits(script_traits[6]) end
+need = scratch
+need &= Perk.weak_arm
+if need != 0 then current_player.apply_traits(script_traits[7]) end
+need = scratch
+need &= Perk.grenadier
+if need != 0 then current_player.apply_traits(script_traits[8]) end
+need = scratch
+need &= Perk.tough
+if need != 0 then current_player.apply_traits(script_traits[9]) end
+end
+end
+if current_player.role == Role.infected then current_player.set_max_shields(100) end
+scratch = current_player.get_death_count()
+if scratch != current_player.deaths then
+current_player.deaths = scratch
+current_player.carrying = 0
+ok = 1
+if current_player.swap > 0 then
+current_player.swap = 0
+ok = 0
+end
+if ok == 1 and current_player.role == Role.survivor and phase != Phase.warmup then
+make_infected()
+converted += 1
+end
+end
+scratch = current_player.get_kill_count()
+scratch -= current_player.kills
+current_player.kills = current_player.get_kill_count()
+if scratch > 0 and current_player.role == Role.survivor then
+limit = script_option[Option.kill_points]
+scratch *= limit
+current_player.points += scratch
+end
+if current_player.points > 100000 then current_player.points = 100000 end
+if current_player.role == Role.survivor and current_player.team != team[0] then current_player.team = team[0] end
+if current_player.role == Role.infected and current_player.team != team[1] then current_player.team = team[1] end
+end
+
+total = converted
+total += survivors
+if total > 0 then
+share = converted
+share *= 100
+share /= total
+end
+need = script_option[Option.unlock_step_percent]
+limit = need
+if unlock == 0 and share >= limit then unlock = 1 end
+limit += need
+if unlock == 1 and share >= limit then unlock = 2 end
+limit += need
+if unlock == 2 and share >= limit then unlock = 3 end
+
+for each player do
+class = current_player.get_deployment_class()
+ok = 0
+if current_player.role == Role.survivor and not current_player.is_not_respawning() and class == -1 and phase != Phase.over then
+need = current_player.perks
+need &= Perk.ready
+if need != 0 then
+count = ZsClass.survivor
+scratch = current_player.perks
+scratch &= Perk.grenadier
+if scratch != 0 then count = ZsClass.grenadier end
+scratch = current_player.perks
+scratch &= Perk.assault
+if scratch != 0 and count == ZsClass.grenadier then count = ZsClass.assault_grenadier end
+if scratch != 0 and count == ZsClass.survivor then count = ZsClass.assault end
+scratch = current_player.deploy_class(count)
+end
+if need == 0 then ok = 2 end
+end
+scratch = current_player.get_respawn_time()
+if current_player.role == Role.infected and not current_player.is_not_respawning() and class == -1 and scratch == 0 and phase != Phase.over then ok = 1 end
+if ok == 1 and current_player.menu == Menu.closed then
+current_player.menu = Menu.picker
+current_player.set_ui_menu(true)
+end
+if ok == 2 and current_player.menu == Menu.closed then
+current_player.menu = Menu.traits
+current_player.set_ui_menu(true)
+end
+if ok != 1 and current_player.menu == Menu.picker then close_menu() end
+if ok != 2 and current_player.menu == Menu.traits then close_menu() end
+if current_player.menu == Menu.shop and not current_player.is_not_respawning() then close_menu() end
+end
+
+if crate == no_object then
+for each player do
+if crate == no_object and current_player.role == Role.survivor and current_player.is_not_respawning() then
+crate = current_player.biped.place_at_me(marine, "zs_crate", never_garbage_collect, 20, 0, 0, none)
+crate.copy_rotation_from(current_player.biped, false)
+crate.set_invincibility(true)
+crate.set_garbage_collection_disabled(true)
+end
+end
+end
+
+if pulse.is_zero() then
+limit = script_option[Option.crate_radius]
+for each player do
+if current_player.role == Role.survivor and current_player.is_not_respawning() and crate != no_object then
+scratch = current_player.biped.get_distance_to(crate)
+if scratch <= limit then current_player.refill_ammo() end
+end
+end
+pulse.reset()
+pulse.set_rate(-100%)
+end
+
+for each object do
+if current_object.is_of_type(grav_lift) then current_object.age += 1 end
+end
+for each player do
+if current_player.pending > 0 and current_player.is_not_respawning() then
+if current_player.tool == no_object and not current_player.watch.is_zero() then
+made = no_object
+limit = 100000
+for each object do
+if current_object.is_of_type(grav_lift) and current_object.claimed == 0 and current_object.age < 90 then
+scratch = current_object.get_distance_to(current_player.biped)
+if scratch < limit then
+limit = scratch
+made = current_object
+end
+end
+end
+if made != no_object then
+made.claimed = 1
+current_player.tool = made
+end
+end
+if current_player.tool != no_object then
+scratch = current_player.tool.get_speed()
+count = current_player.tool.age
+if scratch == 0 and count >= 5 then place_object() end
+end
+if current_player.carrying.is_zero() and current_player.watch.is_zero() and current_player.tool == no_object and current_player.pending > 0 then
+current_player.give_equipment(grav_lift)
+current_player.carrying = 1
+end
+end
+end
+
+seconds = phase_timer
+limit = script_option[Option.min_players]
+if phase == Phase.warmup then
+script_widget[0].set_text("WARMUP  |  outbreak in %n s", seconds)
+if players < limit then script_widget[0].set_text("ZOMBIE SURVIVAL  |  waiting for %n players", limit) end
+end
+if phase == Phase.wave then
+limit = script_option[Option.wave_count]
+script_widget[0].set_text("WAVE %n / %n  |  %n s left", wave, limit, seconds)
+end
+if phase == Phase.intermission then
+scratch = wave
+scratch += 1
+script_widget[0].set_text("BREAK  |  wave %n starts in %n s  |  arsenal open anywhere", scratch, seconds)
+end
+script_widget[1].set_text("Survivors %n  |  Infected %n  |  Flood forms unlocked %n / 3", survivors, infected, unlock)
+script_widget[0].set_visibility(all_players, true)
+script_widget[1].set_visibility(all_players, true)
+script_widget[6].set_visibility(all_players, true)
+
+for each player do
+script_widget[18].set_visibility(current_player, false)
+if current_player.role == Role.survivor then
+script_widget[2].set_text_for(current_player, "%n points", current_player.points)
+limit = script_option[Option.free_shop]
+if limit == 1 then script_widget[2].set_text_for(current_player, "%n points  |  test mode: the arsenal is FREE", current_player.points) end
+script_widget[3].set_text_for(current_player, "Ability 1: arsenal")
+if current_player.pending == Item.turret then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Machine Gun Emplacement") end
+if current_player.pending == Item.wall then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Barrier (Hunter)") end
+if current_player.pending == Item.plasma_cannon then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Plasma Cannon") end
+if current_player.pending == Item.missile_pod then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Missile Pod") end
+if phase == Phase.wave and crate != no_object and current_player.is_not_respawning() then
+scratch = current_player.biped.get_distance_to(crate)
+limit = script_option[Option.crate_radius]
+script_widget[18].set_text_for(current_player, "Crate %n ft away  |  arsenal and ammo within %n ft", scratch, limit)
+script_widget[18].set_visibility(current_player, true)
+end
+end
+if current_player.role == Role.infected then
+script_widget[2].set_text_for(current_player, "Survivors converted: %n of %n", converted, total)
+script_widget[3].set_text_for(current_player, "Infected: hunt the Survivors down")
+class = current_player.get_deployment_class()
+if class == ZsClass.monitor then script_widget[3].set_text_for(current_player, "Monitor: you rise as Flood when the next wave starts") end
+if class == ZsClass.nest_stalker then
+scratch = nest_wait
+script_widget[3].set_text_for(current_player, "Nest Stalker  |  A1 build the nest (ready in %n s)", scratch)
+if nest != no_object then script_widget[3].set_text_for(current_player, "Nest Stalker  |  your team's nest is standing") end
+end
+scratch = current_player.morph_wait
+if class == ZsClass.turret_stalker then script_widget[3].set_text_for(current_player, "Turret Stalker  |  A2 turret form on / off (ready in %n s)", scratch) end
+if class == ZsClass.tank_stalker then script_widget[3].set_text_for(current_player, "Tank Stalker  |  A2 Tank form on / off (ready in %n s)", scratch) end
+end
+script_widget[2].set_visibility(current_player, true)
+script_widget[3].set_visibility(current_player, true)
+hide_menu()
+if current_player.menu == Menu.shop or current_player.menu == Menu.traits then
+if current_player.menu == Menu.shop then draw_shop() end
+if current_player.menu == Menu.traits then draw_traits() end
+script_widget[4].set_visibility(current_player, true)
+script_widget[5].set_visibility(current_player, true)
+script_widget[7].set_visibility(current_player, true)
+script_widget[8].set_visibility(current_player, true)
+script_widget[9].set_visibility(current_player, true)
+script_widget[10].set_visibility(current_player, true)
+if current_player.menu == Menu.traits or current_player.page != 3 then
+script_widget[11].set_visibility(current_player, true)
+script_widget[12].set_visibility(current_player, true)
+script_widget[13].set_visibility(current_player, true)
+script_widget[14].set_visibility(current_player, true)
+end
+if current_player.menu == Menu.shop then
+script_widget[15].set_visibility(current_player, true)
+script_widget[16].set_visibility(current_player, true)
+end
+if current_player.menu == Menu.traits then script_widget[19].set_visibility(current_player, true) end
+script_widget[17].set_visibility(current_player, true)
+end
+if current_player.menu == Menu.picker then
+draw_picker()
+script_widget[4].set_visibility(current_player, true)
+script_widget[5].set_visibility(current_player, true)
+script_widget[7].set_visibility(current_player, true)
+script_widget[15].set_visibility(current_player, true)
+if ok == 0 then
+script_widget[8].set_visibility(current_player, true)
+script_widget[9].set_visibility(current_player, true)
+script_widget[10].set_visibility(current_player, true)
+script_widget[11].set_visibility(current_player, true)
+script_widget[12].set_visibility(current_player, true)
+script_widget[13].set_visibility(current_player, true)
+script_widget[14].set_visibility(current_player, true)
+script_widget[19].set_visibility(current_player, true)
+if current_player == boss and boss_used == 0 then script_widget[20].set_visibility(current_player, true) end
+end
+if nest != no_object then script_widget[16].set_visibility(current_player, true) end
+end
+end

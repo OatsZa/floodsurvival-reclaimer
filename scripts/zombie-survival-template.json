@@ -1,0 +1,514 @@
+{
+  "version": 1,
+  "name": "Zombie Survival",
+  "mode": "Slayer",
+  "rules": {
+    "score_to_win": 0,
+    "kill_points": 1,
+    "death_points": 0,
+    "suicide_points": 0,
+    "betrayal_points": -1
+  },
+  "options": {
+    "rounds.teams": 1,
+    "rounds.limit": 1,
+    "rounds.minutes": 0,
+    "respawn.seconds": 5
+  },
+  "script": {
+    "version": 2,
+    "name": "Zombie Survival",
+    "initial": [],
+    "logic": {
+      "options": {
+        "break_seconds": {
+          "value": 60,
+          "min": 10,
+          "max": 300
+        },
+        "crate_radius": {
+          "value": 30,
+          "min": 10,
+          "max": 100
+        },
+        "free_shop": {
+          "value": 1,
+          "min": 0,
+          "max": 1
+        },
+        "gun_cap": {
+          "value": 100,
+          "min": 10,
+          "max": 160
+        },
+        "kill_points": {
+          "value": 10,
+          "min": 0,
+          "max": 1000
+        },
+        "min_players": {
+          "value": 2,
+          "min": 1,
+          "max": 16
+        },
+        "placeable_limit": {
+          "value": 4,
+          "min": 0,
+          "max": 16
+        },
+        "start_infected_percent": {
+          "value": 10,
+          "min": 1,
+          "max": 50
+        },
+        "start_points": {
+          "value": 100,
+          "min": 0,
+          "max": 10000
+        },
+        "test_keys": {
+          "value": 1,
+          "min": 0,
+          "max": 1
+        },
+        "unlock_step_percent": {
+          "value": 25,
+          "min": 1,
+          "max": 33
+        },
+        "warmup_seconds": {
+          "value": 45,
+          "min": 5,
+          "max": 300
+        },
+        "wave1_seconds": {
+          "value": 220,
+          "min": 30,
+          "max": 900
+        },
+        "wave_bonus": {
+          "value": 25,
+          "min": 0,
+          "max": 1000
+        },
+        "wave_count": {
+          "value": 4,
+          "min": 1,
+          "max": 10
+        },
+        "wave_increase_seconds": {
+          "value": 15,
+          "min": 0,
+          "max": 120
+        }
+      },
+      "megalo_traits": [
+        {
+          "resistance": 12
+        },
+        {
+          "speed": 10,
+          "damage": 10
+        },
+        {
+          "speed": 7
+        },
+        {
+          "speed": 4
+        },
+        {
+          "shields": 3
+        },
+        {
+          "shields": 1
+        },
+        {
+          "damage": 8
+        },
+        {
+          "damage": 4
+        },
+        {
+          "grenade_regeneration": 2
+        },
+        {
+          "resistance": 6
+        },
+        {
+          "speed": 9,
+          "damage": 9,
+          "shields": 2
+        },
+        {
+          "speed": 8,
+          "damage": 10
+        },
+        {
+          "speed": 9,
+          "damage": 9
+        },
+        {
+          "speed": 10
+        },
+        {
+          "camouflage": 4,
+          "headshots": 1,
+          "speed": 9,
+          "recharge": 4
+        }
+      ],
+      "deployment": {
+        "title": "Zombie Survival",
+        "teams": [
+          "Survivors",
+          "Infected"
+        ],
+        "script_menu": true,
+        "classes": [
+          {
+            "name": "Survivor",
+            "description": "Magnum and fists",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "magnum",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Flood Human",
+            "description": "Fast melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_human",
+            "model_variant": "standard_fch",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Elite",
+            "description": "Tougher melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_elite",
+            "model_variant": "standard_fce",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 6,
+              "shields": 2,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Brute",
+            "description": "Heavy melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "model_variant": "default",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "speed": 8,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Stalker",
+            "description": "Pure form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 5,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Infected Monitor",
+            "description": "Break only. Flies, can't hurt anyone.",
+            "team": 1,
+            "cost": 0,
+            "biped": "forge_monitor",
+            "model_variant": "monitor",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "damage": 1,
+              "vehicles": 1,
+              "pickup": 2
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Grenadier)",
+            "description": "Magnum, fists and 2 frag grenades",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "magnum",
+            "grenades": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Assault)",
+            "description": "Assault Rifle, Magnum and fists",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "assault_rifle",
+            "secondary": "magnum",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Assault, Grenadier)",
+            "description": "Assault Rifle, Magnum and 2 frag grenades",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "assault_rifle",
+            "secondary": "magnum",
+            "grenades": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Nest Stalker",
+            "description": "Builds one nest that outlives it; slower, tougher",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Turret Stalker",
+            "description": "Smaller, faster, weaker; turns into a turret",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Tank Stalker",
+            "description": "Bigger, tougher; turns into a Tank",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Tank",
+            "description": "Big, very tough melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_tank",
+            "model_variant": "default",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Sword Spartan",
+            "description": "Last wave only: a Spartan with an Energy Sword",
+            "team": 1,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "energy_sword",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Juggernaut",
+            "description": "Boss: the top-killing Infected, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_tank",
+            "model_variant": "default",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Brute Chieftain",
+            "description": "Boss: giant, fastest, invincibility equipment, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "brute_chieftain",
+            "model_variant": "chieftain_armor",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Spartan Boss",
+            "description": "Boss: invisible sword Spartan, headshot-immune, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "energy_sword",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 1
+          }
+        ]
+      }
+    }
+  }
+}
