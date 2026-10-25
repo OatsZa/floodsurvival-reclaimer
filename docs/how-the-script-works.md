@@ -1,12 +1,12 @@
 # How the script works
 
-The explanations for `scripts/zombie-survival.rvt` (they were comments in the script). They moved here because comments count toward the 64 KiB mode limit.
+The explanations for `scripts/flood-survival.rvt` (they were comments in the script). They moved here because comments count toward the 64 KiB mode limit.
 
 **Short names (since v0.33):** the mode stores the script's source text, so `tools/build.ps1` compiles a copy made by `tools/shrink.ps1`. Every alias, function, enum and enum member gets a 1-2 letter name (most used first), and line 1 becomes short aliases for `current_player`, `current_object`, `script_widget`, `all_players`, `no_object`, `script_option` and `script_traits`. Strings, comments and line numbers stay the same. The build stops unless the copy turns back into the source exactly and gets the same megalo-check output. So edit the readable script and these notes as before. Code shown inside a compiled mode file has the short names, and error columns (not lines) differ from the source. [name-key.md](name-key.md), rebuilt every build, says which short name is which. Each note is filed under the line of code it explains, in the order the code runs. Rules and keys are in `rules.md`. Build numbers here (v13, v16...) are the changelog's v0.13, v0.16 and so on; files named `*.rvt.bak` are old copies kept outside this repo.
 
 ## Overview
 
-Zombie Survival (Survivors vs Flood), after GMod's ZS. Compile with zombie-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 quartermaster distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number.
+Flood Survival (Survivors vs Flood), after Garry's Mod's Zombie Survival. Compile with flood-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 quartermaster distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number.
 
 **`enum ZsClass`**
 
@@ -91,6 +91,10 @@ Onto the Infected; a living player is killed by the script, uncounted.
 **`function open_shop()`**
 
 Anywhere in warmup and breaks; near the quartermaster during a wave.
+
+**`function item_wave()`**
+
+need = the wave item opens in (v0.36). Items are numbered in card order, page x 8 + card (since v0.37: weapons 0-15 over two pages, placeables 16-20 with 21-23 empty, equipment 24-31, Item.prop = 32 is only a pending value). Each page is sorted by opening wave, so a page's first item sets need back to 1 and the later `>=` thresholds raise it (the two weapon pages are one list). Compared with `open_wave` (global.number[8], set every tick: 1 in warmup, the current wave during a wave, the next wave during a break). buy() refuses a locked item; draw_shop() greys it and shows "opens in wave N". The Item ranges in buy() follow the card order: guns 0-15 (`<= Item.spartan_laser`), equipment from `Item.radar_jammer` to `Item.invincibility` (ammo, 16, is not equipment), grav-lift placeables from `Item.wall` to `Item.missile_pod`. The "use what you carry first" check covers `Item.prop_placer` and up except ammo, and clicks on the empty cards 21-23 or past `Item.invincibility` do nothing.
 
 **`function check_map()`**
 

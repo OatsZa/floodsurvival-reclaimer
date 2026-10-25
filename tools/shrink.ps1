@@ -1,5 +1,5 @@
 param(
-    # The readable script (scripts\zombie-survival.rvt).
+    # The readable script (scripts\flood-survival.rvt).
     [Parameter(Mandatory = $true)][string]$Source,
     # Where the short-name copy goes.
     [Parameter(Mandatory = $true)][string]$Out,
@@ -147,7 +147,7 @@ if ($Key) {
     $md = @(
         "# Name key$(if ($Version) { " (v$Version)" })",
         '',
-        'The mode file''s script uses short names to save space: the mode stores the script''s source text, and that counts toward its 64 KiB. `tools/build.ps1` makes the short copy with `tools/shrink.ps1` from the readable `scripts/zombie-survival.rvt`, which is the file to read and edit. What each part of it does is in [how-the-script-works.md](how-the-script-works.md).',
+        'The mode file''s script uses short names to save space: the mode stores the script''s source text, and that counts toward its 64 KiB. `tools/build.ps1` makes the short copy with `tools/shrink.ps1` from the readable `scripts/flood-survival.rvt`, which is the file to read and edit. What each part of it does is in [how-the-script-works.md](how-the-script-works.md).',
         '',
         'Every build rewrites this table. The most-used names get the shortest letters, so a short name can mean something else in another version: use the key of the same version as the mode file.',
         '',

@@ -1,6 +1,6 @@
-# Zombie Survival v0.35: rules
+# Flood Survival v0.37: rules
 
-Everything a player or host needs, as built in v0.35. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.35**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.37. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.37**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -37,14 +37,17 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 | Flashlight | Pick up the nearest map prop within 8 ft (it rides 5 ft in front of you); press again to let go of it there, turned your way |
 | Ability 4 | **Test only** (`test_keys` = 1): end the current warmup, wave or break at once |
 
-### Arsenal (4 pages)
+### Arsenal (4 pages: weapons, weapons, placeables, equipment)
 
-| Page | Items |
-| --- | --- |
-| 1 Guns | Shotgun 40, Battle Rifle 30, SMG 20, Sniper Rifle 60, Rocket Launcher 100, Carbine 30, Mauler 40, Energy Sword 80 |
-| 2 Heavy guns | Flamethrower 80, Spartan Laser 120, Brute Shot 60, Gravity Hammer 80, Needler 30, Plasma Rifle 30, Beam Rifle 60, Fuel Rod Gun 100 |
-| 3 Equipment | Ammo refill 20, Deployable Cover 30, Bubble Shield 40, Regenerator 40, Trip Mine 30, Radar Jammer 20, Active Camo 50, Invincibility 80 |
-| 4 Placeables | Machine Gun 80, Barrier (Hunter, 3× health, breakable) 60, Plasma Cannon 100, Missile Pod 120, Prop Placer 20 (one use) |
+Each page is sorted by the wave its items open in. An item is open from warmup if it's a wave 1 item, otherwise from the break before its wave (so wave 2 gear can be bought in the first break). Locked cards are grey and say "opens in wave N"; buying one says "That opens in wave N". With fewer waves set (`wave_count`), later items never open.
+
+| Page | Wave 1 (from warmup) | Wave 2 | Wave 3 | Wave 4 | Wave 5 |
+| --- | --- | --- | --- | --- | --- |
+| 1-2 Weapons | SMG 15, Plasma Rifle 20, Battle Rifle 25, Carbine 25, Needler 25, Shotgun 35 | Mauler 45, Brute Shot 60, Sniper Rifle 70, Beam Rifle 70 | Energy Sword 90, Flamethrower 90, Gravity Hammer 90 | Fuel Rod Gun 120, Rocket Launcher 130 | Spartan Laser 150 |
+| 3 Placeables | Prop Placer 20 (one use), Barrier (Hunter, 3× health, breakable) 50 | Machine Gun 80 | Plasma Cannon 110 | Missile Pod 140 | |
+| 4 Equipment | Ammo refill 20, Radar Jammer 15, Deployable Cover 25 | Trip Mine 30, Regenerator 45, Bubble Shield 45 | Active Camo 60 | Invincibility 100 | |
+
+The weapons run in that order across both pages: page 1 is the six wave 1 weapons plus the Mauler and Brute Shot, page 2 the rest.
 
 - Guns drop at your feet. Equipment goes into your slot.
 - Placeables come as a grav lift. Until you throw it, the HUD says "Throw your grav lift to build it". Up to 4 of each per team.

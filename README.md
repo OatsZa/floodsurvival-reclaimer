@@ -1,13 +1,13 @@
-# Zombie Survival for Project Reclaimer
+# Flood Survival for Project Reclaimer
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.35** (work in progress, not final). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.37** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/zombie-survival-v0.35.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.35**. Tested on The Pit.
+1. Put [`modes/flood-survival-v0.37.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.37**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
@@ -30,7 +30,8 @@ Players who join after wave 2 starts begin as Infected.
 
 - **Traits:** Fast Feet / Slow, Overshield / Frail, Hard Hitter / Weak Arm, Grenadier (2 frags that come back), Tough, Assault (spawn with an Assault Rifle).
 - **Arsenal (Ability 1):** open anywhere in warmup and breaks, and near the quartermaster during waves.
-  - Guns (8), heavy guns (8, including the Flamethrower and Spartan Laser): dropped at your feet.
+  - Pages: **Weapons** (two pages, grouped by the wave they open in), **Placeables**, then **Equipment**. Each page is sorted by opening wave; locked items are grey and say which wave. Gear for the next wave opens in the break before it.
+  - Weapons (16, from the SMG to the Spartan Laser): dropped at your feet.
   - Equipment (ammo refill, cover, bubble shield, regenerator, trip mine, radar jammer, camo, invincibility).
   - Placeables (machine gun, Hunter barrier, plasma cannon, missile pod): you get a **grav lift**, and the item is built where it lands. Throw it where you're aiming.
   - **Prop Placer** (20 points, one use): the next map prop you pick up comes with a grav lift, so you can throw it into place.
@@ -57,9 +58,9 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 
 ## Status and next steps
 
-- **Size:** 41.5 KiB of 64, about **22.5 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
+- **Size:** 44.2 KiB of 64, about **19.8 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
 - **Untested in game:** the bosses, the Sword Spartan, the equipment fix, the health bar and the prices. The checklist is in [docs/testing.md](docs/testing.md).
-- **Done:** the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
+- **Done:** roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
 
 ### Limits other than space (v0.35)
 
@@ -79,7 +80,7 @@ Costs are rough mode KiB, after short names. Time is a rough guess at the pace o
 
 | # | Step | Cost | Uses | Time | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 1 | **Arsenal order and price rework:** pages ordered by the wave each item unlocks in, gear locked until its wave, new prices | ~0.5-1 | — | 1-1.5 h | Needs the unlock wave and price for each item |
+| 1 | ~~**Arsenal order and price rework:**~~ **Done in v0.36.** pages ordered by the wave each item unlocks in, gear locked until its wave, new prices | ~0.5-1 | — | 1-1.5 h | Needs the unlock wave and price for each item |
 | 2 | **More Flood forms** (tier 1-3) | ~0.5 each | 1 Infected class each | 1.5-2 h | Per-class stats go in the template (free) |
 | 3 | **Boss variety** | ~0.5 each | see note | 1-1.5 h | Only 3 Infected classes are free for steps 2 and 3 together. New bosses could instead be body swaps on an existing boss class (as the Stalker transforms do), which needs no class |
 | 4 | **How-to cards** left and right of the trait screen in warmup: building (Flashlight, Prop Placer) and the arsenal | ~0.4 | 2 widgets | 0.5 h | |
@@ -105,8 +106,8 @@ Wave count and lengths, break length, warmup, starting Infected share, waves per
 | Path | What |
 | --- | --- |
 | [`modes/`](modes) | The mode to play |
-| [`scripts/zombie-survival.rvt`](scripts/zombie-survival.rvt) | The Megalo script |
-| [`scripts/zombie-survival-template.json`](scripts/zombie-survival-template.json) | Options, traits and the class roster it compiles with |
+| [`scripts/flood-survival.rvt`](scripts/flood-survival.rvt) | The Megalo script |
+| [`scripts/flood-survival-template.json`](scripts/flood-survival-template.json) | Options, traits and the class roster it compiles with |
 | [`docs/rules.md`](docs/rules.md) | Every rule, key, price and option |
 | [`docs/how-the-script-works.md`](docs/how-the-script-works.md) | Notes on the code, section by section |
 | [`docs/name-key.md`](docs/name-key.md) | Which short name in the mode file is which name in the script (rebuilt every build) |

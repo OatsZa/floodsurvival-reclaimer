@@ -1,4 +1,4 @@
--- Zombie Survival. Compile with zombie-survival-template.json (tools\build.ps1). Explanations: docs\how-the-script-works.md.
+-- Flood Survival. Compile with flood-survival-template.json (tools/build.ps1). Explanations: docs/how-the-script-works.md.
 
 enum ZsClass
 survivor = 0
@@ -74,36 +74,36 @@ prop_placer = 1024
 end
 
 enum Item
-shotgun = 0
-battle_rifle = 1
-smg = 2
-sniper_rifle = 3
-rocket_launcher = 4
-carbine = 5
+smg = 0
+plasma_rifle = 1
+battle_rifle = 2
+carbine = 3
+needler = 4
+shotgun = 5
 mauler = 6
-energy_sword = 7
-flamethrower = 8
-spartan_laser = 9
-brute_shot = 10
-gravity_hammer = 11
-needler = 12
-plasma_rifle = 13
-beam_rifle = 14
-fuel_rod_gun = 15
-ammo = 16
-cover = 17
-bubble_shield = 18
-regenerator = 19
-trip_mine = 20
-radar_jammer = 21
-active_camo = 22
-invincibility = 23
-turret = 24
-wall = 25
-plasma_cannon = 26
-missile_pod = 27
-prop_placer = 28
-prop = 29
+brute_shot = 7
+sniper_rifle = 8
+beam_rifle = 9
+energy_sword = 10
+flamethrower = 11
+gravity_hammer = 12
+fuel_rod_gun = 13
+rocket_launcher = 14
+spartan_laser = 15
+prop_placer = 16
+wall = 17
+turret = 18
+plasma_cannon = 19
+missile_pod = 20
+ammo = 24
+radar_jammer = 25
+cover = 26
+trip_mine = 27
+regenerator = 28
+bubble_shield = 29
+active_camo = 30
+invincibility = 31
+prop = 32
 end
 
 alias phase = global.number[0]
@@ -115,6 +115,7 @@ alias infected = global.number[5]
 alias converted = global.number[6]
 alias seconds = global.number[7]
 alias avail = global.number[9]
+alias open_wave = global.number[8]
 alias boss_used = global.number[10]
 alias quartermaster = global.object[0]
 alias made = global.object[1]
@@ -302,35 +303,51 @@ end
 
 function find_price()
 price = 0
-if item == Item.shotgun then price = 40 end
-if item == Item.battle_rifle then price = 30 end
-if item == Item.smg then price = 20 end
-if item == Item.sniper_rifle then price = 60 end
-if item == Item.rocket_launcher then price = 100 end
-if item == Item.carbine then price = 30 end
-if item == Item.mauler then price = 40 end
-if item == Item.energy_sword then price = 80 end
-if item == Item.flamethrower then price = 80 end
-if item == Item.spartan_laser then price = 120 end
+if item == Item.smg then price = 15 end
+if item == Item.plasma_rifle then price = 20 end
+if item == Item.battle_rifle then price = 25 end
+if item == Item.carbine then price = 25 end
+if item == Item.needler then price = 25 end
+if item == Item.shotgun then price = 35 end
+if item == Item.mauler then price = 45 end
 if item == Item.brute_shot then price = 60 end
-if item == Item.gravity_hammer then price = 80 end
-if item == Item.needler then price = 30 end
-if item == Item.plasma_rifle then price = 30 end
-if item == Item.beam_rifle then price = 60 end
-if item == Item.fuel_rod_gun then price = 100 end
-if item == Item.ammo then price = 20 end
-if item == Item.cover then price = 30 end
-if item == Item.bubble_shield then price = 40 end
-if item == Item.regenerator then price = 40 end
-if item == Item.trip_mine then price = 30 end
-if item == Item.radar_jammer then price = 20 end
-if item == Item.active_camo then price = 50 end
-if item == Item.invincibility then price = 80 end
-if item == Item.turret then price = 80 end
-if item == Item.wall then price = 60 end
-if item == Item.plasma_cannon then price = 100 end
-if item == Item.missile_pod then price = 120 end
+if item == Item.sniper_rifle then price = 70 end
+if item == Item.beam_rifle then price = 70 end
+if item == Item.energy_sword then price = 90 end
+if item == Item.flamethrower then price = 90 end
+if item == Item.gravity_hammer then price = 90 end
+if item == Item.fuel_rod_gun then price = 120 end
+if item == Item.rocket_launcher then price = 130 end
+if item == Item.spartan_laser then price = 150 end
 if item == Item.prop_placer then price = 20 end
+if item == Item.wall then price = 50 end
+if item == Item.turret then price = 80 end
+if item == Item.plasma_cannon then price = 110 end
+if item == Item.missile_pod then price = 140 end
+if item == Item.ammo then price = 20 end
+if item == Item.radar_jammer then price = 15 end
+if item == Item.cover then price = 25 end
+if item == Item.trip_mine then price = 30 end
+if item == Item.regenerator then price = 45 end
+if item == Item.bubble_shield then price = 45 end
+if item == Item.active_camo then price = 60 end
+if item == Item.invincibility then price = 100 end
+end
+
+function item_wave()
+need = 1
+if item >= Item.mauler then need = 2 end
+if item >= Item.energy_sword then need = 3 end
+if item >= Item.fuel_rod_gun then need = 4 end
+if item >= Item.spartan_laser then need = 5 end
+if item >= Item.prop_placer then need = 1 end
+if item >= Item.turret then need = 2 end
+if item >= Item.plasma_cannon then need = 3 end
+if item >= Item.missile_pod then need = 4 end
+if item >= Item.ammo then need = 1 end
+if item >= Item.trip_mine then need = 2 end
+if item >= Item.active_camo then need = 3 end
+if item >= Item.invincibility then need = 4 end
 end
 
 function check_map()
@@ -360,7 +377,7 @@ script_widget[6].set_text_for(current_player, "One purchase a second")
 end
 scratch = current_player.perks
 scratch &= Perk.prop_placer
-if item >= Item.cover then
+if item >= Item.prop_placer and item != Item.ammo then
 if not current_player.carrying.is_zero() or current_player.pending > 0 or scratch != 0 then
 ok = 0
 script_widget[6].set_text_for(current_player, "Use what you carry first")
@@ -368,6 +385,11 @@ end
 end
 scratch = current_player.perks
 scratch &= Perk.prop_placer
+item_wave()
+if need > open_wave then
+ok = 0
+script_widget[6].set_text_for(current_player, "That opens in wave %n", need)
+end
 if item == Item.prop_placer and scratch != 0 then
 ok = 0
 script_widget[6].set_text_for(current_player, "You already have a Prop Placer ready")
@@ -377,7 +399,7 @@ if count == 1 then
 ok = 0
 script_widget[6].set_text_for(current_player, "This map doesn't have that")
 end
-if item <= Item.fuel_rod_gun then
+if item <= Item.spartan_laser then
 count = 0
 for each object with label "zs_gun" do count += 1 end
 limit = script_option[Option.gun_cap]
@@ -415,7 +437,7 @@ if item == Item.trip_mine then current_player.give_equipment(trip_mine) end
 if item == Item.radar_jammer then current_player.give_equipment(radar_jammer) end
 if item == Item.active_camo then current_player.give_equipment(active_camo) end
 if item == Item.invincibility then current_player.give_equipment(invincibility) end
-if item >= Item.cover and item <= Item.invincibility then current_player.carrying = 1 end
+if item >= Item.radar_jammer and item <= Item.invincibility then current_player.carrying = 1 end
 if item == Item.prop_placer then
 scratch = current_player.perks
 scratch |= Perk.prop_placer
@@ -427,7 +449,7 @@ current_player.give_equipment(grav_lift)
 current_player.carrying = 1
 end
 end
-if item >= Item.turret and item <= Item.missile_pod then
+if item >= Item.wall and item <= Item.missile_pod then
 current_player.pending = item
 current_player.give_equipment(grav_lift)
 current_player.carrying = 1
@@ -460,67 +482,125 @@ script_widget[15].set_text_for(current_player, "<  Previous")
 script_widget[16].set_text_for(current_player, "Next  >")
 script_widget[17].set_text_for(current_player, "Close")
 if current_player.page == 0 then
-script_widget[5].set_text_for(current_player, "ARSENAL  -  GUNS  (1 / 4)")
-script_widget[7].set_text_for(current_player, "Shotgun  |  40 pts")
-script_widget[8].set_text_for(current_player, "Battle Rifle  |  30 pts")
-script_widget[9].set_text_for(current_player, "SMG  |  20 pts")
-script_widget[10].set_text_for(current_player, "Sniper Rifle  |  60 pts")
-script_widget[11].set_text_for(current_player, "Rocket Launcher  |  100 pts")
-script_widget[12].set_text_for(current_player, "Carbine  |  30 pts")
-script_widget[13].set_text_for(current_player, "Mauler  |  40 pts")
-script_widget[14].set_text_for(current_player, "Energy Sword  |  80 pts")
+script_widget[5].set_text_for(current_player, "ARSENAL  -  WEAPONS, WAVES 1-2  (1 / 4)")
+script_widget[7].set_text_for(current_player, "SMG  |  15 pts")
+script_widget[8].set_text_for(current_player, "Plasma Rifle  |  20 pts")
+script_widget[9].set_text_for(current_player, "Battle Rifle  |  25 pts")
+script_widget[10].set_text_for(current_player, "Carbine  |  25 pts")
+script_widget[11].set_text_for(current_player, "Needler  |  25 pts")
+script_widget[12].set_text_for(current_player, "Shotgun  |  35 pts")
+script_widget[13].set_text_for(current_player, "Mauler  |  45 pts")
+script_widget[14].set_text_for(current_player, "Brute Shot  |  60 pts")
+if open_wave < 2 then
+script_widget[13].set_text_for(current_player, "Mauler  |  opens in wave 2")
+script_widget[13].set_color(current_player, 110, 118, 130, 255)
+script_widget[14].set_text_for(current_player, "Brute Shot  |  opens in wave 2")
+script_widget[14].set_color(current_player, 110, 118, 130, 255)
+end
 end
 if current_player.page == 1 then
-script_widget[5].set_text_for(current_player, "ARSENAL  -  HEAVY GUNS  (2 / 4)")
-script_widget[7].set_text_for(current_player, "Flamethrower  |  80 pts")
-script_widget[8].set_text_for(current_player, "Spartan Laser  |  120 pts")
-script_widget[9].set_text_for(current_player, "Brute Shot  |  60 pts")
-script_widget[10].set_text_for(current_player, "Gravity Hammer  |  80 pts")
-script_widget[11].set_text_for(current_player, "Needler  |  30 pts")
-script_widget[12].set_text_for(current_player, "Plasma Rifle  |  30 pts")
-script_widget[13].set_text_for(current_player, "Beam Rifle  |  60 pts")
-script_widget[14].set_text_for(current_player, "Fuel Rod Gun  |  100 pts")
+script_widget[5].set_text_for(current_player, "ARSENAL  -  WEAPONS, WAVES 2-5  (2 / 4)")
+script_widget[7].set_text_for(current_player, "Sniper Rifle  |  70 pts")
+script_widget[8].set_text_for(current_player, "Beam Rifle  |  70 pts")
+script_widget[9].set_text_for(current_player, "Energy Sword  |  90 pts")
+script_widget[10].set_text_for(current_player, "Flamethrower  |  90 pts")
+script_widget[11].set_text_for(current_player, "Gravity Hammer  |  90 pts")
+script_widget[12].set_text_for(current_player, "Fuel Rod Gun  |  120 pts")
+script_widget[13].set_text_for(current_player, "Rocket Launcher  |  130 pts")
+script_widget[14].set_text_for(current_player, "Spartan Laser  |  150 pts")
+if open_wave < 2 then
+script_widget[7].set_text_for(current_player, "Sniper Rifle  |  opens in wave 2")
+script_widget[7].set_color(current_player, 110, 118, 130, 255)
+script_widget[8].set_text_for(current_player, "Beam Rifle  |  opens in wave 2")
+script_widget[8].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 3 then
+script_widget[9].set_text_for(current_player, "Energy Sword  |  opens in wave 3")
+script_widget[9].set_color(current_player, 110, 118, 130, 255)
+script_widget[10].set_text_for(current_player, "Flamethrower  |  opens in wave 3")
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+script_widget[11].set_text_for(current_player, "Gravity Hammer  |  opens in wave 3")
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 4 then
+script_widget[12].set_text_for(current_player, "Fuel Rod Gun  |  opens in wave 4")
+script_widget[12].set_color(current_player, 110, 118, 130, 255)
+script_widget[13].set_text_for(current_player, "Rocket Launcher  |  opens in wave 4")
+script_widget[13].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 5 then
+script_widget[14].set_text_for(current_player, "Spartan Laser  |  opens in wave 5")
+script_widget[14].set_color(current_player, 110, 118, 130, 255)
+end
 end
 if current_player.page == 2 then
-script_widget[5].set_text_for(current_player, "ARSENAL  -  EQUIPMENT  (3 / 4)")
-script_widget[7].set_text_for(current_player, "Ammo refill  |  20 pts")
-script_widget[8].set_text_for(current_player, "Deployable Cover  |  30 pts")
-script_widget[9].set_text_for(current_player, "Bubble Shield  |  40 pts")
-script_widget[10].set_text_for(current_player, "Regenerator  |  40 pts")
-script_widget[11].set_text_for(current_player, "Trip Mine  |  30 pts")
-script_widget[12].set_text_for(current_player, "Radar Jammer  |  20 pts")
-script_widget[13].set_text_for(current_player, "Active Camo  |  50 pts")
-script_widget[14].set_text_for(current_player, "Invincibility  |  80 pts")
-end
-if current_player.page == 3 then
-script_widget[5].set_text_for(current_player, "ARSENAL  -  PLACEABLES  (4 / 4)")
-script_widget[7].set_text_for(current_player, "Machine Gun Emplacement  |  80 pts")
-script_widget[8].set_text_for(current_player, "Barrier (standing Hunter)  |  60 pts")
-item = Item.plasma_cannon
-script_widget[9].set_text_for(current_player, "Plasma Cannon Emplacement  |  100 pts")
-check_map()
-if count == 1 then
-script_widget[9].set_text_for(current_player, "Plasma Cannon  |  not on this map")
-script_widget[9].set_color(current_player, 110, 118, 130, 255)
-end
-item = Item.missile_pod
-script_widget[10].set_text_for(current_player, "Missile Pod Emplacement  |  120 pts")
-check_map()
-if count == 1 then
-script_widget[10].set_text_for(current_player, "Missile Pod  |  not on this map")
-script_widget[10].set_color(current_player, 110, 118, 130, 255)
-end
-script_widget[11].set_text_for(current_player, "Prop Placer: throw one prop into place  |  20 pts")
+script_widget[5].set_text_for(current_player, "ARSENAL  -  PLACEABLES  (3 / 4)")
+script_widget[7].set_text_for(current_player, "Prop Placer: throw one prop into place  |  20 pts")
+script_widget[8].set_text_for(current_player, "Barrier (standing Hunter)  |  50 pts")
+script_widget[9].set_text_for(current_player, "Machine Gun Emplacement  |  80 pts")
+script_widget[10].set_text_for(current_player, "Plasma Cannon Emplacement  |  110 pts")
+script_widget[11].set_text_for(current_player, "Missile Pod Emplacement  |  140 pts")
 scratch = current_player.perks
 scratch &= Perk.prop_placer
-if scratch != 0 then script_widget[11].set_text_for(current_player, "Prop Placer  |  ready") end
+if scratch != 0 then script_widget[7].set_text_for(current_player, "Prop Placer  |  ready") end
+if open_wave < 2 then
+script_widget[9].set_text_for(current_player, "Machine Gun  |  opens in wave 2")
+script_widget[9].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 3 then
+script_widget[10].set_text_for(current_player, "Plasma Cannon  |  opens in wave 3")
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 4 then
+script_widget[11].set_text_for(current_player, "Missile Pod  |  opens in wave 4")
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+end
+item = Item.plasma_cannon
+check_map()
+if count == 1 then
+script_widget[10].set_text_for(current_player, "Plasma Cannon  |  not on this map")
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+end
+item = Item.missile_pod
+check_map()
+if count == 1 then
+script_widget[11].set_text_for(current_player, "Missile Pod  |  not on this map")
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+end
+end
+if current_player.page == 3 then
+script_widget[5].set_text_for(current_player, "ARSENAL  -  EQUIPMENT  (4 / 4)")
+script_widget[7].set_text_for(current_player, "Ammo refill  |  20 pts")
+script_widget[8].set_text_for(current_player, "Radar Jammer  |  15 pts")
+script_widget[9].set_text_for(current_player, "Deployable Cover  |  25 pts")
+script_widget[10].set_text_for(current_player, "Trip Mine  |  30 pts")
+script_widget[11].set_text_for(current_player, "Regenerator  |  45 pts")
+script_widget[12].set_text_for(current_player, "Bubble Shield  |  45 pts")
+script_widget[13].set_text_for(current_player, "Active Camo  |  60 pts")
+script_widget[14].set_text_for(current_player, "Invincibility  |  100 pts")
+if open_wave < 2 then
+script_widget[10].set_text_for(current_player, "Trip Mine  |  opens in wave 2")
+script_widget[10].set_color(current_player, 110, 118, 130, 255)
+script_widget[11].set_text_for(current_player, "Regenerator  |  opens in wave 2")
+script_widget[11].set_color(current_player, 110, 118, 130, 255)
+script_widget[12].set_text_for(current_player, "Bubble Shield  |  opens in wave 2")
+script_widget[12].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 3 then
+script_widget[13].set_text_for(current_player, "Active Camo  |  opens in wave 3")
+script_widget[13].set_color(current_player, 110, 118, 130, 255)
+end
+if open_wave < 4 then
+script_widget[14].set_text_for(current_player, "Invincibility  |  opens in wave 4")
+script_widget[14].set_color(current_player, 110, 118, 130, 255)
+end
 end
 scratch = current_player.perks
 scratch &= Perk.prop_placer
 if not current_player.carrying.is_zero() or current_player.pending > 0 or scratch != 0 then
 if current_player.page >= 2 then
 script_widget[5].set_text_for(current_player, "ARSENAL  -  use what you carry first")
-if current_player.page != 2 then script_widget[7].set_color(current_player, 110, 118, 130, 255) end
+if current_player.page != 3 then script_widget[7].set_color(current_player, 110, 118, 130, 255) end
 script_widget[8].set_color(current_player, 110, 118, 130, 255)
 script_widget[9].set_color(current_player, 110, 118, 130, 255)
 script_widget[10].set_color(current_player, 110, 118, 130, 255)
@@ -885,7 +965,8 @@ item *= 8
 item += clicked_widget
 item -= 7
 ok = 1
-if item > Item.prop_placer then ok = 0 end
+if item > Item.missile_pod and item < Item.ammo then ok = 0 end
+if item > Item.invincibility then ok = 0 end
 if ok == 1 then buy() end
 end
 if clicked_widget == 15 then
@@ -1347,10 +1428,13 @@ end
 end
 
 seconds = phase_timer
+open_wave = wave
+if phase == Phase.warmup then open_wave = 1 end
+if phase == Phase.intermission then open_wave += 1 end
 limit = script_option[Option.min_players]
 if phase == Phase.warmup then
 script_widget[0].set_text("WARMUP  |  outbreak in %n s", seconds)
-if players < limit then script_widget[0].set_text("ZOMBIE SURVIVAL  |  waiting for %n players", limit) end
+if players < limit then script_widget[0].set_text("FLOOD SURVIVAL  |  waiting for %n players", limit) end
 end
 if phase == Phase.wave then
 limit = script_option[Option.wave_count]
@@ -1420,7 +1504,7 @@ script_widget[8].set_visibility(current_player, true)
 script_widget[9].set_visibility(current_player, true)
 script_widget[10].set_visibility(current_player, true)
 script_widget[11].set_visibility(current_player, true)
-if current_player.menu == Menu.traits or current_player.page != 3 then
+if current_player.menu == Menu.traits or current_player.page != 2 then
 script_widget[12].set_visibility(current_player, true)
 script_widget[13].set_visibility(current_player, true)
 script_widget[14].set_visibility(current_player, true)

@@ -2,12 +2,12 @@
 
 Two players plus **Ability 4** (with `test_keys` = 1) to skip timers is the quickest way. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
 
-## Still to test (v0.35)
+## Still to test (v0.37)
 
 Fill in and paste back.
 
 ```text
-ZS v0.35 RESULTS
+FLOOD SURVIVAL v0.37 RESULTS
 -- Fixed or changed in v0.22-v0.23 --
 E1. Bought equipment (cover, radar jammer...) stays in your hands; after using it you can buy another (no softlock)? ->
 E2. Equipment and grenades you pick up from the map are no longer deleted? ->
@@ -25,6 +25,10 @@ S1. Since v0.33 the mode is built from the short-name copy: a quick full round (
 R3. Placeables still work as before (machine gun, Hunter barrier, plasma cannon, missile pod), including while you carry a prop? -> v0.34: Plasma Cannon and Missile Pod show 'not on this map' on The Pit, as they should.
 R4. With a Prop Placer 'ready' (bought, not used yet): the equipment and placeable cards are grey, the header says 'use what you carry first', and buying one says 'Use what you carry first'? Ammo refill still works? After throwing the prop, everything is buyable again? (v0.34: nothing was greyed and other equipment could be bought) ->
 X2. Turret, Tank and Nest Stalker after the v0.34 fix -> v0.34 (2026-10-25): all work as wanted.
+-- New in v0.36 --
+A3. Arsenal: each page sorted by opening wave, prices as in rules.md (free_shop 0 to check charges)? In warmup only wave 1 gear is open; the rest is grey with 'opens in wave N', and buying it says 'That opens in wave N'? Wave 2 gear opens in the first break, wave 3 gear in the second, and so on? Plasma Cannon / Missile Pod still say 'not on this map' on The Pit? Bought guns, equipment and placeables still land as before (the item numbers changed)? ->
+-- New in v0.37 --
+N1. The mode is called Flood Survival everywhere (game type list, lobby, waiting line 'FLOOD SURVIVAL')? Pages: weapons by wave (1/4, 2/4), Placeables (3/4), Equipment (4/4)? Every card buys the item it names (the item numbers changed again)? ->
 -- Not reported yet --
 T7. Sword Spartan only on wave 5? First person, sword, green-yellow? ->
 B1. No boss in wave 1; at the start of wave 2 an Infected gets the boss message, even with zero kills? ->
