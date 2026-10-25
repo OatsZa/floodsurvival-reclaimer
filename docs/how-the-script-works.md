@@ -407,3 +407,8 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 - **Card layout** (set once in `on init`, shared by the arsenal, trait and form screens): row 1 widget 7; row 2 widgets 8, 9; row 3 widgets 10, 11; row 4 widgets 12, 13, 14 (narrower, 285 px); row 5 widgets 19, 20. In the form picker that's one tier per row.
 - Turret/Tank Stalker: the transform request is on `button.ability_1`. The Tank Stalker gets the Stalker trait set (12) only in Stalker form, health 125, Tank form scale 120 (Flood Tank: 150, health 200, class resistance 7).
 - Sword Spartan: trait set 11 (speed 150 percent). Spartan Boss roster entry: `master_chief` body, `default` look.
+
+## v0.23 changes
+
+- Boss pick: `limit` starts at -1 and the loop is `for each player randomly`, so the boss is a random Infected among those with the most kills, zero included.
+- Card layout back to two columns of 420 px (widgets 7-14 in four rows, 19 and 20 in the fifth), as before v0.22. The v0.22 tier-row layout notes above no longer apply.

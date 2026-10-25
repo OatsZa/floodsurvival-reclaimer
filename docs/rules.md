@@ -1,6 +1,6 @@
-# Zombie Survival v0.22: rules
+# Zombie Survival v0.23: rules
 
-Everything a player or host needs, as built in v0.22. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.22**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.23. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.23**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -77,7 +77,7 @@ The picker's title says which tier opens next and in which wave. Locked cards ar
 
 ### Bosses (from wave 2)
 
-When a wave starts from wave 2 on, the Infected player with the **most kills this round** becomes that wave's boss and gets a message. Only they see a gold boss card. **Clicking it cycles** Juggernaut → Brute Chieftain → Master Chief; then Spawn. **One life.** An unused boss turn ends with the wave.
+When a wave starts from wave 2 on, the Infected player with the **most kills this round** becomes that wave's boss and gets a message. Ties (zero kills included) are picked at random, so there's always a boss while anyone is Infected. Only they see a gold boss card. **Clicking it cycles** Juggernaut → Brute Chieftain → Master Chief; then Spawn. **One life.** An unused boss turn ends with the wave.
 
 | Boss | What |
 | --- | --- |

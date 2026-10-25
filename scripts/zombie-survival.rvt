@@ -192,22 +192,22 @@ script_widget[4].set_background(all_players, 7, 14, 23, 235)
 script_widget[5].set_position(all_players, 640, 125)
 script_widget[5].set_anchor(all_players, top)
 script_widget[5].set_font_size(all_players, 22)
-script_widget[7].set_position(all_players, 200, 170)
-script_widget[8].set_position(all_players, 200, 240)
-script_widget[9].set_position(all_players, 645, 240)
-script_widget[10].set_position(all_players, 200, 310)
-script_widget[11].set_position(all_players, 645, 310)
-script_widget[12].set_position(all_players, 200, 380)
-script_widget[13].set_position(all_players, 495, 380)
-script_widget[14].set_position(all_players, 790, 380)
-script_widget[7].set_size(all_players, 435, 60)
-script_widget[8].set_size(all_players, 435, 60)
-script_widget[9].set_size(all_players, 435, 60)
-script_widget[10].set_size(all_players, 435, 60)
-script_widget[11].set_size(all_players, 435, 60)
-script_widget[12].set_size(all_players, 285, 60)
-script_widget[13].set_size(all_players, 285, 60)
-script_widget[14].set_size(all_players, 285, 60)
+script_widget[7].set_position(all_players, 210, 170)
+script_widget[8].set_position(all_players, 650, 170)
+script_widget[9].set_position(all_players, 210, 240)
+script_widget[10].set_position(all_players, 650, 240)
+script_widget[11].set_position(all_players, 210, 310)
+script_widget[12].set_position(all_players, 650, 310)
+script_widget[13].set_position(all_players, 210, 380)
+script_widget[14].set_position(all_players, 650, 380)
+script_widget[7].set_size(all_players, 420, 60)
+script_widget[8].set_size(all_players, 420, 60)
+script_widget[9].set_size(all_players, 420, 60)
+script_widget[10].set_size(all_players, 420, 60)
+script_widget[11].set_size(all_players, 420, 60)
+script_widget[12].set_size(all_players, 420, 60)
+script_widget[13].set_size(all_players, 420, 60)
+script_widget[14].set_size(all_players, 420, 60)
 script_widget[7].set_clickable(all_players, true)
 script_widget[8].set_clickable(all_players, true)
 script_widget[9].set_clickable(all_players, true)
@@ -224,13 +224,13 @@ script_widget[16].set_position(all_players, 430, 520)
 script_widget[16].set_size(all_players, 300, 50)
 script_widget[16].set_background(all_players, 30, 45, 60, 255)
 script_widget[16].set_clickable(all_players, true)
-script_widget[19].set_position(all_players, 200, 450)
-script_widget[19].set_size(all_players, 435, 60)
+script_widget[19].set_position(all_players, 210, 450)
+script_widget[19].set_size(all_players, 420, 60)
 team[1].set_color(170, 200, 40)
 script_widget[19].set_background(all_players, 15, 27, 39, 255)
 script_widget[19].set_clickable(all_players, true)
-script_widget[20].set_position(all_players, 645, 450)
-script_widget[20].set_size(all_players, 435, 60)
+script_widget[20].set_position(all_players, 650, 450)
+script_widget[20].set_size(all_players, 420, 60)
 script_widget[20].set_clickable(all_players, true)
 script_widget[20].set_color(all_players, 232, 184, 82, 255)
 script_widget[20].set_text("BOSS  |  Juggernaut: a giant Tank with 4x health")
@@ -965,15 +965,15 @@ wave += 1
 start_wave()
 boss = no_player
 boss_used = 0
-limit = 0
-for each player do
+limit = -1
+for each player randomly do
 scratch = current_player.get_kill_count()
 if current_player.role == Role.infected and scratch > limit then
 limit = scratch
 boss = current_player
 end
 end
-if boss != no_player then script_widget[6].set_text_for(boss, "You're the Juggernaut boss this wave: pick it when you next spawn") end
+if boss != no_player then script_widget[6].set_text_for(boss, "You're this wave's boss: pick your boss card when you next spawn") end
 end
 
 if phase == Phase.wave or phase == Phase.intermission then
