@@ -1,10 +1,10 @@
-# Zombie Survival v0.26: rules
+# Zombie Survival v0.35: rules
 
-Everything a player or host needs, as built in v0.26. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.26**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.35. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.35**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
-1. **Traits first.** Each Survivor picks traits before their first spawn. Meanwhile the **purge** clears the map's weapons and vehicles (grenades and equipment on the map stay).
+1. **Traits first.** Each Survivor picks traits before their first spawn. The **purge** clears the map's vehicles, and the moment a map weapon appears it's deleted, even with someone standing on it. A weapon a player has held (your Magnum, a boss's sword) stays while someone is within 6 ft of it (grenades and equipment on the map stay).
 2. **Warmup** (45 s, needs 2 players). Survivors are first-person Spartans with a **Magnum and fists**, no grenades, at **half shields**. The arsenal is open anywhere.
 3. **Outbreak.** 10% of players, rounded up, become Infected (at least 1, never everyone). Their Survivor body is killed without the death counting.
 4. **Waves** (120 s, +15 s each, 5 waves). Each wave opens the next tier of Flood forms. A dead Survivor turns Infected. Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**).
@@ -32,8 +32,9 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 
 | Key | Does |
 | --- | --- |
-| Ability 1 | Open the arsenal: anywhere in warmup and breaks, within 30 ft of the crate during waves. Close it with **Close** |
+| Ability 1 | Open the arsenal: anywhere in warmup and breaks, within 30 ft of the quartermaster during waves. Close it with **Close** |
 | Use Equipment | Use equipment, or throw a placeable's **grav lift** where you want it: the item is built where it lands |
+| Flashlight | Pick up the nearest map prop within 8 ft (it rides 5 ft in front of you); press again to let go of it there, turned your way |
 | Ability 4 | **Test only** (`test_keys` = 1): end the current warmup, wave or break at once |
 
 ### Arsenal (4 pages)
@@ -42,16 +43,18 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 | --- | --- |
 | 1 Guns | Shotgun 40, Battle Rifle 30, SMG 20, Sniper Rifle 60, Rocket Launcher 100, Carbine 30, Mauler 40, Energy Sword 80 |
 | 2 Heavy guns | Flamethrower 80, Spartan Laser 120, Brute Shot 60, Gravity Hammer 80, Needler 30, Plasma Rifle 30, Beam Rifle 60, Fuel Rod Gun 100 |
-| 3 Equipment | Ammo refill 10, Deployable Cover 30, Bubble Shield 40, Regenerator 40, Trip Mine 30, Radar Jammer 20, Active Camo 50, Invincibility 80 |
-| 4 Placeables | Machine Gun 80, Barrier (Hunter, 3× health, breakable) 60, Plasma Cannon 100, Missile Pod 120 |
+| 3 Equipment | Ammo refill 20, Deployable Cover 30, Bubble Shield 40, Regenerator 40, Trip Mine 30, Radar Jammer 20, Active Camo 50, Invincibility 80 |
+| 4 Placeables | Machine Gun 80, Barrier (Hunter, 3× health, breakable) 60, Plasma Cannon 100, Missile Pod 120, Prop Placer 20 (one use) |
 
 - Guns drop at your feet. Equipment goes into your slot.
-- Placeables come as a grav lift. The HUD says what your next grav lift becomes. Up to 4 of each per team.
-- **One at a time:** while you carry equipment or a grav lift, the other equipment and placeable cards are grey.
+- Placeables come as a grav lift. Until you throw it, the HUD says "Throw your grav lift to build it". Up to 4 of each per team.
+- **One at a time:** while you carry equipment, a grav lift or a ready Prop Placer, the other equipment and placeable cards are grey and can't be bought (Ammo refill still can).
 - Plasma Cannon and Missile Pod show "not on this map" unless the map has one.
 - Everything is FREE while `free_shop` = 1 (testing), traits included.
 
-**Crate (quartermaster):** a standing Marine, made once in front of the first Survivor. It shows red, as an enemy, which can't be changed. Within 30 ft it refills ammo every 5 s, and during waves it's where the arsenal opens.
+**Base building with map props:** any object on the map that isn't a body, vehicle, weapon or equipment counts as a prop (crates, barriers, sandbags; invisible markers too, so pick what you can see). Press **Flashlight** within 8 ft to pick up the nearest one, and again to let go of it where it is (5 ft in front of you), turned your way. Static props may keep their old facing: use a Prop Placer to set it. Props someone else carries can't be taken. You drop it if you die. **Prop Placer** (20 points, one use): the next prop you pick up (or the one you carry when you buy it) comes with a grav lift. Throw it and the prop lands where the lift stops, facing your way, and the Prop Placer is used up. Press Flashlight instead and you keep it for the next prop. Its card says "ready" while you have one. Props can't be put back: they stay where they were left until the round ends.
+
+**Quartermaster:** a standing Marine, made once in front of the first Survivor. It shows red, as an enemy, which can't be changed. During waves the arsenal opens only within 30 ft of him. There is no free ammo: buy the arsenal's Ammo refill (20 points), at the quartermaster during a wave or anywhere in a break.
 
 ## Infected
 
@@ -90,7 +93,7 @@ When a wave starts from wave 2 on, the Infected player with the **most kills thi
 | Option | Default | What |
 | --- | --- | --- |
 | break_seconds | 60 | Break length |
-| crate_radius | 30 | Feet from the crate for ammo and the arsenal during waves |
+| quartermaster_radius | 30 | Feet from the quartermaster within which the arsenal opens during waves |
 | free_shop | 1 | 1 = arsenal and traits free (testing) |
 | gun_cap | 100 | Most bought guns that can exist at once |
 | kill_points | 10 | Points per kill |

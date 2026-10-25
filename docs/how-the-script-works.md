@@ -1,10 +1,12 @@
 # How the script works
 
-The explanations for `scripts/zombie-survival.rvt` (they were comments in the script). They moved here because comments count toward the 64 KiB mode limit. Each note is filed under the line of code it explains, in the order the code runs. Rules and keys are in `rules.md`. Build numbers here (v13, v16...) are the changelog's v0.13, v0.16 and so on; files named `*.rvt.bak` are old copies kept outside this repo.
+The explanations for `scripts/zombie-survival.rvt` (they were comments in the script). They moved here because comments count toward the 64 KiB mode limit.
+
+**Short names (since v0.33):** the mode stores the script's source text, so `tools/build.ps1` compiles a copy made by `tools/shrink.ps1`. Every alias, function, enum and enum member gets a 1-2 letter name (most used first), and line 1 becomes short aliases for `current_player`, `current_object`, `script_widget`, `all_players`, `no_object`, `script_option` and `script_traits`. Strings, comments and line numbers stay the same. The build stops unless the copy turns back into the source exactly and gets the same megalo-check output. So edit the readable script and these notes as before. Code shown inside a compiled mode file has the short names, and error columns (not lines) differ from the source. [name-key.md](name-key.md), rebuilt every build, says which short name is which. Each note is filed under the line of code it explains, in the order the code runs. Rules and keys are in `rules.md`. Build numbers here (v13, v16...) are the changelog's v0.13, v0.16 and so on; files named `*.rvt.bak` are old copies kept outside this repo.
 
 ## Overview
 
-Zombie Survival (Survivors vs Flood), after GMod's ZS. Compile with zombie-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 crate distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number.
+Zombie Survival (Survivors vs Flood), after GMod's ZS. Compile with zombie-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 quartermaster distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number.
 
 **`enum ZsClass`**
 
@@ -70,7 +72,13 @@ Flags kept in timers that never count: carrying arsenal equipment (a grav lift t
 
 - `alias claimed = object.number[1]`: grav lifts: someone's placing tool
 
-- `alias seen = object.number[2]`: equipment the purge has decided to keep
+- `alias held = object.number[2]`: weapons: 1 once a player has carried it
+
+- `alias prop = player.object[2]`: the map prop a Survivor carries. It shares the slot with `morph_old`, which only Infected transforms use (they set it before every use; the transform start checks the Infected role since v0.34, because `form` shares its slot with a Survivor's `points`); `drop_prop()` clears it whenever a Survivor dies or turns Infected.
+
+**`function drop_prop()`**
+
+Let go of the carried prop where it is (death, turning Infected) and cancel a Prop Placer grav lift.
 
 **`function start_wave()`**
 
@@ -82,7 +90,7 @@ Onto the Infected; a living player is killed by the script, uncounted.
 
 **`function open_shop()`**
 
-Anywhere in warmup and breaks; near the crate during a wave.
+Anywhere in warmup and breaks; near the quartermaster during a wave.
 
 **`function check_map()`**
 
@@ -126,7 +134,7 @@ The form picker: choose a card, then Spawn, or Spawn at Nest while one stands. T
 
 **`function place_object()`**
 
-The pending item goes where the claimed grav lift stopped, if the team has room; if not, the grav lift comes back.
+The pending item goes where the claimed grav lift stopped, if the team has room; if not, the grav lift comes back. `Item.prop` (a Prop Placer throw) moves the carried prop instead: it's attached to the grav lift and let go, which leaves it on that spot facing the lift's way (static props can't be turned directly), and count = -1 skips the placeable code.
 
 **`if current_player.pending == Item.wall then`**
 
@@ -134,7 +142,7 @@ A Hunter with 3x a Hunter's health: blocks, and can be broken.
 
 **`function purge()`**
 
-Removes what the script didn't make: vehicles (noting the map-dependent ones first), weapons nobody holds or stands beside, and grenades and equipment that appeared away from every living player. Equipment that appears beside one (a throw) is kept for good.
+Every 2 s: removes the map's vehicles (noting the map-dependent ones first). Weapons are handled every tick in the object loop instead: an unlabelled weapon nobody has ever carried (a map weapon) is deleted at once, even with a player on it; one a player has carried (`held`, set while get_carrier finds a player, which includes holstered guns through the attachment chain) is deleted once nobody holds it or stands within 6 ft.
 
 **`function hide_menu()`**
 
@@ -147,6 +155,10 @@ Traits: a card turns its bit on or off; its opposite goes off.
 **`if pressed_button == button.equipment then`**
 
 Use Equipment is reported only when something is used. With an item bought, watch 3 s for its grav lift.
+
+**`if pressed_button == button.flashlight then`**
+
+Survivors' base building. Carrying a prop: let go of it where it rides and turn it the player's way (static props may not turn). v0.32 used a stand-in grav lift for the facing, but a placed grav lift launched the player forward. A Prop Placer grav lift still in the slot is taken back, and the Prop Placer bit stays for the next prop (only a throw uses it up, in place_object). Not carrying: the nearest prop within 8 ft is attached 5 ft in front. A prop is any object that isn't a body, vehicle, weapon or equipment (is_of_type can't tell scenery apart) and that nobody carries (get_carrier). With the Prop Placer bit and a free slot, the player also gets a grav lift with pending = Item.prop.
 
 **`class = current_player.get_deployment_class()`**
 
@@ -212,13 +224,9 @@ Dead Survivors: traits until ready, then their class with no menu. Dead Infected
 
 The loadout: Grenadier adds frags, Assault an Assault Rifle.
 
-**`if crate == no_object then`**
+**`if quartermaster == no_object then`**
 
-The crate: a standing Marine at the first living Survivor; again if lost.
-
-**`if pulse.is_zero() then`**
-
-Every 5 s the crate refills the guns of the Survivors beside it.
+The quartermaster: a standing Marine at the first living Survivor; again if lost.
 
 **`for each object do`**
 

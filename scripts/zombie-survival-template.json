@@ -26,11 +26,6 @@
           "min": 10,
           "max": 300
         },
-        "crate_radius": {
-          "value": 30,
-          "min": 10,
-          "max": 100
-        },
         "free_shop": {
           "value": 1,
           "min": 0,
@@ -55,6 +50,11 @@
           "value": 4,
           "min": 0,
           "max": 16
+        },
+        "quartermaster_radius": {
+          "value": 30,
+          "min": 10,
+          "max": 100
         },
         "start_infected_percent": {
           "value": 10,

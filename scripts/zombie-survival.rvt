@@ -22,12 +22,12 @@ end
 
 enum Option
 break_seconds = 0
-crate_radius = 1
-free_shop = 2
-gun_cap = 3
-kill_points = 4
-min_players = 5
-placeable_limit = 6
+free_shop = 1
+gun_cap = 2
+kill_points = 3
+min_players = 4
+placeable_limit = 5
+quartermaster_radius = 6
 start_infected_percent = 7
 start_points = 8
 test_keys = 9
@@ -70,6 +70,7 @@ grenadier = 64
 tough = 128
 ready = 256
 assault = 512
+prop_placer = 1024
 end
 
 enum Item
@@ -101,6 +102,8 @@ turret = 24
 wall = 25
 plasma_cannon = 26
 missile_pod = 27
+prop_placer = 28
+prop = 29
 end
 
 alias phase = global.number[0]
@@ -113,13 +116,12 @@ alias converted = global.number[6]
 alias seconds = global.number[7]
 alias avail = global.number[9]
 alias boss_used = global.number[10]
-alias crate = global.object[0]
+alias quartermaster = global.object[0]
 alias made = global.object[1]
 alias nest = global.object[2]
 alias holder = global.player[0]
 alias boss = global.player[1]
 alias phase_timer = global.timer[0]
-alias pulse = global.timer[1]
 alias purge_timer = global.timer[2]
 alias nest_wait = global.timer[3]
 
@@ -145,6 +147,7 @@ alias swap = player.number[7]
 alias tool = player.object[0]
 alias morph_new = player.object[1]
 alias morph_old = player.object[2]
+alias prop = player.object[2]
 alias form = player.number[3]
 alias morph_wait = player.timer[0]
 alias morph_delay = player.timer[2]
@@ -156,6 +159,7 @@ alias perks = player.timer[3]
 
 alias age = object.number[0]
 alias claimed = object.number[1]
+alias held = object.number[2]
 alias kept = object.number[3]
 
 function card_rows()
@@ -177,8 +181,6 @@ end
 
 on init: do
 phase_timer = script_option[Option.warmup_seconds]
-pulse = 5
-pulse.set_rate(-100%)
 purge_timer = 3
 purge_timer.set_rate(-100%)
 script_widget[0].set_position(all_players, 640, 16)
@@ -237,7 +239,6 @@ script_widget[19].set_background(all_players, 15, 27, 39, 255)
 script_widget[19].set_clickable(all_players, true)
 script_widget[20].set_clickable(all_players, true)
 script_widget[20].set_color(all_players, 232, 184, 82, 255)
-script_widget[20].set_text("BOSS  |  Juggernaut: a giant Tank with 4x health")
 script_widget[17].set_position(all_players, 870, 520)
 script_widget[17].set_size(all_players, 200, 50)
 script_widget[17].set_background(all_players, 90, 40, 40, 255)
@@ -266,7 +267,14 @@ if current_player.menu != Menu.closed then current_player.set_ui_menu(false) end
 current_player.menu = Menu.closed
 end
 
+function drop_prop()
+if current_player.prop != no_object then current_player.prop.detach() end
+current_player.prop = no_object
+if current_player.pending == Item.prop then current_player.pending = 0 end
+end
+
 function make_infected()
+drop_prop()
 close_menu()
 current_player.role = Role.infected
 current_player.pending = 0
@@ -278,13 +286,13 @@ end
 function open_shop()
 ok = 0
 if phase == Phase.warmup or phase == Phase.intermission then ok = 1 end
-if phase == Phase.wave and crate != no_object then
-scratch = current_player.biped.get_distance_to(crate)
-limit = script_option[Option.crate_radius]
+if phase == Phase.wave and quartermaster != no_object then
+scratch = current_player.biped.get_distance_to(quartermaster)
+limit = script_option[Option.quartermaster_radius]
 if scratch <= limit then ok = 1 end
 end
 if current_player.menu != Menu.closed then ok = 0 end
-if ok == 0 then script_widget[6].set_text_for(current_player, "During a wave the arsenal opens only near the crate") end
+if ok == 0 then script_widget[6].set_text_for(current_player, "Too far from the quartermaster") end
 if ok == 1 then
 current_player.menu = Menu.shop
 current_player.set_ui_menu(true)
@@ -310,7 +318,7 @@ if item == Item.needler then price = 30 end
 if item == Item.plasma_rifle then price = 30 end
 if item == Item.beam_rifle then price = 60 end
 if item == Item.fuel_rod_gun then price = 100 end
-if item == Item.ammo then price = 10 end
+if item == Item.ammo then price = 20 end
 if item == Item.cover then price = 30 end
 if item == Item.bubble_shield then price = 40 end
 if item == Item.regenerator then price = 40 end
@@ -322,6 +330,7 @@ if item == Item.turret then price = 80 end
 if item == Item.wall then price = 60 end
 if item == Item.plasma_cannon then price = 100 end
 if item == Item.missile_pod then price = 120 end
+if item == Item.prop_placer then price = 20 end
 end
 
 function check_map()
@@ -349,13 +358,19 @@ if not current_player.buy_wait.is_zero() then
 ok = 0
 script_widget[6].set_text_for(current_player, "One purchase a second")
 end
-if item >= Item.cover and not current_player.carrying.is_zero() then
+scratch = current_player.perks
+scratch &= Perk.prop_placer
+if item >= Item.cover then
+if not current_player.carrying.is_zero() or current_player.pending > 0 or scratch != 0 then
 ok = 0
-script_widget[6].set_text_for(current_player, "You already carry equipment: use it first")
+script_widget[6].set_text_for(current_player, "Use what you carry first")
 end
-if item >= Item.cover and current_player.pending > 0 then
+end
+scratch = current_player.perks
+scratch &= Perk.prop_placer
+if item == Item.prop_placer and scratch != 0 then
 ok = 0
-script_widget[6].set_text_for(current_player, "Your grav lift's item isn't built yet")
+script_widget[6].set_text_for(current_player, "You already have a Prop Placer ready")
 end
 check_map()
 if count == 1 then
@@ -368,13 +383,14 @@ for each object with label "zs_gun" do count += 1 end
 limit = script_option[Option.gun_cap]
 if count >= limit then
 ok = 0
-script_widget[6].set_text_for(current_player, "Too many bought guns lying around; pick some up first")
+script_widget[6].set_text_for(current_player, "Too many guns on the ground: pick some up")
 end
 end
 if ok == 1 then
 current_player.points -= price
 current_player.buy_wait = 1
 current_player.buy_wait.set_rate(-100%)
+script_widget[6].set_text_for(current_player, "Bought")
 if item == Item.shotgun then made = current_player.biped.place_at_me(shotgun, "zs_gun", none, 5, 0, 3, none) end
 if item == Item.battle_rifle then made = current_player.biped.place_at_me(battle_rifle, "zs_gun", none, 5, 0, 3, none) end
 if item == Item.smg then made = current_player.biped.place_at_me(smg, "zs_gun", none, 5, 0, 3, none) end
@@ -391,11 +407,7 @@ if item == Item.needler then made = current_player.biped.place_at_me(needler, "z
 if item == Item.plasma_rifle then made = current_player.biped.place_at_me(plasma_rifle, "zs_gun", none, 5, 0, 3, none) end
 if item == Item.beam_rifle then made = current_player.biped.place_at_me(beam_rifle, "zs_gun", none, 5, 0, 3, none) end
 if item == Item.fuel_rod_gun then made = current_player.biped.place_at_me(fuel_rod_gun, "zs_gun", none, 5, 0, 3, none) end
-if item <= Item.fuel_rod_gun then script_widget[6].set_text_for(current_player, "Bought: it's at your feet. Hold your pickup key on it") end
-if item == Item.ammo then
-current_player.refill_ammo()
-script_widget[6].set_text_for(current_player, "Ammunition refilled")
-end
+if item == Item.ammo then current_player.refill_ammo() end
 if item == Item.cover then current_player.give_equipment(deployable_cover) end
 if item == Item.bubble_shield then current_player.give_equipment(bubble_shield) end
 if item == Item.regenerator then current_player.give_equipment(regenerator) end
@@ -403,15 +415,22 @@ if item == Item.trip_mine then current_player.give_equipment(trip_mine) end
 if item == Item.radar_jammer then current_player.give_equipment(radar_jammer) end
 if item == Item.active_camo then current_player.give_equipment(active_camo) end
 if item == Item.invincibility then current_player.give_equipment(invincibility) end
-if item >= Item.cover and item <= Item.invincibility then
+if item >= Item.cover and item <= Item.invincibility then current_player.carrying = 1 end
+if item == Item.prop_placer then
+scratch = current_player.perks
+scratch |= Perk.prop_placer
+current_player.perks = scratch
+script_widget[6].set_text_for(current_player, "Bought: your next prop comes with a grav lift to throw it")
+if current_player.prop != no_object then
+current_player.pending = Item.prop
+current_player.give_equipment(grav_lift)
 current_player.carrying = 1
-script_widget[6].set_text_for(current_player, "Bought: use it with your Use Equipment key")
 end
-if item >= Item.turret then
+end
+if item >= Item.turret and item <= Item.missile_pod then
 current_player.pending = item
 current_player.give_equipment(grav_lift)
 current_player.carrying = 1
-script_widget[6].set_text_for(current_player, "Bought: throw the grav lift (Use Equipment) where it should go")
 end
 end
 end
@@ -464,7 +483,7 @@ script_widget[14].set_text_for(current_player, "Fuel Rod Gun  |  100 pts")
 end
 if current_player.page == 2 then
 script_widget[5].set_text_for(current_player, "ARSENAL  -  EQUIPMENT  (3 / 4)")
-script_widget[7].set_text_for(current_player, "Ammo refill (all your guns)  |  10 pts")
+script_widget[7].set_text_for(current_player, "Ammo refill  |  20 pts")
 script_widget[8].set_text_for(current_player, "Deployable Cover  |  30 pts")
 script_widget[9].set_text_for(current_player, "Bubble Shield  |  40 pts")
 script_widget[10].set_text_for(current_player, "Regenerator  |  40 pts")
@@ -491,8 +510,14 @@ if count == 1 then
 script_widget[10].set_text_for(current_player, "Missile Pod  |  not on this map")
 script_widget[10].set_color(current_player, 110, 118, 130, 255)
 end
+script_widget[11].set_text_for(current_player, "Prop Placer: throw one prop into place  |  20 pts")
+scratch = current_player.perks
+scratch &= Perk.prop_placer
+if scratch != 0 then script_widget[11].set_text_for(current_player, "Prop Placer  |  ready") end
 end
-if not current_player.carrying.is_zero() or current_player.pending > 0 then
+scratch = current_player.perks
+scratch &= Perk.prop_placer
+if not current_player.carrying.is_zero() or current_player.pending > 0 or scratch != 0 then
 if current_player.page >= 2 then
 script_widget[5].set_text_for(current_player, "ARSENAL  -  use what you carry first")
 if current_player.page != 2 then script_widget[7].set_color(current_player, 110, 118, 130, 255) end
@@ -618,10 +643,10 @@ limit = script_option[Option.wave_count]
 if class == ZsClass.sword_spartan then
 if phase != Phase.wave or wave < limit then count = 0 end
 end
-if count == 0 then script_widget[6].set_text_for(current_player, "That form is still locked") end
+if count == 0 then script_widget[6].set_text_for(current_player, "Still locked") end
 if count == 1 then
 count = current_player.deploy_class(class)
-if count == 0 then script_widget[6].set_text_for(current_player, "Can't take that form right now (Nest Stalker taken?)") end
+if count == 0 then script_widget[6].set_text_for(current_player, "Can't take that form now") end
 if count == 1 then script_widget[6].set_text_for(current_player, "") end
 if count == 1 and class >= ZsClass.juggernaut then
 boss_used = 1
@@ -633,7 +658,7 @@ end
 function draw_picker()
 reset_cards()
 pick_form()
-script_widget[5].set_text_for(current_player, "INFECTED  -  CHOOSE A FORM, THEN SPAWN")
+script_widget[5].set_text_for(current_player, "INFECTED  -  CHOOSE A FORM")
 script_widget[15].set_text_for(current_player, "Spawn")
 script_widget[16].set_text_for(current_player, "Spawn at Nest")
 script_widget[19].set_color(current_player, 235, 240, 245, 255)
@@ -642,7 +667,7 @@ script_widget[7].set_text_for(current_player, "Flood Human  |  tier 1")
 script_widget[8].set_text_for(current_player, "Flood Brute  |  tier 2")
 script_widget[9].set_text_for(current_player, "Flood Stalker  |  tier 2")
 script_widget[10].set_text_for(current_player, "Flood Elite  |  tier 3  |  shields")
-script_widget[11].set_text_for(current_player, "Nest Stalker  |  tier 3  |  builds the nest, 1 per team")
+script_widget[11].set_text_for(current_player, "Nest Stalker  |  tier 3  |  builds the nest")
 script_widget[12].set_text_for(current_player, "Turret Stalker | tier 4")
 script_widget[13].set_text_for(current_player, "Tank Stalker | tier 4")
 script_widget[14].set_text_for(current_player, "Flood Tank  |  tier 4")
@@ -696,8 +721,8 @@ if class == ZsClass.sword_spartan then script_widget[19].set_background(current_
 script_widget[20].set_background(current_player, 60, 45, 15, 255)
 script_widget[20].set_text_for(current_player, "BOSS  |  Juggernaut: giant Tank, 4x health  |  click to change")
 if class >= ZsClass.juggernaut then script_widget[20].set_background(current_player, 120, 90, 30, 255) end
-if class == ZsClass.brute_chieftain then script_widget[20].set_text_for(current_player, "BOSS  |  Brute Chieftain: giant, fastest, invincibility  |  click") end
-if class == ZsClass.spartan_boss then script_widget[20].set_text_for(current_player, "BOSS  |  Spartan: invisible, sword, no headshots  |  click") end
+if class == ZsClass.brute_chieftain then script_widget[20].set_text_for(current_player, "BOSS  |  Brute Chieftain: giant, fastest, invincibility") end
+if class == ZsClass.spartan_boss then script_widget[20].set_text_for(current_player, "BOSS  |  Spartan: invisible, sword, no headshots") end
 end
 
 function build_nest()
@@ -715,6 +740,21 @@ end
 function place_object()
 count = 0
 limit = script_option[Option.placeable_limit]
+if current_player.pending == Item.prop then
+if current_player.prop != no_object then
+current_player.prop.detach()
+current_player.prop.attach_to(current_player.tool, 0, 0, 0, relative)
+current_player.prop.detach()
+if current_player.is_not_respawning() then current_player.prop.copy_rotation_from(current_player.biped, false) end
+end
+current_player.prop = no_object
+current_player.pending = 0
+scratch = current_player.perks
+scratch ~= Perk.prop_placer
+current_player.perks = scratch
+count = -1
+script_widget[6].set_text_for(current_player, "Placed")
+end
 if current_player.pending == Item.turret then
 for each object with label "zs_turret" do count += 1 end
 end
@@ -728,7 +768,7 @@ if current_player.pending == Item.missile_pod then
 for each object with label "zs_pod" do count += 1 end
 end
 if count >= limit then script_widget[6].set_text_for(current_player, "Your team already has %n of those: grav lift returned", count) end
-if count < limit then
+if count < limit and count >= 0 then
 if current_player.pending == Item.turret then made = current_player.tool.place_at_me(machine_gun_emplacement, "zs_turret", none, 0, 0, 0, none) end
 if current_player.pending == Item.wall then
 made = current_player.tool.place_at_me(hunter, "zs_wall", never_garbage_collect, 0, 0, 0, none)
@@ -756,18 +796,6 @@ if current_object.is_of_type(plasma_cannon_emplacement) then avail |= 1 end
 if current_object.is_of_type(missile_pod_emplacement) then avail |= 2 end
 current_object.delete()
 end
-end
-if current_object.is_of_type(weapon) and not current_object.has_forge_label("zs_gun") then
-ok = 1
-holder = current_object.get_carrier()
-if holder != no_player then ok = 0 end
-for each player do
-if current_player.is_not_respawning() then
-scratch = current_player.biped.get_distance_to(current_object)
-if scratch < 6 then ok = 0 end
-end
-end
-if ok == 1 then current_object.delete() end
 end
 end
 end
@@ -839,7 +867,7 @@ current_player.perks = scratch
 end
 if clicked_widget == 17 then
 trait_cost()
-if current_player.points < price then script_widget[6].set_text_for(current_player, "Those traits cost %n: drop a boost or take a drawback", price) end
+if current_player.points < price then script_widget[6].set_text_for(current_player, "Not enough points: that costs %n", price) end
 if current_player.points >= price then
 current_player.points -= price
 scratch = current_player.perks
@@ -857,7 +885,7 @@ item *= 8
 item += clicked_widget
 item -= 7
 ok = 1
-if item > Item.missile_pod then ok = 0 end
+if item > Item.prop_placer then ok = 0 end
 if ok == 1 then buy() end
 end
 if clicked_widget == 15 then
@@ -882,6 +910,52 @@ end
 end
 if current_player.role == Role.survivor and current_player.is_not_respawning() then
 if pressed_button == button.ability_1 then open_shop() end
+if pressed_button == button.flashlight then
+ok = 0
+if current_player.prop != no_object then ok = 1 end
+if ok == 1 then
+current_player.prop.detach()
+current_player.prop.copy_rotation_from(current_player.biped, false)
+current_player.prop = no_object
+if current_player.pending == Item.prop then
+current_player.pending = 0
+current_player.give_equipment(none)
+current_player.carrying = 0
+end
+script_widget[6].set_text_for(current_player, "Placed")
+end
+if ok == 0 then
+made = no_object
+limit = 9
+for each object do
+ok = 1
+if current_object.is_of_type(biped) or current_object.is_of_type(vehicle) then ok = 0 end
+if current_object.is_of_type(weapon) or current_object.is_of_type(equipment) then ok = 0 end
+holder = current_object.get_carrier()
+if holder != no_player then ok = 0 end
+if ok == 1 then
+scratch = current_object.get_distance_to(current_player.biped)
+if scratch < limit then
+limit = scratch
+made = current_object
+end
+end
+end
+if made == no_object then script_widget[6].set_text_for(current_player, "No prop within 8 ft") end
+if made != no_object then
+current_player.prop = made
+made.attach_to(current_player.biped, 5, 0, 2, relative)
+script_widget[6].set_text_for(current_player, "Picked up a prop %n ft away", limit)
+scratch = current_player.perks
+scratch &= Perk.prop_placer
+if scratch != 0 and current_player.carrying.is_zero() and current_player.pending == 0 then
+current_player.pending = Item.prop
+current_player.give_equipment(grav_lift)
+current_player.carrying = 1
+end
+end
+end
+end
 end
 class = current_player.get_deployment_class()
 if current_player.is_not_respawning() then
@@ -987,7 +1061,7 @@ boss = current_player
 end
 end
 if boss != no_player then
-script_widget[6].set_text_for(boss, "You're this wave's boss: pick your boss card when you next spawn")
+script_widget[6].set_text_for(boss, "You're this wave's boss: pick a boss card")
 script_widget[4].set_size(boss, 900, 560)
 script_widget[20].set_position(boss, 210, 170)
 script_widget[20].set_size(boss, 860, 60)
@@ -1048,7 +1122,7 @@ if class == ZsClass.tank then current_player.set_max_health(200) end
 if class == ZsClass.juggernaut then current_player.set_max_health(400) end
 if class == ZsClass.brute_chieftain then current_player.set_max_health(300) end
 end
-if current_player.form >= 2 and current_player.morph_delay.is_zero() and current_player.morph_new == no_object then
+if current_player.role == Role.infected and current_player.form >= 2 and current_player.morph_delay.is_zero() and current_player.morph_new == no_object then
 current_player.morph_old = current_player.biped
 if current_player.form == 3 then current_player.morph_new = current_player.biped.place_at_me(flood_stalker, none, none, 0, 0, 0, none) end
 if current_player.form == 2 and class == ZsClass.turret_stalker then current_player.morph_new = current_player.biped.place_at_me(flood_ranged, none, none, 0, 0, 0, none) end
@@ -1141,6 +1215,7 @@ scratch = current_player.get_death_count()
 if scratch != current_player.deaths then
 current_player.deaths = scratch
 current_player.carrying = 0
+if current_player.role == Role.survivor then drop_prop() end
 ok = 1
 if current_player.swap > 0 then
 current_player.swap = 0
@@ -1209,31 +1284,36 @@ if ok != 2 and current_player.menu == Menu.traits then close_menu() end
 if current_player.menu == Menu.shop and not current_player.is_not_respawning() then close_menu() end
 end
 
-if crate == no_object then
+if quartermaster == no_object then
 for each player do
-if crate == no_object and current_player.role == Role.survivor and current_player.is_not_respawning() then
-crate = current_player.biped.place_at_me(marine, "zs_crate", never_garbage_collect, 20, 0, 0, none)
-crate.copy_rotation_from(current_player.biped, false)
-crate.set_invincibility(true)
-crate.set_garbage_collection_disabled(true)
+if quartermaster == no_object and current_player.role == Role.survivor and current_player.is_not_respawning() then
+quartermaster = current_player.biped.place_at_me(marine, "zs_qm", never_garbage_collect, 20, 0, 0, none)
+quartermaster.copy_rotation_from(current_player.biped, false)
+quartermaster.set_invincibility(true)
+quartermaster.set_garbage_collection_disabled(true)
 end
 end
-end
-
-if pulse.is_zero() then
-limit = script_option[Option.crate_radius]
-for each player do
-if current_player.role == Role.survivor and current_player.is_not_respawning() and crate != no_object then
-scratch = current_player.biped.get_distance_to(crate)
-if scratch <= limit then current_player.refill_ammo() end
-end
-end
-pulse.reset()
-pulse.set_rate(-100%)
 end
 
 for each object do
 if current_object.is_of_type(grav_lift) then current_object.age += 1 end
+if current_object.is_of_type(weapon) and not current_object.has_forge_label("zs_gun") then
+ok = 1
+holder = current_object.get_carrier()
+if holder != no_player then
+ok = 0
+current_object.held = 1
+end
+if ok == 1 and current_object.held == 1 then
+for each player do
+if current_player.is_not_respawning() then
+scratch = current_player.biped.get_distance_to(current_object)
+if scratch < 6 then ok = 0 end
+end
+end
+end
+if ok == 1 then current_object.delete() end
+end
 end
 for each player do
 if current_player.pending > 0 and current_player.is_not_respawning() then
@@ -1279,7 +1359,7 @@ end
 if phase == Phase.intermission then
 scratch = wave
 scratch += 1
-script_widget[0].set_text("BREAK  |  wave %n starts in %n s  |  arsenal open anywhere", scratch, seconds)
+script_widget[0].set_text("BREAK  |  wave %n starts in %n s", scratch, seconds)
 end
 script_widget[1].set_text("Survivors %n  |  Infected %n  |  Flood forms unlocked %n / 3", survivors, infected, unlock)
 script_widget[0].set_visibility(all_players, true)
@@ -1291,24 +1371,22 @@ script_widget[18].set_visibility(current_player, false)
 if current_player.role == Role.survivor then
 script_widget[2].set_text_for(current_player, "%n points", current_player.points)
 limit = script_option[Option.free_shop]
-if limit == 1 then script_widget[2].set_text_for(current_player, "%n points  |  test mode: the arsenal is FREE", current_player.points) end
-script_widget[3].set_text_for(current_player, "Ability 1: arsenal")
-if current_player.pending == Item.turret then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Machine Gun Emplacement") end
-if current_player.pending == Item.wall then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Barrier (Hunter)") end
-if current_player.pending == Item.plasma_cannon then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Plasma Cannon") end
-if current_player.pending == Item.missile_pod then script_widget[3].set_text_for(current_player, "Your next grav lift becomes: Missile Pod") end
-if phase == Phase.wave and crate != no_object and current_player.is_not_respawning() then
-scratch = current_player.biped.get_distance_to(crate)
-limit = script_option[Option.crate_radius]
-script_widget[18].set_text_for(current_player, "Crate %n ft away  |  arsenal and ammo within %n ft", scratch, limit)
+if limit == 1 then script_widget[2].set_text_for(current_player, "%n points  |  test: FREE arsenal", current_player.points) end
+script_widget[3].set_text_for(current_player, "Ability 1: arsenal  |  Flashlight: pick up a prop")
+if current_player.pending > 0 then script_widget[3].set_text_for(current_player, "Throw your grav lift to build it") end
+if current_player.prop != no_object then script_widget[3].set_text_for(current_player, "Carrying a prop  |  Flashlight drops it") end
+if current_player.pending == Item.prop then script_widget[3].set_text_for(current_player, "Carrying a prop  |  Flashlight drops it, or throw the grav lift") end
+if phase == Phase.wave and quartermaster != no_object and current_player.is_not_respawning() then
+scratch = current_player.biped.get_distance_to(quartermaster)
+limit = script_option[Option.quartermaster_radius]
+script_widget[18].set_text_for(current_player, "Quartermaster %n ft  |  arsenal within %n ft", scratch, limit)
 script_widget[18].set_visibility(current_player, true)
 end
 end
 if current_player.role == Role.infected then
 script_widget[2].set_text_for(current_player, "Survivors converted: %n of %n", converted, total)
-script_widget[3].set_text_for(current_player, "Infected: hunt the Survivors down")
+script_widget[3].set_text_for(current_player, "")
 class = current_player.get_deployment_class()
-if class == ZsClass.monitor then script_widget[3].set_text_for(current_player, "Monitor: you rise as Flood when the next wave starts") end
 if class == ZsClass.nest_stalker then
 scratch = nest_wait
 script_widget[3].set_text_for(current_player, "Nest Stalker  |  A1 build the nest (ready in %n s)", scratch)
@@ -1341,8 +1419,8 @@ script_widget[7].set_visibility(current_player, true)
 script_widget[8].set_visibility(current_player, true)
 script_widget[9].set_visibility(current_player, true)
 script_widget[10].set_visibility(current_player, true)
-if current_player.menu == Menu.traits or current_player.page != 3 then
 script_widget[11].set_visibility(current_player, true)
+if current_player.menu == Menu.traits or current_player.page != 3 then
 script_widget[12].set_visibility(current_player, true)
 script_widget[13].set_visibility(current_player, true)
 script_widget[14].set_visibility(current_player, true)
