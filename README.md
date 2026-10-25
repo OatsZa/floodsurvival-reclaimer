@@ -73,29 +73,29 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 | Per-player numbers, objects, timers | all full | 0 | New per-player state must share a slot or go in the free perk bits (11 used), on the player's body (lost on death) or in team variables |
 | Global numbers / objects / players / timers | 10/12, 3/16, 2/8, 3/8 | plenty | Fine for round-wide state |
 
-### What fits next
+### Roadmap (in this order, set 2026-10-25)
 
-Costs are rough mode KiB, after short names.
+Costs are rough mode KiB, after short names. Time is a rough guess at the pace of v0.27-v0.35 (9 builds plus a test mode in about 3 hours), including a test round in game for each step.
 
-| # | Idea | Cost | Uses | Notes |
-| --- | --- | --- | --- | --- |
-| 1 | **Arsenal by wave:** reorder the pages by the wave each item unlocks in, then lock gear until its wave | ~0.5-1 | — | Already planned |
-| 2 | **New prices** | ~0 | — | Already planned |
-| 3 | **Per-class Infected stats** in the template | 0 | — | Already planned: health, speed and damage per class cost no script space |
-| 4 | **Up to 3 more tier 1-3 Flood forms** | ~0.5 each | 1 Infected class each | Already planned; shares the 3 free Infected classes with #11 |
-| 5 | **How-to card in warmup:** Ability 1 arsenal, Flashlight props, Prop Placer, the quartermaster | ~0.3 | 1 widget | Helps new players find base building |
-| 6 | **Fewer invisible props:** test a filter (e.g. skip objects with 0 health, or the ones under spawn points) in Test 13 first | ~0.2 | — | Flashlight sometimes grabs an invisible marker |
-| 7 | **Prop anti-grief:** a short cooldown before someone else can take a prop you just placed | ~0.3 | object timer | So one player can't pull apart a team's base |
-| 8 | **Last Survivor bonus** (as in ZS): the last one standing gets a boost and a HUD alert | ~0.3 | the last trait set | Competes with #10 for the trait set |
-| 9 | **Redemption** (as in ZS): an Infected with enough kills can come back as a Survivor once | ~0.8 | a perk bit | Gives dead players a goal |
-| 10 | **Horde armour** (as in ZS): Infected near other Infected take less damage | ~0.6 | the last trait set | Competes with #8 |
-| 11 | **More bosses or boss abilities** | ~0.5 each | 1 Infected class each | Shares the 3 free Infected classes with #4 |
-| 12 | **Wave summary:** top killer and top earner after each wave | ~0.4 | 1 widget | |
-| 13 | **Barrier repair:** Survivors standing by a damaged Hunter barrier slowly mend it | ~0.4 | — | Makes base building last longer |
-| 14 | **Survivor roles** (Medic, Engineer...) as Survivor classes picked like traits | ~1-2 | Survivor classes, perk bits | Bigger design job |
-| 15 | **Vehicles page back:** Mongoose, Warthog, Ghost... by grav lift, on maps that have them | ~4 | — | Cut in v0.15 for space; the map check (`avail` bits) is still there |
+| # | Step | Cost | Uses | Time | Notes |
+| --- | --- | --- | --- | --- | --- |
+| 1 | **Arsenal order and price rework:** pages ordered by the wave each item unlocks in, gear locked until its wave, new prices | ~0.5-1 | — | 1-1.5 h | Needs the unlock wave and price for each item |
+| 2 | **More Flood forms** (tier 1-3) | ~0.5 each | 1 Infected class each | 1.5-2 h | Per-class stats go in the template (free) |
+| 3 | **Boss variety** | ~0.5 each | see note | 1-1.5 h | Only 3 Infected classes are free for steps 2 and 3 together. New bosses could instead be body swaps on an existing boss class (as the Stalker transforms do), which needs no class |
+| 4 | **How-to cards** left and right of the trait screen in warmup: building (Flashlight, Prop Placer) and the arsenal | ~0.4 | 2 widgets | 0.5 h | |
+| 5 | **Invisible-prop filter**, tried in Test 13 first | ~0.2 | — | 0.5-1 h | e.g. skip objects with 0 health |
+| 6 | **Prop safety:** a short cooldown before someone else can take a prop you just placed, and **no prop placed 0-4 ft from any player** (a grav lift spot or drop that close is refused), so nobody gets pushed up or out of the map | ~0.4 | object timer | 0.5-1 h | |
+| 7 | **Last Survivor:** the last one standing gets 2x health, a bottomless magazine and faster shield recharge (same shield amount), with a HUD alert | ~0.3 | the last trait set | 0.5 h | |
+| 8 | ~~Redemption~~ | — | — | — | Not for now: the Flood are already the weaker side. Maybe later |
+| 9 | **Horde armour** (maybe): Infected near other Infected take less damage | ~0.6 | a trait set | 0.5-1 h | No trait set left after step 7: two sets would have to be merged first |
+| 10 | **Boss abilities** | ~0.3-0.5 each | — | 1-2 h | |
+| 11 | **Wave awards:** "achievements" and point bonuses for the top earners and killers after each wave | ~0.5 | 1-2 widgets | 1 h | |
+| 12 | **Frozen, breakable props:** some placed props stay put (no physics), take damage and break or vanish | ? | object vars | 1-2 h | Needs a test first: can a script freeze scenery and give it health? |
+| 13 | **Survivor roles** (e.g. an engineer who places teleporters or reaches high spots) | ~1-2 | Survivor classes, perk bits | 2-3 h | Needs a feasibility check; map teleporters may be movable as props |
+| 14 | **Vehicles page back:** Mongoose, Warthog, Ghost... by grav lift, on maps that have them | ~4 | — | 1-1.5 h | After everything above; the v0.14 code is a starting point |
 
-Everything above together is roughly 10-14 KiB, inside the 22.5 KiB free. The real limits are the 1 trait set and the 3 Infected classes.
+**Total:** about 12-17 hours, or 4-6 sessions like the v0.27-v0.35 one. Most of it is the test round in game after each step: steps that can share one test round (4+5+6, 7+11) go faster. All of it together is roughly 10-14 KiB of the 22.5 KiB free.
+
 ## Host options
 
 Wave count and lengths, break length, warmup, starting Infected share, waves per tier, points, quartermaster range, placeable and gun limits: all under **Custom mode options**. The full list and defaults are in [docs/rules.md](docs/rules.md).
