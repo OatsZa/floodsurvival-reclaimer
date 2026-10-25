@@ -51,7 +51,18 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 - **Nest Stalker:** builds one nest (Ability 1). It outlives the builder; the Infected can spawn at it until the Survivors destroy it.
 - **Turret Stalker / Tank Stalker:** Ability 1 transforms after 1 second, and back again.
 - **Breaks:** Infected who die during a break come back as harmless flying Monitors, and turn back into Flood when the wave starts.
-- **Bosses** (from wave 2): the Infected player with the most kills (picked at random if tied, so there's always one) gets one boss life, from a gold card at the top of their picker: **Juggernaut** (giant, very tough Tank), **Brute Chieftain** (giant, fastest, very tough, invincibility) or **Master Chief** (invisible Energy Sword, no shield recharge).
+- **Bosses** (from wave 2): the Infected player with the most kills (picked at random if tied, so there's always one) gets one boss life, from a gold card at the top of their picker: **Juggernaut** (giant, very tough Tank), **Brute Chieftain** (giant, fastest, very tough, invincibility) or **Master Chief** (invisible, Energy Sword, no shield recharge, can be headshot).
+
+## Status and next steps
+
+- **Size:** the script is at the 64 KiB limit (63.8 KiB, about 0.3 KiB left). Anything new needs a trim pass first.
+- **Untested in game:** the bosses, the Sword Spartan, the equipment fix, the health bar and the prices. The checklist is in [docs/testing.md](docs/testing.md).
+- **Planned:**
+  1. A trim pass. Candidates: drop the 'not on this map' check for the Plasma Cannon and Missile Pod, use one generic grav-lift hint, shorten messages, and if needed cut a few overlapping guns.
+  2. Reorder the arsenal by the wave each item unlocks in, then lock gear by wave.
+  3. New prices.
+  4. Fixed per-class Infected stats in the template, which costs no script space.
+  5. Up to 3 more tier 1–3 Flood forms (the Infected use 13 of 16 classes).
 
 ## Host options
 
@@ -68,7 +79,7 @@ Wave count and lengths, break length, warmup, starting Infected share, waves per
 | [`docs/how-the-script-works.md`](docs/how-the-script-works.md) | Notes on the code, section by section |
 | [`docs/changelog.md`](docs/changelog.md) | What changed in each build |
 | [`docs/testing.md`](docs/testing.md) | What still needs testing |
-| [`tools/build.ps1`](tools/build.ps1) | Build a new version: `.\tools\build.ps1 -Version 0.21 -Install` |
+| [`tools/build.ps1`](tools/build.ps1) | Build a new version: `.\tools\build.ps1 -Version 0.27 -Install` |
 
 The script has no indentation or comments on purpose: both count toward the 64 KiB mode limit, so the explanations live in `docs/how-the-script-works.md`.
 
