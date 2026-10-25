@@ -1,6 +1,6 @@
-# Zombie Survival v0.24: rules
+# Zombie Survival v0.25: rules
 
-Everything a player or host needs, as built in v0.24. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.24**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.25. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.25**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -77,13 +77,13 @@ The picker's title says which tier opens next and in which wave. Locked cards ar
 
 ### Bosses (from wave 2)
 
-When a wave starts from wave 2 on, the Infected player with the **most kills this round** becomes that wave's boss and gets a message. Ties (zero kills included) are picked at random, so there's always a boss while anyone is Infected. Only they see a gold boss card. **Clicking it cycles** Juggernaut → Brute Chieftain → Master Chief; then Spawn. **One life.** An unused boss turn ends with the wave.
+When a wave starts from wave 2 on, the Infected player with the **most kills this round** becomes that wave's boss and gets a message. Ties (zero kills included) are picked at random, so there's always a boss while anyone is Infected. Only they see the gold boss card, as a full-width row at the top of the picker. **Clicking it cycles** Juggernaut → Brute Chieftain → Master Chief; then Spawn. **One life.** An unused boss turn ends with the wave.
 
 | Boss | What |
 | --- | --- |
 | Juggernaut | Flood Tank, 200% size, 4× health, takes 67% less damage (about 3× a Flood Tank's toughness) |
-| Brute Chieftain | 300% size, 300% speed, spawns with invincibility equipment |
-| Master Chief | First person, Energy Sword, invisible, headshot-immune, 200% speed, normal health and shields, **no shield recharge** |
+| Brute Chieftain | 300% size, 300% speed, 300% health, takes 67% less damage, spawns with invincibility equipment |
+| Master Chief | First person, Energy Sword, invisible, can be headshot, 200% speed, normal health and shields, **no shield recharge** |
 
 ## Host options (Custom mode options)
 

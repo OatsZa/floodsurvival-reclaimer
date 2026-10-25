@@ -26,5 +26,6 @@
 | v0.22 | Fix: the purge no longer deletes equipment or grenades (it was deleting bought or picked-up equipment, leaving the arsenal stuck on 'use what you carry first'). Picker cards laid out one tier per row (the arsenal and trait screens share the rows). Turret/Tank Stalker transform moved to Ability 1. Tank Stalker weaker than the Flood Tank (125% health, Tank form 120%, normal damage). Sword Spartan 150% speed. The Spartan boss is now Master Chief. |
 | v0.23 | Bosses: picked even when every Infected has zero kills (random among the tied leaders), so 1v1 tests get a boss from wave 2. Card layout reverted to two columns on all screens (the v0.22 tier rows looked off). |
 | v0.24 | Juggernaut takes 67% less damage (resistance 300%, class trait) on top of its 4x health: about 3x a Flood Tank's toughness. The Flood Tank stays at 50% less damage. |
+| v0.25 | The boss's card is now a full-width row at the top of the picker (the other forms move down a row, for the boss only). Brute Chieftain much tougher: 300% health and takes 67% less damage (it had normal health and no resistance, so a few Magnum headshots killed it). Master Chief boss can now be headshot. |
 
 Confirmed in game: up to v0.13 (purge, Flood speeds, the outbreak death fix, traits including Assault + Grenadier, picker, nests) all work as intended.

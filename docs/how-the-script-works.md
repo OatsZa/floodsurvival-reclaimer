@@ -394,7 +394,8 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 ## All three bosses (v19)
 
 - The boss's gold card (widget 20) cycles on each click: Juggernaut (14) -> Brute Chieftain (15) -> Spartan Boss (16) -> Juggernaut. Its text names the selected boss. `pick_form()` blocks every boss class (`class >= juggernaut`) for anyone but the boss, and once `boss_used` is 1.
-- Brute Chieftain: brute_chieftain body, chieftain_armor look, scale 300 (the maximum), trait set 13 (speed 300 percent, shared with the Turret Stalker), and `give_equipment(invincibility)` on its body.
+- Brute Chieftain: brute_chieftain body, chieftain_armor look, scale 300 (the maximum), `set_max_health(300)`, class trait resistance 8 (takes a third), trait set 13 (speed 300 percent, shared with the Turret Stalker), and `give_equipment(invincibility)` on its body.
+- Picker layout: `card_rows()` sets the normal card, button and backdrop positions for all players (called in init, when a break starts and when the boss spawns). When a boss is picked, the boss alone gets a shifted layout: widget 20 full width (860) at the top row, the other cards one row (70) lower, the buttons at 590 and a taller backdrop (560).
 - Spartan Boss: a first-person Spartan with an Energy Sword in the Infected team's green-yellow; trait set 14 (camouflage 4 = invisible, headshots 1 = immune, speed 9 = 200 percent, recharge 4 = shields never recharge, v20); normal health and shields.
 
 ## Tiers by wave (v0.21)

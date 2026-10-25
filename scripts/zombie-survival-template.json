@@ -152,7 +152,7 @@
         },
         {
           "camouflage": 4,
-          "headshots": 1,
+          "headshots": 2,
           "speed": 9,
           "recharge": 4
         }
@@ -485,7 +485,8 @@
             ],
             "traits": {
               "pickup": 2,
-              "vehicles": 1
+              "vehicles": 1,
+              "resistance": 8
             },
             "max_active": 1
           },
