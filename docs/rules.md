@@ -1,6 +1,6 @@
-# Zombie Survival v0.25: rules
+# Zombie Survival v0.26: rules
 
-Everything a player or host needs, as built in v0.25. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.25**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.26. Launch: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.26**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 

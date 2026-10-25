@@ -4,7 +4,7 @@ The explanations for `scripts/zombie-survival.rvt` (they were comments in the sc
 
 ## Overview
 
-Zombie Survival (Survivors vs Flood), after GMod's ZS. Compile with zombie-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 crate distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card.
+Zombie Survival (Survivors vs Flood), after GMod's ZS. Compile with zombie-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 crate distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number.
 
 **`enum ZsClass`**
 

@@ -27,5 +27,6 @@
 | v0.23 | Bosses: picked even when every Infected has zero kills (random among the tied leaders), so 1v1 tests get a boss from wave 2. Card layout reverted to two columns on all screens (the v0.22 tier rows looked off). |
 | v0.24 | Juggernaut takes 67% less damage (resistance 300%, class trait) on top of its 4x health: about 3x a Flood Tank's toughness. The Flood Tank stays at 50% less damage. |
 | v0.25 | The boss's card is now a full-width row at the top of the picker (the other forms move down a row, for the boss only). Brute Chieftain much tougher: 300% health and takes 67% less damage (it had normal health and no resistance, so a few Magnum headshots killed it). Master Chief boss can now be headshot. |
+| v0.26 | Health bar for every living player: a light-blue bar at the bottom centre with the health share as a number (e.g. 87/100). It's a share of max health, so a full Juggernaut shows 100/100 too. The mode is now at the 64 KiB limit (about 0.3 KiB left). |
 
 Confirmed in game: up to v0.13 (purge, Flood speeds, the outbreak death fix, traits including Assault + Grenadier, picker, nests) all work as intended.

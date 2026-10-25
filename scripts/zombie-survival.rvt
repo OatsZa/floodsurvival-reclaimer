@@ -242,6 +242,11 @@ script_widget[17].set_position(all_players, 870, 520)
 script_widget[17].set_size(all_players, 200, 50)
 script_widget[17].set_background(all_players, 90, 40, 40, 255)
 script_widget[17].set_clickable(all_players, true)
+script_widget[22].set_position(all_players, 490, 690)
+script_widget[22].set_background(all_players, 110, 200, 255, 230)
+script_widget[23].set_position(all_players, 800, 686)
+script_widget[23].set_font_size(all_players, 14)
+script_widget[23].set_color(all_players, 110, 200, 255, 255)
 end
 
 function start_wave()
@@ -1315,6 +1320,17 @@ if class == ZsClass.tank_stalker then script_widget[3].set_text_for(current_play
 end
 script_widget[2].set_visibility(current_player, true)
 script_widget[3].set_visibility(current_player, true)
+script_widget[22].set_visibility(current_player, false)
+script_widget[23].set_visibility(current_player, false)
+if current_player.biped != no_object then
+scratch = current_player.biped.health
+if scratch < 1 then scratch = 1 end
+script_widget[23].set_text_for(current_player, "%n/100", scratch)
+scratch *= 3
+script_widget[22].set_size(current_player, scratch, 14)
+script_widget[22].set_visibility(current_player, true)
+script_widget[23].set_visibility(current_player, true)
+end
 hide_menu()
 if current_player.menu == Menu.shop or current_player.menu == Menu.traits then
 if current_player.menu == Menu.shop then draw_shop() end

@@ -2,15 +2,17 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.25** (work in progress, not final). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.26** (work in progress, not final). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/zombie-survival-v0.25.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.25**. Tested on The Pit.
+1. Put [`modes/zombie-survival-v0.26.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.26**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
+
+A light-blue **health bar** at the bottom of the screen shows your health as a share of your maximum (87/100).
 
 **This build is set up for testing:** everything in the arsenal is free (`free_shop` = 1) and **Ability 4** skips the current timer (`test_keys` = 1). Turn both off under **Game Options → Slayer rules → Custom mode options** for a real game.
 
