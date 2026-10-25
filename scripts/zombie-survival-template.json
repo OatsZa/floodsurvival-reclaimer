@@ -490,10 +490,10 @@
           },
           {
             "name": "Spartan Boss",
-            "description": "Boss: invisible sword Spartan, headshot-immune, one life",
+            "description": "Boss: invisible sword Master Chief, headshot-immune, one life",
             "team": 1,
             "cost": 0,
-            "biped": "spartan",
+            "biped": "master_chief",
             "primary": "energy_sword",
             "grenades": [
               0,
@@ -505,7 +505,8 @@
               "pickup": 2,
               "vehicles": 1
             },
-            "max_active": 1
+            "max_active": 1,
+            "model_variant": "default"
           }
         ]
       }

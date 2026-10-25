@@ -2,12 +2,12 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.21** (work in progress, not final). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.22** (work in progress, not final). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/zombie-survival-v0.21.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.21**. Tested on The Pit.
+1. Put [`modes/zombie-survival-v0.22.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Zombie Survival v0.22**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
@@ -17,7 +17,7 @@ Mouse and keyboard only: controllers can't use the script's menus.
 ## How a round works
 
 1. **Pick traits.** Before their first spawn, every Survivor picks boosts (cost points) and drawbacks (give points).
-2. **Warmup** (45 s). Everyone is a first-person Spartan with a Magnum and fists. The map's weapons, vehicles, grenades and equipment are removed: you only get what you buy.
+2. **Warmup** (45 s). Everyone is a first-person Spartan with a Magnum and fists. The map's weapons and vehicles are removed: you only get what you buy.
 3. **Outbreak.** 10% of players (at least 1) turn Infected.
 4. **5 waves** (120 s, then 15 s longer each), with **60 s breaks** between them. A Survivor who dies joins the Infected.
 5. Survivors win by outlasting the last wave. The Infected win when nobody is left.
@@ -47,9 +47,9 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 | 5 | last wave (5) only | Sword Spartan |
 
 - **Nest Stalker:** builds one nest (Ability 1). It outlives the builder; the Infected can spawn at it until the Survivors destroy it.
-- **Turret Stalker / Tank Stalker:** Ability 2 transforms after 1 second, and back again.
+- **Turret Stalker / Tank Stalker:** Ability 1 transforms after 1 second, and back again.
 - **Breaks:** Infected who die during a break come back as harmless flying Monitors, and turn back into Flood when the wave starts.
-- **Bosses** (from wave 2): the Infected player with the most kills gets one boss life: **Juggernaut** (giant Tank), **Brute Chieftain** (giant, fastest, invincibility) or **Spartan** (invisible Energy Sword, no shield recharge).
+- **Bosses** (from wave 2): the Infected player with the most kills gets one boss life: **Juggernaut** (giant Tank), **Brute Chieftain** (giant, fastest, invincibility) or **Master Chief** (invisible Energy Sword, no shield recharge).
 
 ## Host options
 

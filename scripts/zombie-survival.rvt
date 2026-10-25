@@ -156,7 +156,6 @@ alias perks = player.timer[3]
 
 alias age = object.number[0]
 alias claimed = object.number[1]
-alias seen = object.number[2]
 alias kept = object.number[3]
 
 on init: do
@@ -193,22 +192,22 @@ script_widget[4].set_background(all_players, 7, 14, 23, 235)
 script_widget[5].set_position(all_players, 640, 125)
 script_widget[5].set_anchor(all_players, top)
 script_widget[5].set_font_size(all_players, 22)
-script_widget[7].set_position(all_players, 210, 170)
-script_widget[8].set_position(all_players, 650, 170)
-script_widget[9].set_position(all_players, 210, 240)
-script_widget[10].set_position(all_players, 650, 240)
-script_widget[11].set_position(all_players, 210, 310)
-script_widget[12].set_position(all_players, 650, 310)
-script_widget[13].set_position(all_players, 210, 380)
-script_widget[14].set_position(all_players, 650, 380)
-script_widget[7].set_size(all_players, 420, 60)
-script_widget[8].set_size(all_players, 420, 60)
-script_widget[9].set_size(all_players, 420, 60)
-script_widget[10].set_size(all_players, 420, 60)
-script_widget[11].set_size(all_players, 420, 60)
-script_widget[12].set_size(all_players, 420, 60)
-script_widget[13].set_size(all_players, 420, 60)
-script_widget[14].set_size(all_players, 420, 60)
+script_widget[7].set_position(all_players, 200, 170)
+script_widget[8].set_position(all_players, 200, 240)
+script_widget[9].set_position(all_players, 645, 240)
+script_widget[10].set_position(all_players, 200, 310)
+script_widget[11].set_position(all_players, 645, 310)
+script_widget[12].set_position(all_players, 200, 380)
+script_widget[13].set_position(all_players, 495, 380)
+script_widget[14].set_position(all_players, 790, 380)
+script_widget[7].set_size(all_players, 435, 60)
+script_widget[8].set_size(all_players, 435, 60)
+script_widget[9].set_size(all_players, 435, 60)
+script_widget[10].set_size(all_players, 435, 60)
+script_widget[11].set_size(all_players, 435, 60)
+script_widget[12].set_size(all_players, 285, 60)
+script_widget[13].set_size(all_players, 285, 60)
+script_widget[14].set_size(all_players, 285, 60)
 script_widget[7].set_clickable(all_players, true)
 script_widget[8].set_clickable(all_players, true)
 script_widget[9].set_clickable(all_players, true)
@@ -225,13 +224,13 @@ script_widget[16].set_position(all_players, 430, 520)
 script_widget[16].set_size(all_players, 300, 50)
 script_widget[16].set_background(all_players, 30, 45, 60, 255)
 script_widget[16].set_clickable(all_players, true)
-script_widget[19].set_position(all_players, 210, 450)
-script_widget[19].set_size(all_players, 420, 60)
+script_widget[19].set_position(all_players, 200, 450)
+script_widget[19].set_size(all_players, 435, 60)
 team[1].set_color(170, 200, 40)
 script_widget[19].set_background(all_players, 15, 27, 39, 255)
 script_widget[19].set_clickable(all_players, true)
-script_widget[20].set_position(all_players, 650, 450)
-script_widget[20].set_size(all_players, 420, 60)
+script_widget[20].set_position(all_players, 645, 450)
+script_widget[20].set_size(all_players, 435, 60)
 script_widget[20].set_clickable(all_players, true)
 script_widget[20].set_color(all_players, 232, 184, 82, 255)
 script_widget[20].set_text("BOSS  |  Juggernaut: a giant Tank with 4x health")
@@ -543,9 +542,9 @@ script_widget[8].set_text_for(current_player, "Slow: 10 percent slower  |  gives
 script_widget[9].set_text_for(current_player, "Overshield: double shields  |  costs 50")
 script_widget[10].set_text_for(current_player, "Frail: no shields  |  gives 40")
 script_widget[11].set_text_for(current_player, "Hard Hitter: 25 percent more damage  |  costs 40")
-script_widget[12].set_text_for(current_player, "Weak Arm: 25 percent less damage  |  gives 30")
-script_widget[13].set_text_for(current_player, "Grenadier: 2 frags that come back  |  costs 30")
-script_widget[14].set_text_for(current_player, "Tough: 50 percent more health  |  costs 40")
+script_widget[12].set_text_for(current_player, "Weak Arm: less damage | gives 30")
+script_widget[13].set_text_for(current_player, "Grenadier: 2 frags | costs 30")
+script_widget[14].set_text_for(current_player, "Tough: more health | costs 40")
 script_widget[19].set_text_for(current_player, "Assault: spawn with an Assault Rifle too  |  costs 50")
 script_widget[19].set_color(current_player, 235, 240, 245, 255)
 scratch = current_player.perks
@@ -632,8 +631,8 @@ script_widget[8].set_text_for(current_player, "Flood Brute  |  tier 2")
 script_widget[9].set_text_for(current_player, "Flood Stalker  |  tier 2")
 script_widget[10].set_text_for(current_player, "Flood Elite  |  tier 3  |  shields")
 script_widget[11].set_text_for(current_player, "Nest Stalker  |  tier 3  |  builds the nest, 1 per team")
-script_widget[12].set_text_for(current_player, "Turret Stalker  |  tier 4  |  turns into a turret")
-script_widget[13].set_text_for(current_player, "Tank Stalker  |  tier 4  |  turns into a Tank")
+script_widget[12].set_text_for(current_player, "Turret Stalker | tier 4")
+script_widget[13].set_text_for(current_player, "Tank Stalker | tier 4")
 script_widget[14].set_text_for(current_player, "Flood Tank  |  tier 4")
 script_widget[19].set_text_for(current_player, "Sword Spartan  |  last wave only")
 if unlock < 3 then
@@ -746,25 +745,16 @@ if current_object.is_of_type(missile_pod_emplacement) then avail |= 2 end
 current_object.delete()
 end
 end
-ok = 2
 if current_object.is_of_type(weapon) and not current_object.has_forge_label("zs_gun") then
 ok = 1
-limit = 6
-end
-if current_object.is_of_type(equipment) and current_object.seen == 0 and current_object.claimed == 0 then
-ok = 1
-limit = 30
-end
-if ok == 1 then
 holder = current_object.get_carrier()
 if holder != no_player then ok = 0 end
 for each player do
 if current_player.is_not_respawning() then
 scratch = current_player.biped.get_distance_to(current_object)
-if scratch < limit then ok = 0 end
+if scratch < 6 then ok = 0 end
 end
 end
-if ok == 0 and limit == 30 then current_object.seen = 1 end
 if ok == 1 then current_object.delete() end
 end
 end
@@ -885,7 +875,7 @@ class = current_player.get_deployment_class()
 if current_player.is_not_respawning() then
 if class == ZsClass.nest_stalker and pressed_button == button.ability_1 then build_nest() end
 if class == ZsClass.turret_stalker or class == ZsClass.tank_stalker then
-if pressed_button == button.ability_2 and current_player.morph_wait.is_zero() and current_player.morph_new == no_object and current_player.form <= 1 then
+if pressed_button == button.ability_1 and current_player.morph_wait.is_zero() and current_player.morph_new == no_object and current_player.form <= 1 then
 current_player.form += 2
 current_player.morph_delay = 1
 current_player.morph_delay.set_rate(-100%)
@@ -1014,13 +1004,16 @@ if class == ZsClass.monitor and current_player.swap == 0 then current_player.app
 if class == ZsClass.human then current_player.apply_traits(script_traits[1]) end
 if class == ZsClass.elite then current_player.apply_traits(script_traits[10]) end
 if class == ZsClass.brute then current_player.apply_traits(script_traits[11]) end
-if class == ZsClass.stalker or class == ZsClass.tank_stalker then current_player.apply_traits(script_traits[12]) end
+if class == ZsClass.stalker then current_player.apply_traits(script_traits[12]) end
+if class == ZsClass.tank_stalker and current_player.form == 0 then current_player.apply_traits(script_traits[12]) end
 if class == ZsClass.nest_stalker then current_player.apply_traits(script_traits[2]) end
 if class == ZsClass.turret_stalker or class == ZsClass.brute_chieftain then current_player.apply_traits(script_traits[13]) end
 if class == ZsClass.spartan_boss then current_player.apply_traits(script_traits[14]) end
+if class == ZsClass.sword_spartan then current_player.apply_traits(script_traits[11]) end
 if current_player.role == Role.infected then
 current_player.set_max_health(100)
-if class == ZsClass.nest_stalker or class == ZsClass.tank_stalker then current_player.set_max_health(150) end
+if class == ZsClass.nest_stalker then current_player.set_max_health(150) end
+if class == ZsClass.tank_stalker then current_player.set_max_health(125) end
 if class == ZsClass.turret_stalker then current_player.set_max_health(75) end
 if class == ZsClass.tank then current_player.set_max_health(200) end
 if class == ZsClass.juggernaut then current_player.set_max_health(400) end
@@ -1059,7 +1052,7 @@ if current_player.body != current_player.biped then
 current_player.body = current_player.biped
 if class == ZsClass.turret_stalker and current_player.form == 0 then current_player.biped.set_scale(75) end
 if class == ZsClass.tank_stalker and current_player.form == 0 then current_player.biped.set_scale(125) end
-if class == ZsClass.tank_stalker and current_player.form == 1 then current_player.biped.set_scale(150) end
+if class == ZsClass.tank_stalker and current_player.form == 1 then current_player.biped.set_scale(120) end
 if class == ZsClass.tank then current_player.biped.set_scale(150) end
 if class == ZsClass.juggernaut then current_player.biped.set_scale(200) end
 if class == ZsClass.brute_chieftain then
@@ -1292,8 +1285,8 @@ script_widget[3].set_text_for(current_player, "Nest Stalker  |  A1 build the nes
 if nest != no_object then script_widget[3].set_text_for(current_player, "Nest Stalker  |  your team's nest is standing") end
 end
 scratch = current_player.morph_wait
-if class == ZsClass.turret_stalker then script_widget[3].set_text_for(current_player, "Turret Stalker  |  A2 turret form on / off (ready in %n s)", scratch) end
-if class == ZsClass.tank_stalker then script_widget[3].set_text_for(current_player, "Tank Stalker  |  A2 Tank form on / off (ready in %n s)", scratch) end
+if class == ZsClass.turret_stalker then script_widget[3].set_text_for(current_player, "Turret Stalker  |  A1 turret form on / off (ready in %n s)", scratch) end
+if class == ZsClass.tank_stalker then script_widget[3].set_text_for(current_player, "Tank Stalker  |  A1 Tank form on / off (ready in %n s)", scratch) end
 end
 script_widget[2].set_visibility(current_player, true)
 script_widget[3].set_visibility(current_player, true)

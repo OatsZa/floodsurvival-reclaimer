@@ -400,3 +400,10 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 ## Tiers by wave (v0.21)
 
 `unlock` is no longer the share of Survivors converted. Once the outbreak has happened, `unlock = (wave - 1) / tier_step_waves`, capped at 3 and never lowered: wave 1 tier 1 only, wave 2 opens tier 2, and so on. `tier_step_waves` (option 10, the slot `unlock_step_percent` had; minimum 1, so it can't divide by zero) sets how many waves each tier takes. The picker title says `tier N opens in wave W` with W = (unlock + 1) x step + 1. The Sword Spartan still needs `wave >= wave_count` (default 5). `converted` and `total` remain only for the Infected HUD line.
+
+## v0.22 changes
+
+- **The purge only removes weapons and vehicles now.** Its equipment rule (keep equipment first seen near a living player, delete the rest) deleted equipment the moment a player bought or picked it up, which left `carrying` set and the arsenal stuck. The `seen` object number is gone.
+- **Card layout** (set once in `on init`, shared by the arsenal, trait and form screens): row 1 widget 7; row 2 widgets 8, 9; row 3 widgets 10, 11; row 4 widgets 12, 13, 14 (narrower, 285 px); row 5 widgets 19, 20. In the form picker that's one tier per row.
+- Turret/Tank Stalker: the transform request is on `button.ability_1`. The Tank Stalker gets the Stalker trait set (12) only in Stalker form, health 125, Tank form scale 120 (Flood Tank: 150, health 200, class resistance 7).
+- Sword Spartan: trait set 11 (speed 150 percent). Spartan Boss roster entry: `master_chief` body, `default` look.

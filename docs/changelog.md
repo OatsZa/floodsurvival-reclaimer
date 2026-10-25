@@ -23,5 +23,6 @@
 | v0.19 | Brute Chieftain and Spartan bosses on a cycling boss card; crate stays a fixed spawn. |
 | v0.20 | Spartan boss: no shield recharge. |
 | v0.21 | Flood tiers open **by wave** instead of by Survivors converted (testable 1v1): wave 1 tier 1 ... wave 4 tier 4, Sword Spartan on the last wave. 5 waves, wave 1 shortened to 120 s. Option unlock_step_percent replaced by tier_step_waves (default 1). |
+| v0.22 | Fix: the purge no longer deletes equipment or grenades (it was deleting bought or picked-up equipment, leaving the arsenal stuck on 'use what you carry first'). Picker cards laid out one tier per row (the arsenal and trait screens share the rows). Turret/Tank Stalker transform moved to Ability 1. Tank Stalker weaker than the Flood Tank (125% health, Tank form 120%, normal damage). Sword Spartan 150% speed. The Spartan boss is now Master Chief. |
 
 Confirmed in game: up to v0.13 (purge, Flood speeds, the outbreak death fix, traits including Assault + Grenadier, picker, nests) all work as intended.
