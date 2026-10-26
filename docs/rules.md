@@ -1,6 +1,6 @@
-# Flood Survival v0.79: rules
+# Flood Survival V1.0: rules
 
-Everything a player or host needs, as built in v0.79. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.79**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Friendly fire is off. Mouse and keyboard only.
+Everything a player or host needs, as built in V1.0. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v1.0**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Friendly fire is off. Mouse and keyboard only.
 
 ## How the round runs
 

@@ -2,12 +2,12 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.79** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: V1.0** (called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/flood-survival-v0.79.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.79**. Tested on The Pit.
+1. Put [`modes/flood-survival-v1.0.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v1.0**. Tested on The Pit and Guardian.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
@@ -53,52 +53,37 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 
 - **Nest Stalker:** builds one nest (Ability 1). It outlives the builder; the Infected can spawn at it until the Survivors destroy it.
 - **Feeding:** a Flood player who scores a kill heals to full (bosses heal 25% of their health instead).
-- **Leap (Crouch):** Flood Humans, Breachers, Brutes, Jumper Brutes and Elites leap the way they face: half a second after Crouch they're thrown forward and up (Humans the least, the Jumper Brute the farthest), then 2 s before the next.
+- **Aim for the head:** in Project Reclaimer the Flood combat forms (Human, Breacher, Brute, Elite) and the Tank body only take damage in the head; body shots do nothing unless a long spray finishes them. Stalkers can be hit anywhere.
+- **Leap (Crouch):** Flood Humans, Breachers, Brutes, Jumper Brutes, Elites and every boss leap the way they face: half a second after Crouch they're thrown forward and up (Humans the least, the Jumper Brute the farthest), then 2 s before the next.
 - **Shifter Stalker:** Ability 1 turns into a turret, Ability 2 into a Tank, after 1 second; either key turns it back.
 - **Breaks:** Infected who die during a break come back as harmless flying Monitors, and turn back into Flood when the wave starts.
 - **Bosses** (from wave 2): the Infected player with the most kills (picked at random if tied, so there's always one) gets one boss life, from a gold card at the top of their picker: **Juggernaut** (giant, very tough Tank; Ability 1 Siege Smash destroys Survivor builds and every map prop within 20 ft; Flood Humans, Breachers, Brutes and Tanks can spawn on him), **Brute Chieftain** (a big Flood Brute: fastest, very tough, 300% damage; Brutes can spawn on him), **Stalker Matriarch** (a 250% Shifter Stalker at max speed with 150 health: turret transformation, the strongest leap, and every Stalker form can spawn on her) or **Master Chief** (invisible, Energy Sword, no shield recharge, can be headshot; Ability 1 gives a random piece of equipment every 20 s). A boss arrives with a big red "HAS RISEN" banner that shrinks away, then everyone sees its health at the top of the screen; when the boss dies every Survivor gets 10 points and the killer 25 more.
 
-## Status and next steps
+## Status
 
-- **Size:** 57.7 KiB of 64, about **6.3 KiB free**. The mode stores the script's source text, so the build stores a compact copy: `tools/shrink.ps1` renames everything to 1-2 letters (since v0.33) and `tools/pack.ps1` drops spare spaces and line breaks (since v0.62, about 6 KiB saved). Both prove the copy matches the readable script (same names back, same tokens), and megalo-check must read each the same. The readable script in `scripts/` stays the one to edit; [docs/name-key.md](docs/name-key.md) says which short name is which.
-- **Untested in game:** the bosses, the Sword Spartan, the equipment fix and the prices. The checklist is in [docs/testing.md](docs/testing.md).
-- **Done:** roadmap step 11 (v0.52, untested: wave awards), roadmap step 6 (v0.51, untested: prop safety), roadmap step 7 (v0.47, untested: the Last Survivor bonuses and alert), roadmap step 4 (v0.44-v0.45: how-to cards for building and the arsenal beside the trait screen, and for bosses beside the Infected picker), the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
+- **V1.0** (2026-10-26), played in split-screen and small tests on The Pit and Guardian. The few checks still open (mainly a big lobby, Feeding and the boss entrance banner) are in [docs/testing.md](docs/testing.md); every change is in [docs/changelog.md](docs/changelog.md).
+- **Known limits:**
+  - Moved props are temporary: the map respawns them 30-60 s after they're placed (a script can't switch that off).
+  - Flood combat forms and the Tank body only take damage in the head (Project Reclaimer behaviour).
+  - Controllers can't use the script's menus.
+  - Script-made bodies (the quartermaster, Hunter barriers, Resupply drones) show red, as enemies: a script can't give them a team.
+- **Size:** 57.7 KiB of 64, about **6 KiB free**. The mode stores the script's source text, so the build stores a compact copy: `tools/shrink.ps1` renames everything to 1-2 letters and `tools/pack.ps1` drops spare spaces and line breaks. Both prove the copy matches the readable script (same names back, same tokens), and megalo-check must read each the same. The readable script in `scripts/` is the one to edit; [docs/name-key.md](docs/name-key.md) says which short name is which.
 
-### Limits other than space (v0.38)
+### What's full
 
-| What | Used | Free | What it means |
-| --- | --- | --- | --- |
-| Host options | 16 / 16 | 0 | No new host setting unless two are merged (e.g. `free_shop` + `test_keys` into one test switch) |
-| Trait sets | 16 / 16 | 0 | Full since v0.47 (Last Survivor): a new stat effect needs two sets merged first |
-| Widgets | 32 / 32 | 0 | Full: new HUD text has to share a widget (step 11's wave awards can use the message line, 6) |
-| Infected classes | 16 / 16 | 0 | Full: new bosses (step 3) have to be body swaps on the existing boss classes |
-| Survivor classes | 4 / 16 | 12 | Room for Survivor roles |
-| Per-player numbers, objects, timers | all full | 0 | New per-player state must share a slot or go in the free perk bits (11 used), on the player's body (lost on death) or in team variables |
-| Global numbers / objects / players / timers | 12/12, 3/16, 4/8, 3/8 | numbers full since v0.47 | Fine for round-wide state |
+| What | Used | What it means |
+| --- | --- | --- |
+| Host options | 16 / 16 | A new host setting means merging two |
+| Trait sets | 16 / 16 | A new stat effect means merging two sets |
+| Widgets | 31 / 32 | One free (widget 23) |
+| Infected classes | 16 / 16 | New Flood forms or bosses must be variants of an existing class, like the Stalker Matriarch |
+| Survivor classes | 4 / 16 | Room for Survivor roles |
+| Per-player numbers, objects, timers | all full | New per-player state goes in free perk bits, on the player's body or in team variables |
+| Global numbers | 12 / 12 | Global objects, players and timers still have room |
 
-### Roadmap (in this order, set 2026-10-25)
+### Ideas for later
 
-Costs are rough mode KiB, after short names. Time is a rough guess at the pace of v0.27-v0.35 (9 builds plus a test mode in about 3 hours), including a test round in game for each step.
-
-| # | Step | Cost | Uses | Time | Notes |
-| --- | --- | --- | --- | --- | --- |
-| 1 | ~~**Arsenal order and price rework:**~~ **Done in v0.36.** pages ordered by the wave each item unlocks in, gear locked until its wave, new prices | ~0.5-1 | — | 1-1.5 h | Needs the unlock wave and price for each item |
-| 2 | ~~**More Flood forms** (tier 1-3)~~ **Done in v0.38.** | ~0.5 each | 1 Infected class each | 1.5-2 h | Per-class stats go in the template (free) |
-| 3 | ~~**Boss variety**~~ **Tried in v0.40-v0.43, both new bosses dropped** (see Done above); the three original bosses stay. | ~0.5 each | body swaps | 1-1.5 h | No Infected classes are free after step 2, so new bosses are body swaps on the existing boss classes (as the Shifter Stalker does), which needs no class. Agreed on 2026-10-25 |
-| 4 | ~~**How-to cards**~~ **Done in v0.44.** left and right of the trait screen in warmup: building (Flashlight, Prop Placer) and the arsenal | ~0.4 | 2 widgets | 0.5 h | |
-| 5 | **Invisible-prop filter**, tried in Test 13 first | ~0.2 | — | 0.5-1 h | e.g. skip objects with 0 health |
-| 6 | ~~**Prop safety**~~ **Done in v0.51 (untested).** a short cooldown before someone else can take a prop you just placed, and **no prop placed 0-4 ft from any player** (a grav lift spot or drop that close is refused), so nobody gets pushed up or out of the map | ~0.4 | object timer | 0.5-1 h | |
-| 7 | ~~**Last Survivor**~~ **Done in v0.47 (untested).** the last one standing gets 2x health, a bottomless magazine and faster shield recharge (same shield amount), with a HUD alert | ~0.3 | the last trait set | 0.5 h | |
-| 8 | ~~Redemption~~ | — | — | — | Not for now: the Flood are already the weaker side. Maybe later |
-| 9 | **Horde armour** (maybe): Infected near other Infected take less damage | ~0.6 | a trait set | 0.5-1 h | No trait set left after step 7: two sets would have to be merged first |
-| 10 | **Boss abilities** | ~0.3-0.5 each | — | 1-2 h | |
-| 11 | ~~**Wave awards**~~ **Done in v0.52 (untested):** most kills = next weapon free, most props placed = next placeable or equipment free. Planned as: "achievements" and point bonuses for the top earners and killers after each wave | ~0.5 | 1-2 widgets | 1 h | |
-| 12 | **Frozen, breakable props:** some placed props stay put (no physics), take damage and break or vanish | ? | object vars | 1-2 h | Needs a test first: can a script freeze scenery and give it health? |
-| 13 | **Survivor roles** (e.g. an engineer who places teleporters or reaches high spots) | ~1-2 | Survivor classes, perk bits | 2-3 h | Needs a feasibility check; map teleporters may be movable as props |
-| 14 | **Vehicles page back:** Mongoose, Warthog, Ghost... by grav lift, on maps that have them | ~4 | — | 1-1.5 h | After everything above; the v0.14 code is a starting point |
-
-**Total:** about 12-17 hours, or 4-6 sessions like the v0.27-v0.35 one. Most of it is the test round in game after each step: steps that can share one test round (4+5+6, 7+11) go faster. All of it together is roughly 10-14 KiB of the 22.5 KiB free.
-
+Survivor roles (for example an engineer), a vehicles page in the arsenal, horde armour (needs a trait set), nest gas that hurts Survivors near the Flood nest.
 ## Host options
 
 Wave count and lengths, break length, warmup, starting Infected share, waves per tier, points, quartermaster range, placeable and gun limits: all under **Custom mode options**. The full list and defaults are in [docs/rules.md](docs/rules.md).
@@ -115,11 +100,12 @@ Wave count and lengths, break length, warmup, starting Infected share, waves per
 | [`docs/name-key.md`](docs/name-key.md) | Which short name in the mode file is which name in the script (rebuilt every build) |
 | [`docs/changelog.md`](docs/changelog.md) | What changed in each build |
 | [`docs/testing.md`](docs/testing.md) | What still needs testing |
-| [`tools/build.ps1`](tools/build.ps1) | Build a new version: `.\tools\build.ps1 -Version 0.36 -Install` |
+| [`tools/build.ps1`](tools/build.ps1) | Build a new version: `.\tools\build.ps1 -Version 1.1 -Install` |
 | [`tools/shrink.ps1`](tools/shrink.ps1) | Makes the short-name copy the build compiles, and the name key |
+| [`tools/pack.ps1`](tools/pack.ps1) | Packs the short-name copy (no spare spaces or line breaks) |
 
 The script has no indentation or comments on purpose: the mode stores its source text, and both would count toward the 64 KiB limit. The explanations live in `docs/how-the-script-works.md`, and the mode file's short names are decoded in `docs/name-key.md`.
 
 ## Credits
 
-Inspired by Zombie Survival for Garry's Mod by JetBoom. Nothing from it is copied: this is a fresh Megalo script. Built on Project Reclaimer's Megalo scripting and its official examples.
+Inspired by Zombie Survival for Garry's Mod by JetBoom and the NoXiousNet community. Nothing from it is copied: this is a fresh Megalo script. Built on Project Reclaimer's Megalo scripting and its official examples.

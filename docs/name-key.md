@@ -1,4 +1,4 @@
-# Name key (v0.79)
+# Name key (v1.0)
 
 The mode file's script uses short names to save space: the mode stores the script's source text, and that counts toward its 64 KiB. `tools/build.ps1` makes the short copy with `tools/shrink.ps1` from the readable `scripts/flood-survival.rvt`, which is the file to read and edit. What each part of it does is in [how-the-script-works.md](how-the-script-works.md).
 
@@ -20,7 +20,7 @@ Every build rewrites this table. The most-used names get the shortest letters, s
 
 | Short | Name | Slot |
 | --- | --- | --- |
-| `ag` | `phase` | `global.number[0]` |
+| `ah` | `phase` | `global.number[0]` |
 | `cw` | `wave` | `global.number[1]` |
 | `bl` | `unlock` | `global.number[2]` |
 | `bx` | `players` | `global.number[3]` |
@@ -142,6 +142,6 @@ Used as `Enum.member`: for example `Item.shotgun` is `k.d8` in the short copy.
 | `bc` | `Menu` | `bw` = closed, `b5` = shop, `c2` = picker, `bd` = traits |
 | `an` | `Option` | `dy` = break_seconds, `cn` = free_shop, `et` = gun_cap, `d9` = kill_points, `c4` = min_players, `dt` = placeable_limit, `br` = quartermaster_radius, `cx` = start_infected_percent, `d4` = start_points, `ei` = test_keys, `ch` = tier_step_waves, `cr` = warmup_seconds, `dz` = wave1_seconds, `ef` = wave_bonus, `bn` = wave_count, `c0` = wave_increase_seconds |
 | `t` | `Perk` | `dp` = fast, `dq` = slow, `b0` = overshield, `dc` = frail, `bt` = hard_hitter, `ck` = weak_arm, `cb` = grenadier, `d0` = tough, `en` = ready, `cu` = assault, `a5` = prop_placer, `b1` = shift_tank, `bv` = free_gun, `ak` = matriarch, `bm` = redraw |
-| `ah` | `Phase` | `bo` = warmup, `a1` = wave, `z` = intermission, `cv` = over |
+| `ag` | `Phase` | `bo` = warmup, `a1` = wave, `z` = intermission, `cv` = over |
 | `av` | `Role` | `e6` = arrival, `v` = survivor, `ao` = infected |
 | `e` | `ZsClass` | `cp` = survivor, `aj` = human, `aw` = elite, `a3` = brute, `a9` = stalker, `a8` = monitor, `db` = grenadier, `er` = assault, `dd` = assault_grenadier, `y` = nest_stalker, `i` = shifter_stalker, `ar` = baby_stalker, `bp` = tank, `a0` = sword_spartan, `q` = juggernaut, `x` = brute_chieftain, `n` = spartan_boss, `am` = breacher, `ab` = jumper_brute, `ae` = invis_stalker, `ai` = matriarch |
