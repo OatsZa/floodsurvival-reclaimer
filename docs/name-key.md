@@ -1,4 +1,4 @@
-# Name key (v0.43)
+# Name key (v0.46)
 
 The mode file's script uses short names to save space: the mode stores the script's source text, and that counts toward its 64 KiB. `tools/build.ps1` makes the short copy with `tools/shrink.ps1` from the readable `scripts/flood-survival.rvt`, which is the file to read and edit. What each part of it does is in [how-the-script-works.md](how-the-script-works.md).
 
@@ -11,7 +11,7 @@ Every build rewrites this table. The most-used names get the shortest letters, s
 | `a` | `current_player` |
 | `h` | `current_object` |
 | `b` | `script_widget` |
-| `d` | `all_players` |
+| `c` | `all_players` |
 | `l` | `no_object` |
 | `k` | `script_option` |
 | `o` | `script_traits` |
@@ -56,7 +56,7 @@ Every build rewrites this table. The most-used names get the shortest letters, s
 | `es` | `kills` | `player.number[2]` |
 | `bx` | `form` | `player.number[3]` |
 | `bg` | `points` | `player.number[3]` |
-| `a8` | `menu` | `player.number[4]` |
+| `a9` | `menu` | `player.number[4]` |
 | `ap` | `page` | `player.number[5]` |
 | `x` | `pending` | `player.number[6]` |
 | `c7` | `swap` | `player.number[7]` |
@@ -72,10 +72,10 @@ Every build rewrites this table. The most-used names get the shortest letters, s
 | `ef` | `watch` | `player.timer[2]` |
 | `ag` | `perks` | `player.timer[3]` |
 | `f` | `class` | `temporaries.number[0]` |
-| `c` | `scratch` | `temporaries.number[1]` |
+| `d` | `scratch` | `temporaries.number[1]` |
 | `j` | `item` | `temporaries.number[2]` |
 | `ca` | `leap_den` | `temporaries.number[2]` |
-| `a7` | `leap_num` | `temporaries.number[3]` |
+| `a8` | `leap_num` | `temporaries.number[3]` |
 | `p` | `price` | `temporaries.number[3]` |
 | `q` | `count` | `temporaries.number[4]` |
 | `bo` | `leap_s` | `temporaries.number[4]` |
@@ -124,10 +124,10 @@ Used as `Enum.member`: for example `Item.shotgun` is `i.du` in the short copy.
 
 | Short | Enum | Members (short = name) |
 | --- | --- | --- |
-| `i` | `Item` | `ei` = smg, `cy` = plasma_rifle, `cw` = battle_rifle, `ds` = carbine, `dt` = needler, `du` = shotgun, `dg` = mauler, `db` = brute_shot, `cz` = sniper_rifle, `da` = beam_rifle, `bz` = energy_sword, `cx` = flamethrower, `cl` = gravity_hammer, `b0` = fuel_rod_gun, `cg` = rocket_launcher, `ba` = spartan_laser, `a6` = prop_placer, `dc` = wall, `cq` = turret, `ar` = plasma_cannon, `ah` = missile_pod, `cs` = ammo, `b1` = radar_jammer, `d5` = cover, `cm` = trip_mine, `c5` = regenerator, `ct` = bubble_shield, `b9` = active_camo, `ay` = invincibility, `cd` = prop |
-| `a9` | `Menu` | `b4` = closed, `ce` = shop, `cr` = picker, `bd` = traits |
+| `i` | `Item` | `ei` = smg, `cy` = plasma_rifle, `cw` = battle_rifle, `ds` = carbine, `dt` = needler, `du` = shotgun, `dg` = mauler, `db` = brute_shot, `cz` = sniper_rifle, `da` = beam_rifle, `bz` = energy_sword, `cx` = flamethrower, `cl` = gravity_hammer, `b0` = fuel_rod_gun, `cg` = rocket_launcher, `bb` = spartan_laser, `a7` = prop_placer, `dc` = wall, `cq` = turret, `ar` = plasma_cannon, `ah` = missile_pod, `cs` = ammo, `b1` = radar_jammer, `d5` = cover, `cm` = trip_mine, `c5` = regenerator, `ct` = bubble_shield, `b9` = active_camo, `ay` = invincibility, `cd` = prop |
+| `ba` | `Menu` | `b4` = closed, `ce` = shop, `cr` = picker, `a6` = traits |
 | `ae` | `Option` | `dl` = break_seconds, `cb` = free_shop, `eb` = gun_cap, `dv` = kill_points, `cu` = min_players, `di` = placeable_limit, `bi` = quartermaster_radius, `ck` = start_infected_percent, `dp` = start_points, `d3` = test_keys, `b5` = tier_step_waves, `cf` = warmup_seconds, `dm` = wave1_seconds, `d0` = wave_bonus, `bf` = wave_count, `cn` = wave_increase_seconds |
-| `s` | `Perk` | `de` = fast, `df` = slow, `bm` = overshield, `c2` = frail, `bk` = hard_hitter, `b8` = weak_arm, `bw` = grenadier, `dn` = tough, `d6` = ready, `ci` = assault, `aq` = prop_placer, `bb` = shift_tank |
+| `s` | `Perk` | `de` = fast, `df` = slow, `bm` = overshield, `c2` = frail, `bk` = hard_hitter, `b8` = weak_arm, `bw` = grenadier, `dn` = tough, `d6` = ready, `ci` = assault, `aq` = prop_placer, `bc` = shift_tank |
 | `am` | `Phase` | `bq` = warmup, `ax` = wave, `aj` = intermission, `c3` = over |
 | `a0` | `Role` | `el` = arrival, `y` = survivor, `af` = infected |
-| `e` | `ZsClass` | `cc` = survivor, `aa` = human, `a4` = elite, `a3` = brute, `bc` = stalker, `ao` = monitor, `c0` = grenadier, `ea` = assault, `c4` = assault_grenadier, `u` = nest_stalker, `m` = shifter_stalker, `av` = baby_stalker, `bs` = tank, `a1` = sword_spartan, `ak` = juggernaut, `ac` = brute_chieftain, `aw` = spartan_boss, `ad` = breacher, `t` = jumper_brute, `r` = invis_stalker |
+| `e` | `ZsClass` | `cc` = survivor, `aa` = human, `a4` = elite, `a3` = brute, `bd` = stalker, `ao` = monitor, `c0` = grenadier, `ea` = assault, `c4` = assault_grenadier, `u` = nest_stalker, `m` = shifter_stalker, `av` = baby_stalker, `bs` = tank, `a1` = sword_spartan, `ak` = juggernaut, `ac` = brute_chieftain, `aw` = spartan_boss, `ad` = breacher, `t` = jumper_brute, `r` = invis_stalker |

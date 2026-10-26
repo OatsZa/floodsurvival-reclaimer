@@ -1,6 +1,6 @@
-# Flood Survival v0.43: rules
+# Flood Survival v0.46: rules
 
-Everything a player or host needs, as built in v0.43. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.43**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.46. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.46**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -16,6 +16,12 @@ New players are Survivors until wave 2 starts, then Infected. Survivors earn 10 
 ## Survivors
 
 ### Traits (before the first spawn)
+
+While you pick, two how-to cards stand beside the screen:
+- **BUILD A BASE** (left): "Flashlight picks up prop closest to user, placing down normally is a cheap version." / "Prop Placer (20 points) places props more accurately. Buy one -> Pick up prop -> Use grav lift."
+- **THE ARSENAL** (right): "Ability 1 opens it: only near quartermaster during rounds but anywhere during breaks." / "Gear, Placeables, and Equipment open by wave."
+
+The Infected picker has one on the left: **BOSSES**: "Top survivor killer on the Flood team gets to choose Boss." / "Only available after round 2, click to cycle through options."
 
 Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pays and spawns you. Traits last the whole round.
 

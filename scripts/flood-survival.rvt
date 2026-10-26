@@ -277,6 +277,36 @@ script_widget[22].set_position(all_players, 490, 690)
 script_widget[22].set_background(all_players, 110, 200, 255, 230)
 script_widget[23].set_position(all_players, 800, 686)
 script_widget[23].set_font_size(all_players, 14)
+script_widget[21].set_position(all_players, 10, 165)
+script_widget[21].set_size(all_players, 170, 0)
+script_widget[21].set_font_size(all_players, 16)
+script_widget[21].set_color(all_players, 232, 184, 82, 255)
+script_widget[21].set_background(all_players, 7, 14, 23, 235)
+script_widget[27].set_position(all_players, 10, 192)
+script_widget[27].set_size(all_players, 170, 0)
+script_widget[27].set_font_size(all_players, 13)
+script_widget[27].set_color(all_players, 235, 240, 245, 255)
+script_widget[27].set_background(all_players, 7, 14, 23, 235)
+script_widget[30].set_position(all_players, 10, 300)
+script_widget[30].set_size(all_players, 170, 0)
+script_widget[30].set_font_size(all_players, 13)
+script_widget[30].set_color(all_players, 235, 240, 245, 255)
+script_widget[30].set_background(all_players, 7, 14, 23, 235)
+script_widget[28].set_position(all_players, 1100, 165)
+script_widget[28].set_size(all_players, 170, 0)
+script_widget[28].set_font_size(all_players, 16)
+script_widget[28].set_color(all_players, 232, 184, 82, 255)
+script_widget[28].set_background(all_players, 7, 14, 23, 235)
+script_widget[29].set_position(all_players, 1100, 192)
+script_widget[29].set_size(all_players, 170, 0)
+script_widget[29].set_font_size(all_players, 13)
+script_widget[29].set_color(all_players, 235, 240, 245, 255)
+script_widget[29].set_background(all_players, 7, 14, 23, 235)
+script_widget[31].set_position(all_players, 1100, 300)
+script_widget[31].set_size(all_players, 170, 0)
+script_widget[31].set_font_size(all_players, 13)
+script_widget[31].set_color(all_players, 235, 240, 245, 255)
+script_widget[31].set_background(all_players, 7, 14, 23, 235)
 script_widget[23].set_color(all_players, 110, 200, 255, 255)
 end
 
@@ -993,6 +1023,12 @@ script_widget[20].set_visibility(current_player, false)
 script_widget[24].set_visibility(current_player, false)
 script_widget[25].set_visibility(current_player, false)
 script_widget[26].set_visibility(current_player, false)
+script_widget[21].set_visibility(current_player, false)
+script_widget[27].set_visibility(current_player, false)
+script_widget[28].set_visibility(current_player, false)
+script_widget[29].set_visibility(current_player, false)
+script_widget[30].set_visibility(current_player, false)
+script_widget[31].set_visibility(current_player, false)
 end
 
 on widget click: do
@@ -1715,6 +1751,20 @@ script_widget[15].set_visibility(current_player, true)
 script_widget[16].set_visibility(current_player, true)
 end
 if current_player.menu == Menu.traits then script_widget[19].set_visibility(current_player, true) end
+if current_player.menu == Menu.traits then
+script_widget[21].set_text_for(current_player, "BUILD A BASE")
+script_widget[21].set_visibility(current_player, true)
+script_widget[27].set_text_for(current_player, "Flashlight picks up prop closest to user, placing down normally is a cheap version.")
+script_widget[27].set_visibility(current_player, true)
+script_widget[30].set_text_for(current_player, "Prop Placer (20 points) places props more accurately. Buy one -> Pick up prop -> Use grav lift.")
+script_widget[30].set_visibility(current_player, true)
+script_widget[28].set_text_for(current_player, "THE ARSENAL")
+script_widget[28].set_visibility(current_player, true)
+script_widget[29].set_text_for(current_player, "Ability 1 opens it: only near quartermaster during rounds but anywhere during breaks.")
+script_widget[29].set_visibility(current_player, true)
+script_widget[31].set_text_for(current_player, "Gear, Placeables, and Equipment open by wave.")
+script_widget[31].set_visibility(current_player, true)
+end
 script_widget[17].set_visibility(current_player, true)
 end
 if current_player.menu == Menu.picker then
@@ -1738,5 +1788,11 @@ script_widget[26].set_visibility(current_player, true)
 if current_player == boss and boss_used == 0 then script_widget[20].set_visibility(current_player, true) end
 end
 if nest != no_object then script_widget[16].set_visibility(current_player, true) end
+script_widget[21].set_text_for(current_player, "BOSSES")
+script_widget[21].set_visibility(current_player, true)
+script_widget[27].set_text_for(current_player, "Top survivor killer on the Flood team gets to choose Boss.")
+script_widget[27].set_visibility(current_player, true)
+script_widget[30].set_text_for(current_player, "Only available after round 2, click to cycle through options.")
+script_widget[30].set_visibility(current_player, true)
 end
 end

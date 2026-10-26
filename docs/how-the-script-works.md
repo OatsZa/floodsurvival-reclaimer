@@ -6,7 +6,7 @@ The explanations for `scripts/flood-survival.rvt` (they were comments in the scr
 
 ## Overview
 
-Flood Survival (Survivors vs Flood), after Garry's Mod's Zombie Survival. Compile with flood-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 quartermaster distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number.
+Flood Survival (Survivors vs Flood), after Garry's Mod's Zombie Survival. Compile with flood-survival-template.json (tools/build.ps1). Teams 0/1 = Survivors/Infected. rules.md has the rules. Widgets: 0 phase, 1 counts, 2 points, 3 hint, 4 backdrop, 5 title, 6 message, 7-14 cards, 15/16 previous/next or spawn/nest, 17 close or ready, 18 quartermaster distance, 19 the Assault trait card or the Sword Spartan card, 20 the boss card, 22 the health bar fill (width = health share x 3, at least 3), 23 the health number, 24-26 more picker cards, 21/27/30 and 28/29/31 the how-to cards (title and two wrapped boxes each; placed in on init; the text is set per player with the screen: building and the arsenal beside the trait screen, bosses on the left of the Infected picker).
 
 **`enum ZsClass`**
 
