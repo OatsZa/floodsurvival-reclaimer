@@ -433,3 +433,18 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 
 - Boss pick: `limit` starts at -1 and the loop is `for each player randomly`, so the boss is a random Infected among those with the most kills, zero included.
 - Card layout back to two columns of 420 px (widgets 7-14 in four rows, 19 and 20 in the fifth), as before v0.22. The v0.22 tier-row layout notes above no longer apply.
+
+## v0.47: Last Survivor
+
+- `last_alert` (global.number[11]) makes the alert run once: when `survivors` is 1 in a wave or break, it sets team[0]'s colour and widget 1's colour to gold (232, 184, 82) and puts a message on widget 6 for every player (the Survivor's own text differs).
+- In the Survivor traits block, while `survivors` is 1 and the phase is a wave or later: trait set 15 (ammo 3 bottomless, recharge 9 = 200%) and `set_max_health(200)`. Survivors never set max health otherwise; a Survivor who turns Infected gets 100 or their form's health from the Infected block.
+- Widget 1 reads LAST SURVIVOR STANDING instead of the Survivor count while it lasts.
+
+## v0.48: how-to cards by screen
+
+- The side cards (widgets 21/27/30 left, 28/29/31 right) are filled per screen at the end of the tick: traits = LAST SURVIVOR on the left only; arsenal (Menu.shop) = BUILD A BASE left and THE ARSENAL right; picker = BOSSES left. hide_menu() hides all six every tick first.
+
+## v0.50: trim
+
+- Removed as unreachable or repeated: the second Prop Placer bit read in buy(), the Monitor-to-Human line at the end of pick_form() and the Monitor tier line in spawn_form() (both already handled), and the item > 31 guard in the arsenal click (Survivor pages are 0-3; only the Infected picker writes other page values). The boss card background test is now `class >= juggernaut and class <= spartan_boss`.
+- Grenadier: the roster class gives the 2 frags; trait set 8 (`grenade_regeneration` 2) is applied every tick while the perk is set. How fast grenades come back is the engine's, not the script's.

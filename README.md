@@ -2,12 +2,12 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.46** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.50** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/flood-survival-v0.46.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.46**. Tested on The Pit.
+1. Put [`modes/flood-survival-v0.50.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.50**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
@@ -59,16 +59,16 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 
 ## Status and next steps
 
-- **Size:** 52.5 KiB of 64, about **11.5 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
+- **Size:** 53.5 KiB of 64, about **10.5 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
 - **Untested in game:** the bosses, the Sword Spartan, the equipment fix, the health bar and the prices. The checklist is in [docs/testing.md](docs/testing.md).
-- **Done:** roadmap step 4 (v0.44-v0.45: how-to cards for building and the arsenal beside the trait screen, and for bosses beside the Infected picker), the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
+- **Done:** roadmap step 7 (v0.47, untested: the Last Survivor bonuses and alert), roadmap step 4 (v0.44-v0.45: how-to cards for building and the arsenal beside the trait screen, and for bosses beside the Infected picker), the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
 
 ### Limits other than space (v0.38)
 
 | What | Used | Free | What it means |
 | --- | --- | --- | --- |
 | Host options | 16 / 16 | 0 | No new host setting unless two are merged (e.g. `free_shop` + `test_keys` into one test switch) |
-| Trait sets | 15 / 16 | 1 | One new stat effect (speed, damage, resistance...) for the whole list below |
+| Trait sets | 16 / 16 | 0 | Full since v0.47 (Last Survivor): a new stat effect needs two sets merged first |
 | Widgets | 32 / 32 | 0 | Full: new HUD text has to share a widget (step 11's wave awards can use the message line, 6) |
 | Infected classes | 16 / 16 | 0 | Full: new bosses (step 3) have to be body swaps on the existing boss classes |
 | Survivor classes | 4 / 16 | 12 | Room for Survivor roles |
@@ -87,7 +87,7 @@ Costs are rough mode KiB, after short names. Time is a rough guess at the pace o
 | 4 | ~~**How-to cards**~~ **Done in v0.44.** left and right of the trait screen in warmup: building (Flashlight, Prop Placer) and the arsenal | ~0.4 | 2 widgets | 0.5 h | |
 | 5 | **Invisible-prop filter**, tried in Test 13 first | ~0.2 | — | 0.5-1 h | e.g. skip objects with 0 health |
 | 6 | **Prop safety:** a short cooldown before someone else can take a prop you just placed, and **no prop placed 0-4 ft from any player** (a grav lift spot or drop that close is refused), so nobody gets pushed up or out of the map | ~0.4 | object timer | 0.5-1 h | |
-| 7 | **Last Survivor:** the last one standing gets 2x health, a bottomless magazine and faster shield recharge (same shield amount), with a HUD alert | ~0.3 | the last trait set | 0.5 h | |
+| 7 | ~~**Last Survivor**~~ **Done in v0.47 (untested).** the last one standing gets 2x health, a bottomless magazine and faster shield recharge (same shield amount), with a HUD alert | ~0.3 | the last trait set | 0.5 h | |
 | 8 | ~~Redemption~~ | — | — | — | Not for now: the Flood are already the weaker side. Maybe later |
 | 9 | **Horde armour** (maybe): Infected near other Infected take less damage | ~0.6 | a trait set | 0.5-1 h | No trait set left after step 7: two sets would have to be merged first |
 | 10 | **Boss abilities** | ~0.3-0.5 each | — | 1-2 h | |

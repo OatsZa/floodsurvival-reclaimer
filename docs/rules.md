@@ -1,6 +1,6 @@
-# Flood Survival v0.46: rules
+# Flood Survival v0.50: rules
 
-Everything a player or host needs, as built in v0.46. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.46**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.50. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.50**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -11,17 +11,21 @@ Everything a player or host needs, as built in v0.46. Launch: **Host Game → Ga
 5. **Breaks** (60 s). Living Flood fight on. Infected who die get only the **Monitor** (flies, harmless). It dies by itself when the wave starts. In the last 6 s of a break the picker offers Flood forms instead.
 6. **End.** Survivors win when the last wave ends with any Survivor left. Infected win when none is left.
 
+**Last Survivor.** When only one Survivor is left (in a wave or a break), they get **2x health** (200), a **bottomless magazine** (no reloads) and shields that recharge **twice as fast** (same amount). Everyone gets a message, the Survivors' colour turns gold and the top line says LAST SURVIVOR STANDING. In a 2-player game that's from the outbreak on.
+
 New players are Survivors until wave 2 starts, then Infected. Survivors earn 10 points per kill and 25 per wave survived (start 100).
 
 ## Survivors
 
 ### Traits (before the first spawn)
 
-While you pick, two how-to cards stand beside the screen:
-- **BUILD A BASE** (left): "Flashlight picks up prop closest to user, placing down normally is a cheap version." / "Prop Placer (20 points) places props more accurately. Buy one -> Pick up prop -> Use grav lift."
-- **THE ARSENAL** (right): "Ability 1 opens it: only near quartermaster during rounds but anywhere during breaks." / "Gear, Placeables, and Equipment open by wave."
+While you pick, a **LAST SURVIVOR** card stands on the left: "With one Survivor left, they get 2x health and shields that recharge twice as fast." / "They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING."
 
-The Infected picker has one on the left: **BOSSES**: "Top survivor killer on the Flood team gets to choose Boss." / "Only available after round 2, click to cycle through options."
+The arsenal shows two how-to cards beside it:
+- **BUILD A BASE** (left): "Flashlight picks up the closest prop (8 ft). Press again to drop it: quick but rough." / "Prop Placer (20 points) is more accurate: buy one, pick up a prop, then throw the grav lift."
+- **THE ARSENAL** (right): "Ability 1 opens it: near the quartermaster in waves, anywhere in warmup and breaks." / "Placeables come as a grav lift: throw it and it's built where it lands. All gear opens by wave."
+
+The Infected picker has one on the left: **BOSSES**: "The Infected with the most kills picks a boss at the start of each wave." / "Bosses start in wave 2. Click the gold card to cycle through them."
 
 Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pays and spawns you. Traits last the whole round.
 
@@ -30,7 +34,7 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 | Fast Feet / Slow | 125% / 90% speed | costs 40 / gives 30 |
 | Overshield / Frail | 2× shields / no shields | costs 50 / gives 40 |
 | Hard Hitter / Weak Arm | 125% / 75% damage | costs 40 / gives 30 |
-| Grenadier | spawn with 2 frags, grenades regenerate | costs 30 |
+| Grenadier | spawn with 2 frags; grenades regenerate (the engine's grenade regeneration trait: the script doesn't set the speed or the cap) | costs 30 |
 | Tough | takes less damage (150% resistance) | costs 40 |
 | Assault | spawn with an Assault Rifle too | costs 50 |
 
@@ -77,7 +81,7 @@ The weapons run in that order across both pages: page 1 is the six wave 1 weapon
 | 4 | wave 4 | **Shifter Stalker** (normal Stalker; Ability 1 turret, Ability 2 Tank form at 120% size and 125 health; 2 at a time); Flood Tank (150% size, 200% health, takes 50% less damage) |
 | 5 | **last wave (5) only** | **Sword Spartan**: first-person Spartan with an Energy Sword, 150% speed, in the Infected team's green-yellow |
 
-The picker's title says which tier opens next and in which wave. Locked cards are grey, and so are full ones ("Breacher / Invis Stalker / Shifter Stalker | full (2 max)", "Jumper Brute | taken", "Nest Stalker | taken"). Tiers never lock again. The picker shows the forms in tier order, two to a row.
+The picker's title says which tier opens next and in which wave. The HUD's second line shows the highest open tier ("Flood tier 2 / 4"). Locked cards are grey, and so are full ones ("Breacher / Invis Stalker / Shifter Stalker | full (2 max)", "Jumper Brute | taken", "Nest Stalker | taken"). Tiers never lock again. The picker shows the forms in tier order, two to a row.
 
 ### Special forms
 

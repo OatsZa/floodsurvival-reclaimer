@@ -121,6 +121,7 @@ alias seconds = global.number[7]
 alias avail = global.number[9]
 alias open_wave = global.number[8]
 alias boss_used = global.number[10]
+alias last_alert = global.number[11]
 alias quartermaster = global.object[0]
 alias made = global.object[1]
 alias nest = global.object[2]
@@ -471,8 +472,6 @@ ok = 0
 script_widget[6].set_text_for(current_player, "Use what you carry first")
 end
 end
-scratch = current_player.perks
-scratch &= Perk.prop_placer
 item_wave()
 if need > open_wave then
 ok = 0
@@ -744,9 +743,9 @@ script_widget[8].set_text_for(current_player, "Slow: 10 percent slower  |  gives
 script_widget[9].set_text_for(current_player, "Overshield: double shields  |  costs 50")
 script_widget[10].set_text_for(current_player, "Frail: no shields  |  gives 40")
 script_widget[11].set_text_for(current_player, "Hard Hitter: 25 percent more damage  |  costs 40")
-script_widget[12].set_text_for(current_player, "Weak Arm: less damage | gives 30")
-script_widget[13].set_text_for(current_player, "Grenadier: 2 frags | costs 30")
-script_widget[14].set_text_for(current_player, "Tough: more health | costs 40")
+script_widget[12].set_text_for(current_player, "Weak Arm: 25 percent less damage  |  gives 30")
+script_widget[13].set_text_for(current_player, "Grenadier: 2 frags that come back  |  costs 30")
+script_widget[14].set_text_for(current_player, "Tough: takes less damage  |  costs 40")
 script_widget[19].set_text_for(current_player, "Assault: spawn with an Assault Rifle too  |  costs 50")
 script_widget[19].set_color(current_player, 235, 240, 245, 255)
 scratch = current_player.perks
@@ -799,13 +798,11 @@ ok = 0
 scratch = phase_timer
 if phase == Phase.intermission and scratch > 6 then ok = 1 end
 if ok == 1 then class = ZsClass.monitor end
-if ok == 0 and class == ZsClass.monitor then class = ZsClass.human end
 end
 
 function spawn_form()
 pick_form()
 form_need()
-if class == ZsClass.monitor then need = 0 end
 count = 1
 if unlock < need then count = 0 end
 limit = script_option[Option.wave_count]
@@ -924,9 +921,9 @@ if class == ZsClass.tank then script_widget[25].set_background(current_player, 4
 if class == ZsClass.sword_spartan then script_widget[26].set_background(current_player, 45, 75, 105, 255) end
 script_widget[20].set_background(current_player, 60, 45, 15, 255)
 script_widget[20].set_text_for(current_player, "BOSS  |  Juggernaut: giant Tank, 4x health  |  click to change")
-if class >= ZsClass.juggernaut and class != ZsClass.breacher and class != ZsClass.jumper_brute and class != ZsClass.invis_stalker then script_widget[20].set_background(current_player, 120, 90, 30, 255) end
-if class == ZsClass.brute_chieftain then script_widget[20].set_text_for(current_player, "BOSS  |  Brute Chieftain: giant, fastest, invincibility") end
-if class == ZsClass.spartan_boss then script_widget[20].set_text_for(current_player, "BOSS  |  Spartan: invisible, sword, no headshots") end
+if class >= ZsClass.juggernaut and class <= ZsClass.spartan_boss then script_widget[20].set_background(current_player, 120, 90, 30, 255) end
+if class == ZsClass.brute_chieftain then script_widget[20].set_text_for(current_player, "BOSS  |  Brute Chieftain: giant, fastest, invincibility  |  click to change") end
+if class == ZsClass.spartan_boss then script_widget[20].set_text_for(current_player, "BOSS  |  Master Chief: invisible, sword, weak to headshots  |  click to change") end
 end
 
 function build_nest()
@@ -1102,7 +1099,6 @@ item += clicked_widget
 item -= 7
 ok = 1
 if item > Item.missile_pod and item < Item.ammo then ok = 0 end
-if item > Item.invincibility then ok = 0 end
 if ok == 1 then buy() end
 end
 if clicked_widget == 15 then
@@ -1332,6 +1328,15 @@ script_widget[0].set_text("The Flood consumed every Survivor. INFECTED WIN")
 team[1].end_round()
 phase = Phase.over
 end
+if survivors == 1 and last_alert == 0 then
+last_alert = 1
+team[0].set_color(232, 184, 82)
+script_widget[1].set_color(all_players, 232, 184, 82, 255)
+for each player do
+script_widget[6].set_text_for(current_player, "One Survivor left: hunt them down")
+if current_player.role == Role.survivor then script_widget[6].set_text_for(current_player, "You're the last Survivor: 2x health, bottomless mag, fast shields") end
+end
+end
 end
 
 for each player do
@@ -1522,6 +1527,10 @@ if need != 0 then current_player.apply_traits(script_traits[8]) end
 need = scratch
 need &= Perk.tough
 if need != 0 then current_player.apply_traits(script_traits[9]) end
+if survivors == 1 and phase >= Phase.wave then
+current_player.apply_traits(script_traits[15])
+current_player.set_max_health(200)
+end
 end
 end
 if current_player.role == Role.infected then current_player.set_max_shields(100) end
@@ -1682,7 +1691,10 @@ scratch = wave
 scratch += 1
 script_widget[0].set_text("BREAK  |  wave %n starts in %n s", scratch, seconds)
 end
-script_widget[1].set_text("Survivors %n  |  Infected %n  |  Flood forms unlocked %n / 3", survivors, infected, unlock)
+scratch = unlock
+scratch += 1
+script_widget[1].set_text("Survivors %n  |  Infected %n  |  Flood tier %n / 4", survivors, infected, scratch)
+if survivors == 1 and phase >= Phase.wave then script_widget[1].set_text("LAST SURVIVOR STANDING  |  Infected %n  |  Flood tier %n / 4", infected, scratch) end
 script_widget[0].set_visibility(all_players, true)
 script_widget[1].set_visibility(all_players, true)
 script_widget[6].set_visibility(all_players, true)
@@ -1752,17 +1764,25 @@ script_widget[16].set_visibility(current_player, true)
 end
 if current_player.menu == Menu.traits then script_widget[19].set_visibility(current_player, true) end
 if current_player.menu == Menu.traits then
+script_widget[21].set_text_for(current_player, "LAST SURVIVOR")
+script_widget[21].set_visibility(current_player, true)
+script_widget[27].set_text_for(current_player, "With one Survivor left, they get 2x health and shields that recharge twice as fast.")
+script_widget[27].set_visibility(current_player, true)
+script_widget[30].set_text_for(current_player, "They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING.")
+script_widget[30].set_visibility(current_player, true)
+end
+if current_player.menu == Menu.shop then
 script_widget[21].set_text_for(current_player, "BUILD A BASE")
 script_widget[21].set_visibility(current_player, true)
-script_widget[27].set_text_for(current_player, "Flashlight picks up prop closest to user, placing down normally is a cheap version.")
+script_widget[27].set_text_for(current_player, "Flashlight picks up the closest prop (8 ft). Press again to drop it: quick but rough.")
 script_widget[27].set_visibility(current_player, true)
-script_widget[30].set_text_for(current_player, "Prop Placer (20 points) places props more accurately. Buy one -> Pick up prop -> Use grav lift.")
+script_widget[30].set_text_for(current_player, "Prop Placer (20 points) is more accurate: buy one, pick up a prop, then throw the grav lift.")
 script_widget[30].set_visibility(current_player, true)
 script_widget[28].set_text_for(current_player, "THE ARSENAL")
 script_widget[28].set_visibility(current_player, true)
-script_widget[29].set_text_for(current_player, "Ability 1 opens it: only near quartermaster during rounds but anywhere during breaks.")
+script_widget[29].set_text_for(current_player, "Ability 1 opens it: near the quartermaster in waves, anywhere in warmup and breaks.")
 script_widget[29].set_visibility(current_player, true)
-script_widget[31].set_text_for(current_player, "Gear, Placeables, and Equipment open by wave.")
+script_widget[31].set_text_for(current_player, "Placeables come as a grav lift: throw it and it's built where it lands. All gear opens by wave.")
 script_widget[31].set_visibility(current_player, true)
 end
 script_widget[17].set_visibility(current_player, true)
@@ -1790,9 +1810,9 @@ end
 if nest != no_object then script_widget[16].set_visibility(current_player, true) end
 script_widget[21].set_text_for(current_player, "BOSSES")
 script_widget[21].set_visibility(current_player, true)
-script_widget[27].set_text_for(current_player, "Top survivor killer on the Flood team gets to choose Boss.")
+script_widget[27].set_text_for(current_player, "The Infected with the most kills picks a boss at the start of each wave.")
 script_widget[27].set_visibility(current_player, true)
-script_widget[30].set_text_for(current_player, "Only available after round 2, click to cycle through options.")
+script_widget[30].set_text_for(current_player, "Bosses start in wave 2. Click the gold card to cycle through them.")
 script_widget[30].set_visibility(current_player, true)
 end
 end

@@ -155,6 +155,10 @@
           "headshots": 2,
           "speed": 9,
           "recharge": 4
+        },
+        {
+          "ammo": 3,
+          "recharge": 9
         }
       ],
       "deployment": {
