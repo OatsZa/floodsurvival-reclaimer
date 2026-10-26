@@ -1,10 +1,10 @@
-# Flood Survival v0.66: rules
+# Flood Survival v0.79: rules
 
-Everything a player or host needs, as built in v0.66. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.66**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Friendly fire is off. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.79. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.79**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Friendly fire is off. Mouse and keyboard only.
 
 ## How the round runs
 
-1. **Traits first.** Each Survivor picks traits before their first spawn. The **purge** clears the map's vehicles, and the moment a map weapon appears it's deleted, even with someone standing on it. A weapon a player has held (your Magnum, a boss's sword) stays while someone is within 6 ft of it (grenades and equipment on the map stay).
+1. **Traits first.** Each Survivor picks traits before their first spawn. The **purge** deletes a map weapon the moment it appears (map vehicles stay since v0.73), even with someone standing on it. A weapon a player has held (your Magnum, a boss's sword) stays while someone is within 6 ft of it (grenades and equipment on the map stay).
 2. **Warmup** (45 s, needs 2 players). Survivors are first-person Spartans with a **Magnum and fists**, no grenades, at **half shields**. The arsenal is open anywhere.
 3. **Outbreak.** 10% of players, rounded up, become Infected (at least 1, never everyone), drawn by lot so every Survivor has the same chance. Their Survivor body is killed without the death counting.
 4. **Waves** (90 s, +15 s each, 5 waves). Each wave opens the next tier of Flood forms. A dead Survivor turns Infected. Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**).
@@ -34,7 +34,7 @@ Gold cards are chosen; opposite pairs switch each other off. **Ready: spawn** pa
 | Trait | Effect | Points |
 | --- | --- | --- |
 | Fast Feet / Slow | 125% / 90% speed | costs 40 / gives 30 |
-| Overshield / Frail | 2× shields / no shields (since v0.58 by setting max shields to 0) | costs 50 / gives 40 |
+| Overshield / Frail | 2× shields / no shields (since v0.67 max shields 1%: any hit breaks them) | costs 50 / gives 40 |
 | Hard Hitter / Weak Arm | 125% / 75% damage | costs 40 / gives 30 |
 | Grenadier | spawn with 2 frags; grenades regenerate (the engine's grenade regeneration trait: the script doesn't set the speed or the cap) | costs 30 |
 | Tough | takes less damage (150% resistance) | costs 40 |
@@ -68,18 +68,20 @@ The weapons run in that order across both pages: page 1 is the six wave 1 weapon
 - **Resupply Box:** an invincible Sentinel Constructor (shows red, like the quartermaster). Every 20 s it refills the ammo of every Survivor within 10 ft ("Resupply Box: ammo refilled"), and its owner gets 1 point for each other Survivor it refills. The Missile Pod was removed in v0.56 to make room.
 - Everything is FREE while `free_shop` = 1 (testing), traits included.
 
-**Base building with map props:** any object on the map that isn't a body, vehicle, weapon or equipment counts as a prop (crates, barriers, sandbags; invisible markers too, so pick what you can see). Press **Flashlight** within 8 ft to pick up the nearest one, and again to let go of it where it is (5 ft in front of you), turned your way. Static props may keep their old facing: use a Prop Placer to set it. Props someone else carries can't be taken, and a prop someone just placed is theirs for 5 s ("Someone just placed that prop: wait a few seconds"). **No prop within 4 ft of anyone:** a Flashlight drop that close to another player (or any body, the quartermaster and the nest included) is refused and you keep carrying it; a Prop Placer grav lift that lands within 4 ft of anyone, you included, is refused and comes back to you ("Too close to someone: grav lift returned"). You drop it if you die. **Prop Placer** (20 points, one use): the next prop you pick up (or the one you carry when you buy it) comes with a grav lift. Throw it and the prop lands where the lift stops, facing your way, and the Prop Placer is used up. Press Flashlight instead and you keep it for the next prop. Its card says "ready" while you have one. Props can't be put back: they stay where they were left until the round ends.
+**Base building with map props:** any object on the map that isn't a body, vehicle, weapon or equipment counts as a prop (crates, barriers, sandbags; invisible markers too, so pick what you can see). Press **Flashlight** within 8 ft to pick up the nearest one, and again to let go of it where it is (5 ft in front of you), turned your way. Static props may keep their old facing: use a Prop Placer to set it. Props someone else carries can't be taken, and a prop someone just placed is theirs for 5 s ("Someone just placed that prop: wait a few seconds"). **No prop within 4 ft of anyone:** a Flashlight drop that close to another player (or any body, the quartermaster and the nest included) is refused and you keep carrying it; a Prop Placer grav lift that lands within 4 ft of anyone, you included, is refused and comes back to you ("Too close to someone: grav lift returned"). You drop it if you die. **Prop Placer** (20 points, one use): the next prop you pick up (or the one you carry when you buy it) comes with a grav lift. Throw it and the prop lands where the lift stops, facing your way, and the Prop Placer is used up. **Props are temporary barricades:** the map respawns moved props, static or movable: about 30-60 s after a prop is placed it vanishes, and it comes back at its original spot about 30 s later. That's the map's own respawn, which a script can't switch off (tried in v0.71-v0.76: locking a prop in place loses its collision or sends it flying, and re-grabbing the respawned copy was dropped as not worth it). Use props for quick cover; placeables (Hunter barriers, turrets) last. Press Flashlight instead and you keep it for the next prop. Its card says "ready" while you have one. Props can't be put back: they stay where they were left until the round ends.
 
 **Quartermasters (ZS arsenal crates):** none at the start. Buy one on the Placeables page (100 points, at most 2 per team at once) and throw its grav lift: a standing, invincible Marine appears where it lands (it shows red, as an enemy, which can't be changed). During waves the arsenal opens only within 20 ft of a quartermaster (`quartermaster_radius`); in breaks it opens anywhere, but costs 50% more away from one. Whenever another Survivor buys within 20 ft of your quartermaster, you get 10% of what they paid ("Commission from your quartermaster: +N points"); it stops if you turn Infected, but the quartermaster stays for the team. There is no free ammo: buy the arsenal's Ammo refill (20 points).
 
 ## Infected
+
+**Where Flood can be hurt:** in Project Reclaimer the Halo 3 combat-form bodies (Flood Human, Breacher, Flood Brute, Jumper Brute, Flood Elite, Brute Chieftain) and the Tank body (Flood Tank, Juggernaut) take damage only in the **head**: body and limb shots do nothing unless a constant spray finishes them in one go. Elites' shields still pop from body shots. Stalker pure forms take damage anywhere. Aim for heads (tested 2026-10-26, also with the script setting no Flood health at all).
 
 ### Forms by tier (one tier opens per wave)
 
 | Tier | Opens at | Forms |
 | --- | --- | --- |
 | 1 | wave 1 | Flood Human (300% speed, 200% damage, 200 health); **Baby Stalker** (50% size, 300% speed, 40 health, 50% damage); **Breacher** (a Flood Human at 130% size with 300 health, same top speed and damage; 2 at a time) |
-| 2 | wave 2 | Flood Brute (immune to headshots), Flood Stalker; **Jumper Brute** (normal size, 50% gravity for huge jumps, 200% speed, immune to headshots; 1 at a time) |
+| 2 | wave 2 | Flood Brute, Flood Stalker; **Jumper Brute** (normal size, 50% gravity for huge jumps, 200% speed; 1 at a time) |
 | 3 | wave 3 | Flood Elite (shields on, 300% damage; 3 at a time); **Nest Stalker** (1 per team, slower, 150% health); **Invis Stalker** (85% size, 300% speed, 85 health, camouflage level 3; 2 at a time) |
 | 4 | wave 4 | **Shifter Stalker** (normal Stalker; Ability 1 turret, Ability 2 Tank form at 120% size and 125 health; 2 at a time); Flood Tank (150% size, 200% health, takes 50% less damage) |
 | 5 | **last wave (5) only** | **Sword Spartan**: first-person Spartan with an Energy Sword, 150% speed, in the Infected team's green-yellow |
@@ -90,23 +92,27 @@ The picker's title says which tier opens next and in which wave. The HUD's secon
 
 | Form | Key | Does |
 | --- | --- | --- |
-| Brute Chieftain (boss) | (passive) | While he's alive, dead Infected who pick Flood Brute or Jumper Brute get **Spawn on the Chief** instead of Spawn at Nest |
+| Bosses (passive) | - | **Spawn on the boss:** while a boss lives, dead Infected who pick a matching form get "Spawn on the boss" instead of Spawn at Nest. Brute Chieftain: Flood Brute, Jumper Brute. Juggernaut: Flood Human, Breacher, Flood Brute, Jumper Brute, Flood Tank. Stalker Matriarch: Flood Stalker, Baby, Invis, Nest and Shifter Stalker |
+| Juggernaut (boss) | Ability 1 | **Siege Smash** (30 s between): destroys every Hunter barrier, machine gun, plasma cannon and Resupply Box within 20 ft, and every map prop there, moved or not (anything that isn't a body, vehicle, weapon or equipment, so invisible map markers too; the map probably respawns them like moved props). Quartermasters are spared |
+| Stalker Matriarch (boss) | Ability 1 / Crouch | Ability 1 turns her into a turret and back (no Tank form); Crouch leaps like the Jumper Brute |
 | Bosses | Crouch | Leap too: Juggernaut like a Brute; Brute Chieftain and Master Chief like the Jumper Brute |
 | Nest Stalker | Ability 1 | Build **one** nest 5 ft ahead (shielded Carrier look, 150% size, 4× health). It stays after you die; a new one can only be built once it's destroyed (and 30 s after the last). Infected get **Spawn at Nest (health N)** while it stands |
-| Juggernaut (boss) | Ability 1 | **Tank mode** on/off (3 s between): about half speed, but takes far less damage, to shield the Flood behind him |
 | Master Chief (boss) | Ability 1 | **Random equipment** (20 s between): one of Bubble Shield, Regenerator, Trip Mine, Radar Jammer, Deployable Cover, grav lift or Flare |
 | Flood Human, Breacher, Flood Brute, Jumper Brute, Flood Elite | Crouch | **Leap** the way you face: 0.5 s after Crouch you're thrown forward and up. Strength: Human and Breacher a bit below Brute and Elite; Brute and Elite medium; Jumper Brute the strongest (with its low gravity it goes very far). 2 s between leaps |
 | Shifter Stalker | Ability 1 / Ability 2 | After 1 s, Ability 1 turns into a turret (Pure Ranged), Ability 2 into a Tank (120% size, 125 health, normal damage). Either key turns back into the Stalker. No time limit, 3 s between changes, health share kept |
 
+**Feeding:** a Flood player who scores a kill heals to full; a boss heals 25% of its health instead (up to full).
+
 ### Bosses (from wave 2)
 
-When a wave starts from wave 2 on, the Infected player with the **most kills this round** becomes that wave's boss and gets a message. Ties (zero kills included) are picked at random, so there's always a boss while anyone is Infected. Only they see the gold boss card, as a full-width row at the top of the picker. **Clicking it cycles** Juggernaut → Brute Chieftain → Master Chief; then Spawn. **One life.** An unused boss turn ends with the wave. While the boss lives, everyone sees its name and health in red at the top of the screen. **Bounty:** when the boss dies, every Survivor gets 10 points, and whoever killed it 25 more.
+When a wave starts from wave 2 on, the Infected player with the **most kills this round** becomes that wave's boss and gets a message. Ties (zero kills included) are picked at random, so there's always a boss while anyone is Infected. Only they see the gold boss card, as a full-width row at the top of the picker. **Clicking it cycles** Juggernaut → Brute Chieftain → Master Chief → Stalker Matriarch; then Spawn. **One life.** An unused boss turn ends with the wave. When the boss spawns, a big red banner ("THE JUGGERNAUT HAS RISEN", etc.) shrinks away over about 2 seconds; then, while the boss lives, everyone sees its name and health in red at the top of the screen. **Bounty:** when the boss dies, every Survivor gets 10 points, and whoever killed it 25 more.
 
 | Boss | What |
 | --- | --- |
 | Juggernaut | Flood Tank, 200% size, 4× health, takes 67% less damage (about 3× a Flood Tank's toughness) |
-| Brute Chieftain | (no invincibility equipment since v0.58) A Flood Brute body (was the Brute Chieftain armour) at 175% size (was 300%: too tall to hit Spartans on the ground), 300% damage (a Flood Brute does 200%), immune to headshots, 300% speed, 300% health, takes 67% less damage, spawns with invincibility equipment |
+| Brute Chieftain | (no invincibility equipment since v0.58) A Flood Brute body (was the Brute Chieftain armour) at 175% size (was 300%: too tall to hit Spartans on the ground), 300% damage (a Flood Brute does 200%), 300% speed, 300% health, takes 67% less damage |
 | Master Chief | Ability 1 random equipment. First person, Energy Sword, invisible, can be headshot, 200% speed, normal health and shields, **no shield recharge** |
+| Stalker Matriarch | A Shifter Stalker body at 250% size, top speed, 150 health; turret transformation (Ability 1), leap, Stalkers spawn on her. She takes one of the two Shifter Stalker places while alive |
 
 ## Host options (Custom mode options)
 

@@ -2,12 +2,12 @@
 
 Two players plus **Ability 4** to skip timers is the quickest way: set `test_keys` = 1 (and `free_shop` = 1 unless you are checking prices) under Custom mode options, since both are off by default from v0.61. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
 
-## Still to test (v0.66)
+## Still to test (v0.79)
 
 Fill in and paste back. Items already answered are in "Confirmed in game" below.
 
 ```text
-FLOOD SURVIVAL v0.66 RESULTS
+FLOOD SURVIVAL v0.79 RESULTS
 -- Fixed or changed in v0.22-v0.23 --
 E1. Bought equipment (cover, radar jammer...) stays in your hands; after using it you can buy another (no softlock)? ->
 E2. Equipment and grenades you pick up from the map are no longer deleted? ->
@@ -24,7 +24,6 @@ R4. With a Prop Placer 'ready' (bought, not used yet): the equipment and placeab
 -- New in v0.37 --
 N1. The mode is called Flood Survival everywhere (game type list, lobby, waiting line 'FLOOD SURVIVAL')? Pages: weapons by wave (1/4, 2/4), Placeables (3/4), Equipment (4/4)? Every card buys the item it names (the item numbers changed again)? ->
 -- New in v0.39 --
-F8. Flood Brute and Jumper Brute survive headshots (a Sniper or Battle Rifle headshot does body damage only)? Invis Stalker and Shifter Stalker say 'full (2 max)' when 2 are out, and a 3rd can't take them? ->
 F9. Test 15 (leap, separate mode): see Documents\zs\tests\RUN_SHEET.md ->
 -- New in v0.40-v0.41 --
 B9. Boss card cycles Juggernaut / Brute Chieftain / Master Chief only? ->
@@ -46,18 +45,25 @@ G2. Grenadier: throw both frags, then time how long until one comes back (and wh
 -- New in v0.51 (untested) --
 -- New in v0.52 (untested; free_shop 0 to see the award make a price free) --
 -- New in v0.57 (untested; needs 2+ Infected or a boss + a dead Infected) --
-CH1. While the Brute Chieftain boss is alive, a dead Infected who selects Flood Brute or Jumper Brute sees 'Spawn on the Chief'; clicking it spawns them at the Chief? Other forms still see Spawn at Nest (when a nest stands)? The button goes away when the Chief dies? ->
 -- New in v0.62-v0.63 --
 PK1. Since v0.62 the mode is stored packed (no spare spaces or line breaks): a full round plays as before and the HUD never freezes? ->
-HB2. Place a Hunter barrier and leave it about 5 minutes: it breaks by itself and the game keeps going (v0.61 stopped the script here: 'Health must be 1% through 100%')? ->
 BS2. Bosses again after the v0.61 stop: each boss spawns as itself, not as a Spartan with an Assault Rifle? ->
 -- New in v0.64 --
-RN1. Over 4-5 games in a 1v1, both players end up Infected first at least once (click traits or press keys differently each game)? If it's still always player 1, the game's randomness ignores the draws and another source is needed ->
 -- New in v0.65 (needs 4+ Infected to fill) --
-EL1. Flood Elite card says '3 max'; with 3 Elites out it turns grey 'full (3 max)' and a 4th can't spawn as one? ->
 -- New in v0.66 --
-HP1. Flood Human, Flood Brute and Brute Chieftain now go down to body shots (Assault Rifle, SMG), not only headshots; their health bar drops when hit? Human takes about twice a Stalker's shots? ->
 HP2. Survivors still spawn with half shields (none with Frail, double with Overshield); the Last Survivor gets 200 health once and still recharges? Shifter Stalker keeps its damage when it changes form (doesn't heal)? ->
+-- New in v0.70 (bosses: needs a boss + another dead Infected for the spawn checks) --
+RP1. Spawn on the boss: with the Chieftain alive, Brute forms see 'Spawn on the boss'; with the Juggernaut, Human/Breacher/Brute/Tank; with the Matriarch, every Stalker form. Clicking it spawns you at the boss? Other forms still get Spawn at Nest? ->
+-- New in v0.72 (v0.71: anchor kept props in place, but they had no collision and the drone could be shot around; Siege Smash works on Flashlight props and Hunter walls) --
+GL1. After placing (Prop Placer or a placeable), do the grav lift's lights and sound stop now? ->
+-- Performance pass (v0.73): needs as many players as you can get, ideally 6+ --
+PF1. Warmup with everyone on the trait screen at once: click traits fast; cards turn gold at once, nothing freezes? Then everyone opens the arsenal at the same time and flips pages: still smooth? ->
+PF2. Mid-wave with lots happening (several Flood leaping, a boss, props being carried, guns bought and dropped): HUD still updates, no freeze? Afterwards search client.log for 'execution budget' and paste any line ->
+PF3. Map vehicles stay and can be driven by Survivors; map weapons still vanish; bought guns stay? ->
+-- New in v0.79 --
+FE1. Feeding: as a Flood Human, get hurt, then kill a Survivor: health back to full? As a boss: only about a quarter back? ->
+BE1. Boss entrance: when a boss spawns, a big red 'THE ... HAS RISEN' appears at the top for everyone and shrinks to nothing in about 2 s, then the boss health bar shows? Right name for each boss? ->
+MA2. Stalker Matriarch at 250%: still the biggest, easier to move around? ->
 -- Not reported yet --
 T7. Sword Spartan only on wave 5? First person, sword, green-yellow? ->
 B1. No boss in wave 1; at the start of wave 2 an Infected gets the boss message, even with zero kills? ->
@@ -89,6 +95,10 @@ X. HUD froze or vanished (script stopped)? Paste the "Custom game mode stopped" 
 - RS1/RS2 Resupply Box (v0.56, 2026-10-26): works, the drone shows (small: scale 200 since v0.58), ammo refill works. Not checkable during Last Survivor (bottomless mag).
 - v0.53-v0.61 (2026-10-26, user): quartermasters work (bought, discounts and normal prices); Monitor break cards; friendly fire off; Spartan Laser wave 4 and Invincibility wave 5 limited correctly; Baby Stalker hits less; Brute Chieftain not invincible and playable; Juggernaut tank mode and Master Chief random equipment work; boss HUD and bounty work (only checked 1v1); wave award (kills) and trait changes work. Hunter barrier decay can't be seen in a short test but should work. Spawn on the Chief (CH1) still to test.
 - Roadmap step 5 (invisible-prop filter) DROPPED 2026-10-26: Test 17 showed no usable filter route (v1 hit the execution budget; the user doubts any filter works).
+- Flood damage (2026-10-26): combat forms and the Tank body take damage only in the head, also with no script health calls (AB build); Elites' shields pop; Baby Stalker takes damage anywhere. Halo 3 body behaviour in Project Reclaimer, not the script.
+- Props are temporary (2026-10-26): moved props, static or movable, vanish 30-60 s after placing and return to their map spot about 30 s later (map respawn). Accepted as design in v0.77; re-grab (v0.76) dropped untested. The Pit's pop-up targets aren't affected.
+- Prop lock (v0.71-v0.73, 2026-10-26): DROPPED. Attached props stay put but lose collision; static props snap back when let go; re-snapping them once a second made them fly around the map. Siege Smash works on Flashlight-placed props and Hunter walls.
+- 2026-10-26 (user): Stalker Matriarch works (felt too big at 300%); Siege Smash works (Flashlight props, Hunter walls, every map prop); random first Infected, Elite 3-at-a-time limit and Hunter barrier decay work. Frail and Brute headshot behaviour accepted as Flood/engine behaviour.
 - C1 how-to cards (v0.45, 2026-10-25): 'BUILD A BASE' and 'THE ARSENAL' boxes show correctly beside the trait screen.
 
 ## Results that changed the plan

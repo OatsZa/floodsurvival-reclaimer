@@ -478,3 +478,12 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 ## v0.66: max health and shields once per body
 
 - set_max_health / set_max_shields are called only in the new-body block (`body != biped`), not every tick. Calling them every tick seemed to refill health, so Flood only died to one-tick bursts (headshots). The Shifter's `kept` health share is applied again after the new max health; the Last Survivor's 200 health is set once in the alert loop.
+
+## v0.67
+
+- Ranges the game enforces at run time (megalo-check doesn't): object health 1-100, set_max_shields 1-1000 (Frail uses 1), set_scale 10-300. A value outside stops the script for the round.
+
+## v0.73: HUD and menu redraws
+
+- The per-player HUD loop only draws when `Perk.redraw` is set (open, close, click) or rand(10) == 0 (about 3 times a second, at a random moment per player), then clears the bit. Everything in it (points, hints, quartermaster line, boss bar, menus, side cards) follows that rate. `perks |= Perk.redraw` works straight on the timer, without a temp. The Infected respawn mask keeps it (25599).
+- Megalo functions must be defined before they're called (`hide_menu` sits above `close_menu`).

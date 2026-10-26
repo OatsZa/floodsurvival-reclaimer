@@ -2,24 +2,22 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.66** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.79** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/flood-survival-v0.66.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.66**. Tested on The Pit.
+1. Put [`modes/flood-survival-v0.79.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.79**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
-
-A light-blue **health bar** at the bottom of the screen shows your health as a share of your maximum (87/100).
 
 **Testing:** under **Game Options → Slayer rules → Custom mode options**, `free_shop` = 1 makes the arsenal and traits free and `test_keys` = 1 lets **Ability 4** skip the current timer. Both are off by default (since v0.61).
 
 ## How a round works
 
 1. **Pick traits.** Before their first spawn, every Survivor picks boosts (cost points) and drawbacks (give points).
-2. **Warmup** (45 s). Everyone is a first-person Spartan with a Magnum and fists. The map's weapons and vehicles are removed: you only get what you buy.
+2. **Warmup** (45 s). Everyone is a first-person Spartan with a Magnum and fists. The map's weapons are removed (vehicles stay): you only get the guns you buy.
 3. **Outbreak.** 10% of players (at least 1) turn Infected.
 4. **5 waves** (90 s, then 15 s longer each), with **60 s breaks** between them. A Survivor who dies joins the Infected.
 5. Survivors win by outlasting the last wave. The Infected win when nobody is left.
@@ -36,7 +34,7 @@ Players who join after wave 2 starts begin as Infected.
   - Placeables (machine gun, Hunter barrier, plasma cannon, quartermaster, Resupply Box): you get a **grav lift**, and the item is built where it lands. Throw it where you're aiming.
   - **Resupply Box** (80 points, from wave 2, 2 per team): a floating Sentinel Constructor that refills the ammo of every Survivor within 10 ft every 20 s; its owner gets 1 point per Survivor refilled.
   - **Prop Placer** (20 points, one use): the next map prop you pick up comes with a grav lift, so you can throw it into place.
-- **Base building (Flashlight):** stand within 8 ft of a map prop (crate, barrier, sandbags...) and press **Flashlight** to pick it up; it rides 5 ft in front of you. Press Flashlight again to let go of it there, turned your way (not within 4 ft of anyone; a prop someone just placed is theirs for 5 s). With a Prop Placer you can throw the grav lift instead, and the prop lands where the lift does. Works on any map: the script uses the map's own props.
+- **Base building (Flashlight):** stand within 8 ft of a map prop (crate, barrier, sandbags...) and press **Flashlight** to pick it up; it rides 5 ft in front of you. Press Flashlight again to let go of it there, turned your way (not within 4 ft of anyone; a prop someone just placed is theirs for 5 s). With a Prop Placer you can throw the grav lift instead, and the prop lands where the lift does. Works on any map: the script uses the map's own props. **Props are temporary barricades:** the map respawns moved props, so 30-60 s after you place one it vanishes and comes back at its original spot about 30 s later. Use them to plug a gap for a fight, then grab them again; for cover that lasts, buy placeables (Hunter barriers, turrets). The Juggernaut's Siege Smash clears every prop and Survivor build around him.
 - **Points:** 10 per kill, 25 per wave survived, 100 to start.
 - **Wave award:** at the end of each wave (not the last), the living Survivor with the most kills since the last award gets every weapon tier opened for them and their next weapon free.
 - **Quartermasters (like ZS arsenal crates):** bought (100 points, 2 per team) and thrown into place with a grav lift. During waves you can only shop within 20 ft of one, in breaks they mean normal prices, and the owner earns 10% of what other Survivors buy there. Ammo comes only from the arsenal's Ammo refill (20 points).
@@ -48,21 +46,22 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 | Tier | Opens at | Forms |
 | --- | --- | --- |
 | 1 | wave 1 | Flood Human (200 health), Baby Stalker (tiny, fast, fragile), Breacher (big, 300 health, 2 at a time) |
-| 2 | wave 2 | Flood Brute (headshot-immune), Flood Stalker, Jumper Brute (low gravity, headshot-immune, 1 at a time) |
+| 2 | wave 2 | Flood Brute, Flood Stalker, Jumper Brute (low gravity, 1 at a time) |
 | 3 | wave 3 | Flood Elite (shields, 3 at a time), Nest Stalker (builds the team's nest), Invis Stalker (nearly invisible, 2 at a time) |
 | 4 | wave 4 | Shifter Stalker (turns into a turret or a Tank, 2 at a time), Flood Tank |
 | 5 | last wave (5) only | Sword Spartan |
 
 - **Nest Stalker:** builds one nest (Ability 1). It outlives the builder; the Infected can spawn at it until the Survivors destroy it.
+- **Feeding:** a Flood player who scores a kill heals to full (bosses heal 25% of their health instead).
 - **Leap (Crouch):** Flood Humans, Breachers, Brutes, Jumper Brutes and Elites leap the way they face: half a second after Crouch they're thrown forward and up (Humans the least, the Jumper Brute the farthest), then 2 s before the next.
 - **Shifter Stalker:** Ability 1 turns into a turret, Ability 2 into a Tank, after 1 second; either key turns it back.
 - **Breaks:** Infected who die during a break come back as harmless flying Monitors, and turn back into Flood when the wave starts.
-- **Bosses** (from wave 2): the Infected player with the most kills (picked at random if tied, so there's always one) gets one boss life, from a gold card at the top of their picker: **Juggernaut** (giant, very tough Tank; Ability 1 tank mode: slow but takes far less damage), **Brute Chieftain** (a big Flood Brute: fastest, very tough, 300% damage, headshot-immune; Brutes can spawn on him) or **Master Chief** (invisible, Energy Sword, no shield recharge, can be headshot; Ability 1 gives a random piece of equipment every 20 s). Survivors see the boss's health at the top of the screen; when the boss dies every Survivor gets 10 points and the killer 25 more.
+- **Bosses** (from wave 2): the Infected player with the most kills (picked at random if tied, so there's always one) gets one boss life, from a gold card at the top of their picker: **Juggernaut** (giant, very tough Tank; Ability 1 Siege Smash destroys Survivor builds and every map prop within 20 ft; Flood Humans, Breachers, Brutes and Tanks can spawn on him), **Brute Chieftain** (a big Flood Brute: fastest, very tough, 300% damage; Brutes can spawn on him), **Stalker Matriarch** (a 250% Shifter Stalker at max speed with 150 health: turret transformation, the strongest leap, and every Stalker form can spawn on her) or **Master Chief** (invisible, Energy Sword, no shield recharge, can be headshot; Ability 1 gives a random piece of equipment every 20 s). A boss arrives with a big red "HAS RISEN" banner that shrinks away, then everyone sees its health at the top of the screen; when the boss dies every Survivor gets 10 points and the killer 25 more.
 
 ## Status and next steps
 
-- **Size:** 56.1 KiB of 64, about **8 KiB free**. The mode stores the script's source text, so the build stores a compact copy: `tools/shrink.ps1` renames everything to 1-2 letters (since v0.33) and `tools/pack.ps1` drops spare spaces and line breaks (since v0.62, about 6 KiB saved). Both prove the copy matches the readable script (same names back, same tokens), and megalo-check must read each the same. The readable script in `scripts/` stays the one to edit; [docs/name-key.md](docs/name-key.md) says which short name is which.
-- **Untested in game:** the bosses, the Sword Spartan, the equipment fix, the health bar and the prices. The checklist is in [docs/testing.md](docs/testing.md).
+- **Size:** 57.7 KiB of 64, about **6.3 KiB free**. The mode stores the script's source text, so the build stores a compact copy: `tools/shrink.ps1` renames everything to 1-2 letters (since v0.33) and `tools/pack.ps1` drops spare spaces and line breaks (since v0.62, about 6 KiB saved). Both prove the copy matches the readable script (same names back, same tokens), and megalo-check must read each the same. The readable script in `scripts/` stays the one to edit; [docs/name-key.md](docs/name-key.md) says which short name is which.
+- **Untested in game:** the bosses, the Sword Spartan, the equipment fix and the prices. The checklist is in [docs/testing.md](docs/testing.md).
 - **Done:** roadmap step 11 (v0.52, untested: wave awards), roadmap step 6 (v0.51, untested: prop safety), roadmap step 7 (v0.47, untested: the Last Survivor bonuses and alert), roadmap step 4 (v0.44-v0.45: how-to cards for building and the arsenal beside the trait screen, and for bosses beside the Infected picker), the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
 
 ### Limits other than space (v0.38)

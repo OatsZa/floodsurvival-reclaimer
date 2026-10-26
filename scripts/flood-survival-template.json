@@ -121,8 +121,7 @@
           "shields": 3
         },
         {
-          "speed": 2,
-          "resistance": 10
+          "shields": 1
         },
         {
           "damage": 8
@@ -253,9 +252,8 @@
               "resistance": 7,
               "shields": 1,
               "speed": 8,
-              "vehicles": 1,
-              "headshots": 1
-            },
+              "vehicles": 1
+              },
             "max_active": 0
           },
           {
@@ -479,7 +477,7 @@
           },
           {
             "name": "Brute Chieftain",
-            "description": "Boss: a giant Flood Brute, fastest, headshot-immune, one life",
+            "description": "Boss: a big Flood Brute, fastest, one life",
             "team": 1,
             "cost": 0,
             "biped": "flood_brute",
@@ -491,7 +489,7 @@
               0,
               0
             ],
-            "traits": {"headshots": 1, "damage": 11, "shields": 1, 
+            "traits": {"damage": 11, "shields": 1, 
               "pickup": 2,
               "vehicles": 1,
               "resistance": 8
@@ -561,9 +559,8 @@
               "shields": 1,
               "speed": 8,
               "vehicles": 1,
-              "gravity": 1,
-              "headshots": 1
-            },
+              "gravity": 1
+              },
             "max_active": 1
           },
           {

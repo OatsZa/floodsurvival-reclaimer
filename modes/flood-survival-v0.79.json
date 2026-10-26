@@ -1,0 +1,633 @@
+{
+  "version": 1,
+  "name": "Flood Survival v0.79",
+  "base_map": {
+    "id": 320,
+    "stem": "guardian",
+    "title": "Guardian"
+  },
+  "hosting": {
+    "name": "Project Reclaimer game",
+    "host_name": "",
+    "visibility": "Local",
+    "hosting": "Dedicated",
+    "public_address": "",
+    "automatic_port_mapping": true,
+    "game_port": 11774,
+    "discovery_port": 11775,
+    "voice_enabled": true,
+    "text_chat_enabled": true,
+    "hidden": false,
+    "password": "",
+    "max_players": 16,
+    "share_mods": false,
+    "share_rate": 20
+  },
+  "mode": "Slayer",
+  "rules": {
+    "score_to_win": 0,
+    "kill_points": 1,
+    "death_points": 0,
+    "suicide_points": 0,
+    "betrayal_points": -1
+  },
+  "script": {
+    "version": 2,
+    "name": "Flood Survival v0.79",
+    "initial": [],
+    "on_spawn": [],
+    "on_kill": [],
+    "on_death": [],
+    "logic": {
+      "deployment": {
+        "title": "Flood Survival",
+        "teams": [
+          "Survivors",
+          "Infected"
+        ],
+        "classes": [
+          {
+            "name": "Survivor",
+            "description": "Magnum and fists",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "magnum",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Flood Human",
+            "description": "Fast melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_human",
+            "camera": "third_person",
+            "model_variant": "standard_fch",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Elite",
+            "description": "Tougher melee form (3 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_elite",
+            "camera": "third_person",
+            "model_variant": "standard_fce",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 6,
+              "shields": 2,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 3
+          },
+          {
+            "name": "Flood Brute",
+            "description": "Heavy melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "speed": 8,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Stalker",
+            "description": "Pure form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 5,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Infected Monitor",
+            "description": "Break only. Flies, can't hurt anyone.",
+            "team": 1,
+            "cost": 0,
+            "biped": "forge_monitor",
+            "camera": "third_person",
+            "model_variant": "monitor",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "damage": 1,
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Grenadier)",
+            "description": "Magnum, fists and 2 frag grenades",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "magnum",
+            "grenades": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Assault)",
+            "description": "Assault Rifle, Magnum and fists",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "assault_rifle",
+            "secondary": "magnum",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Assault, Grenadier)",
+            "description": "Assault Rifle, Magnum and 2 frag grenades",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "assault_rifle",
+            "secondary": "magnum",
+            "grenades": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Nest Stalker",
+            "description": "Builds one nest that outlives it; slower, tougher",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Shifter Stalker",
+            "description": "Ability 1 turret, Ability 2 Tank, again to change back (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 2
+          },
+          {
+            "name": "Baby Stalker",
+            "description": "Tiny, very fast, very fragile",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "damage": 3,
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Tank",
+            "description": "Big, very tough melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_tank",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Sword Spartan",
+            "description": "Last wave only: a Spartan with an Energy Sword",
+            "team": 1,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "energy_sword",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Juggernaut",
+            "description": "Boss: the top-killing Infected, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_tank",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 8,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Brute Chieftain",
+            "description": "Boss: a big Flood Brute, fastest, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "damage": 11,
+              "pickup": 2,
+              "resistance": 8,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Spartan Boss",
+            "description": "Boss: invisible sword Master Chief, headshot-immune, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "master_chief",
+            "model_variant": "default",
+            "primary": "energy_sword",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Breacher",
+            "description": "A bigger, tougher Flood Human (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_human",
+            "camera": "third_person",
+            "model_variant": "standard_fch",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 2
+          },
+          {
+            "name": "Jumper Brute",
+            "description": "A Flood Brute with low gravity: huge jumps (1 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "gravity": 1,
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "speed": 8,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Invis Stalker",
+            "description": "A smaller, faster Stalker that is nearly invisible (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "camouflage": 3,
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 5,
+              "vehicles": 1
+            },
+            "max_active": 2
+          }
+        ],
+        "script_menu": true
+      },
+      "megalo": "alias a=current_player alias f=current_object alias b=script_widget alias d=all_players alias j=no_object alias p=script_option alias r=script_traits enum e cp=0 aj=1 aw=2 a3=3 a9=4 a8=5 db=6 er=7 dd=8 y=9 i=10 ar=11 bp=12 a0=13 q=14 x=15 n=16 am=17 ab=18 ae=19 ai=20 end enum an dy=0 cn=1 et=2 d9=3 c4=4 dt=5 br=6 cx=7 d4=8 ei=9 ch=10 cr=11 dz=12 ef=13 bn=14 c0=15 end enum ah bo a1 z cv end enum av e6 v ao end enum bc bw b5 c2 bd end enum t dp=1 dq=2 b0=4 dc=8 bt=16 ck=32 cb=64 d0=128 en=256 cu=512 a5=1024 b1=2048 bv=4096 ak=8192 bm=16384 end enum k e2=0 c9=1 c7=2 d6=3 d7=4 d8=5 dr=6 dl=7 da=8 dk=9 cc=10 c8=11 cy=12 cd=13 cs=14 bj=15 bg=16 dm=17 c1=18 ay=19 bu=20 az=21 dj=24 ce=25 el=26 cz=27 de=28 c3=29 cl=30 ax=31 cq=32 end alias ag=global.number[0] alias cw=global.number[1] alias bl=global.number[2] alias bx=global.number[3] alias a2=global.number[4] alias bs=global.number[5] alias di=global.number[6] alias ee=global.number[7] alias fi=global.number[9] alias a6=global.number[8] alias bq=global.number[10] alias em=global.number[11] alias dv=global.object[0] alias u=global.object[1] alias dg=global.object[2] alias bf=global.player[0] alias af=global.player[1] alias d2=global.player[2] alias al=global.timer[0] alias ci=global.timer[2] alias dn=global.timer[3] alias g=temporaries.number[0] alias c=temporaries.number[1] alias m=temporaries.number[2] alias s=temporaries.number[3] alias l=temporaries.number[4] alias ap=temporaries.number[5] alias bi=temporaries.number[6] alias fc=temporaries.number[7] alias h=temporaries.number[8] alias o=temporaries.number[9] alias ct=temporaries.number[9] alias b3=temporaries.number[4] alias cf=temporaries.number[8] alias bh=temporaries.number[3] alias cm=temporaries.number[2] alias df=temporaries.number[6] alias b6=temporaries.number[6] alias ed=temporaries.number[7] alias ac=temporaries.object[0] alias bz=temporaries.object[1] alias c6=team.number[0] alias ej=team.number[1] alias au=player.number[0] alias ek=player.number[1] alias ez=player.number[2] alias a4=player.number[3] alias bb=player.number[4] alias aq=player.number[5] alias aa=player.number[6] alias dh=player.number[7] alias co=player.object[0] alias ad=player.object[1] alias ey=player.object[2] alias a7=player.object[2] alias b2=player.number[3] alias bk=player.timer[0] alias ds=player.timer[2] alias fj=player.object[3] alias eh=player.timer[0] alias ba=player.timer[1] alias e0=player.timer[2] alias w=player.timer[3] alias e1=object.number[0] alias e9=object.number[1] alias fk=object.number[2] alias fh=object.number[3] alias ca=object.number[5] alias dx=object.number[6] alias e3=object.number[7] alias b4=object.timer[0] alias c5=object.timer[1] alias b8=object.timer[2] alias d1=object.player[0] alias e5=object.player[1] alias eu=object.player[1] alias d3=object.number[5] alias cg=object.object[0] alias b9=object.object[1] alias eb=object.object[2] alias ec=object.object[3] function d5() b[4].set_size(d,900,490) b[7].set_position(d,210,165) b[8].set_position(d,650,165) b[9].set_position(d,210,219) b[10].set_position(d,650,219) b[11].set_position(d,210,273) b[12].set_position(d,650,273) b[13].set_position(d,210,327) b[14].set_position(d,650,327) b[19].set_position(d,210,381) b[24].set_position(d,650,381) b[25].set_position(d,210,435) b[26].set_position(d,650,435) b[20].set_position(d,210,165) b[20].set_size(d,860,48) b[15].set_position(d,210,520) b[16].set_position(d,430,520) end on init:do al=p[an.cr] ci=3 ci.set_rate(-100%) b[0].set_position(d,640,16) b[0].set_anchor(d,top) b[0].set_font_size(d,20) b[0].set_background(d,8,16,28,190) b[1].set_position(d,640,46) b[1].set_anchor(d,top) b[1].set_font_size(d,15) b[18].set_position(d,640,70) b[18].set_anchor(d,top) b[18].set_font_size(d,14) b[22].set_position(d,640,130) b[22].set_anchor(d,top) b[22].set_color(d,230,40,40,255) b[2].set_position(d,24,696) b[2].set_anchor(d,bottom_left) b[2].set_font_size(d,16) b[2].set_color(d,232,184,82,255) b[3].set_position(d,24,670) b[3].set_anchor(d,bottom_left) b[3].set_font_size(d,14) b[6].set_position(d,640,640) b[6].set_anchor(d,top) b[6].set_font_size(d,16) b[6].set_color(d,232,184,82,255) b[4].set_position(d,640,110) b[4].set_anchor(d,top) b[4].set_background(d,7,14,23,235) b[5].set_position(d,640,125) b[5].set_anchor(d,top) b[5].set_font_size(d,22) d5() b[7].set_size(d,420,48) b[8].set_size(d,420,48) b[9].set_size(d,420,48) b[10].set_size(d,420,48) b[11].set_size(d,420,48) b[12].set_size(d,420,48) b[13].set_size(d,420,48) b[14].set_size(d,420,48) b[7].set_clickable(d,true) b[8].set_clickable(d,true) b[9].set_clickable(d,true) b[10].set_clickable(d,true) b[11].set_clickable(d,true) b[12].set_clickable(d,true) b[13].set_clickable(d,true) b[14].set_clickable(d,true) b[15].set_size(d,200,50) b[15].set_background(d,30,45,60,255) b[15].set_clickable(d,true) b[16].set_size(d,300,50) b[16].set_background(d,30,45,60,255) b[16].set_clickable(d,true) b[19].set_size(d,420,48) team[1].set_color(170,200,40) b[19].set_background(d,15,27,39,255) b[19].set_clickable(d,true) b[24].set_size(d,420,48) b[24].set_clickable(d,true) b[25].set_size(d,420,48) b[25].set_clickable(d,true) b[26].set_size(d,420,48) b[26].set_clickable(d,true) b[20].set_clickable(d,true) b[20].set_color(d,232,184,82,255) b[17].set_position(d,870,520) b[17].set_size(d,200,50) b[17].set_background(d,90,40,40,255) b[17].set_clickable(d,true) b[21].set_position(d,10,165) b[21].set_size(d,170,0) b[21].set_font_size(d,16) b[21].set_color(d,232,184,82,255) b[21].set_background(d,7,14,23,235) b[27].set_position(d,10,192) b[27].set_size(d,170,0) b[27].set_font_size(d,13) b[27].set_color(d,235,240,245,255) b[27].set_background(d,7,14,23,235) b[30].set_position(d,10,300) b[30].set_size(d,170,0) b[30].set_font_size(d,13) b[30].set_color(d,235,240,245,255) b[30].set_background(d,7,14,23,235) b[28].set_position(d,1100,165) b[28].set_size(d,170,0) b[28].set_font_size(d,16) b[28].set_color(d,232,184,82,255) b[28].set_background(d,7,14,23,235) b[29].set_position(d,1100,192) b[29].set_size(d,170,0) b[29].set_font_size(d,13) b[29].set_color(d,235,240,245,255) b[29].set_background(d,7,14,23,235) b[31].set_position(d,1100,300) b[31].set_size(d,170,0) b[31].set_font_size(d,13) b[31].set_color(d,235,240,245,255) b[31].set_background(d,7,14,23,235) end function ep() c=cw c-=1 o=p[an.c0] c*=o o=p[an.dz] c+=o al=c al.set_rate(-100%) ag=ah.a1 end function ex() b[4].set_visibility(a,false) b[5].set_visibility(a,false) b[7].set_visibility(a,false) b[8].set_visibility(a,false) b[9].set_visibility(a,false) b[10].set_visibility(a,false) b[11].set_visibility(a,false) b[12].set_visibility(a,false) b[13].set_visibility(a,false) b[14].set_visibility(a,false) b[15].set_visibility(a,false) b[16].set_visibility(a,false) b[17].set_visibility(a,false) b[19].set_visibility(a,false) b[20].set_visibility(a,false) b[24].set_visibility(a,false) b[25].set_visibility(a,false) b[26].set_visibility(a,false) b[21].set_visibility(a,false) b[27].set_visibility(a,false) b[28].set_visibility(a,false) b[29].set_visibility(a,false) b[30].set_visibility(a,false) b[31].set_visibility(a,false) end function b7() if a.bb!=bc.bw then a.set_ui_menu(false)end a.bb=bc.bw ex() a.w|=t.bm end function ew() if a.a7!=j then a.a7.detach()end a.a7=j if a.aa==k.cq then a.aa=0 end end function eg() if ct>60 then ct/=2 b3/=2 cf/=2 end if ct>60 then ct/=2 b3/=2 cf/=2 end bh=b3 bh*=b3 c=ct c*=ct bh+=c c=cf c*=cf bh-=c cm=b3 cm*=ct cm*=2 cm/=100 if cm<1 then cm=1 end bh/=cm if bh>100 then bh=100 end if bh< -100 then bh= -100 end end function cj() ew() b7() a.au=av.ao a.aa=0 a.b2=0 a.aq=e.aj if a.is_not_respawning()then a.dh=2 end end function es() bz=j c=10000 for each object with label \"zs_qm\" do o=f.get_distance_to(a.biped) if o<c then c=o bz=f end end o=p[an.br] if c>o then bz=j end end function fg() es() ap=0 if ag==ah.bo or ag==ah.z or bz!=j then ap=1 end if a.bb!=bc.bw then ap=2 end if ap==0 then b[6].set_text_for(a, \"In waves the arsenal only opens within %n ft of a quartermaster\" ,o)end if ap==1 then a.bb=bc.b5 a.w|=t.bm a.set_ui_menu(true) b[6].set_text_for(a, \"\" ) if ag==ah.z and bz==j then b[6].set_text_for(a, \"Away from a quartermaster: prices +50 percent this break\" )end end end function fb() s=0 if m==k.e2 then s=15 end if m==k.c9 then s=20 end if m==k.c7 then s=25 end if m==k.d6 then s=25 end if m==k.d7 then s=25 end if m==k.d8 then s=35 end if m==k.dr then s=45 end if m==k.dl then s=60 end if m==k.da then s=70 end if m==k.dk then s=70 end if m==k.cc then s=90 end if m==k.c8 then s=90 end if m==k.cy then s=90 end if m==k.cd then s=120 end if m==k.cs then s=130 end if m==k.bj then s=150 end if m==k.bg then s=20 end if m==k.dm then s=50 end if m==k.c1 then s=80 end if m==k.ay then s=110 end if m==k.bu then s=80 end if m==k.az then s=100 end if m==k.dj then s=20 end if m==k.ce then s=15 end if m==k.el then s=25 end if m==k.cz then s=30 end if m==k.de then s=45 end if m==k.c3 then s=45 end if m==k.cl then s=60 end if m==k.ax then s=100 end end function ff() h=1 if m>=k.dr then h=2 end if m>=k.cc then h=3 end if m>=k.cd then h=4 end if m>=k.bg then h=1 end if m>=k.c1 then h=2 end if m>=k.ay then h=3 end if m>=k.bu then h=2 end if m>=k.az then h=1 end if m>=k.cz then h=2 end if m>=k.cl then h=3 end if m>=k.ax then h=5 end end function ev() h=0 if m==k.ay then h=1 end l=0 if h!=0 then c=fi c&=h if c==0 then l=1 end end end function fm() fb() es() if ag==ah.z and bz==j then s*=3 s/=2 end ap=1 if ag==ah.a1 and bz==j then ap=0 b[6].set_text_for(a, \"In waves the arsenal only opens within %n ft of a quartermaster\" ,o) end c=p[an.cn] if c==1 then s=0 end bi=0 c=a.w c&=t.bv if c!=0 and m<=k.bj then bi=t.bv end if bi!=0 then s=0 end if a.a4<s then ap=0 b[6].set_text_for(a, \"Not enough points: that costs %n\" ,s) end if not a.eh.is_zero()then ap=0 b[6].set_text_for(a, \"One purchase a second\" ) end c=a.w c&=t.a5 if m>=k.bg and m!=k.dj then if not a.ba.is_zero()or a.aa>0 or c!=0 then ap=0 b[6].set_text_for(a, \"Use what you carry first\" ) end end ff() if bi!=0 then h=0 end if h>a6 then ap=0 b[6].set_text_for(a, \"That opens in wave %n\" ,h) end if m==k.bg and c!=0 then ap=0 b[6].set_text_for(a, \"You already have a Prop Placer ready\" ) end ev() if l==1 then ap=0 b[6].set_text_for(a, \"This map doesn't have that\" ) end if m==k.ax and team[0].c6>=2 then ap=0 b[6].set_text_for(a, \"The team already bought 2 Invincibility this round\" ) end if m==k.bu then l=0 for each object with label \"zs_ammo\" do l+=1 end if l>=2 then ap=0 b[6].set_text_for(a, \"Your team already has 2 Resupply Boxes\" ) end end if m==k.az then l=0 for each object with label \"zs_qm\" do l+=1 end if l>=2 then ap=0 b[6].set_text_for(a, \"Your team already has 2 quartermasters\" ) end end if m<=k.bj then l=0 for each object with label \"zs_gun\" do l+=1 end o=p[an.et] if l>=o then ap=0 b[6].set_text_for(a, \"Too many guns on the ground: pick some up\" ) end end if ap==1 then a.a4-=s a.eh=1 a.eh.set_rate(-100%) b[6].set_text_for(a, \"Bought\" ) if bi!=0 then c=a.w c~=bi a.w=c b[6].set_text_for(a, \"Bought with your wave award\" ) end if bz!=j and s>0 then bf=bz.e5 if bf!=a and bf!=no_player and bf.au==av.v then h=s h/=10 bf.a4+=h b[6].set_text_for(bf, \"Commission from your quartermaster: +%n points\" ,h) end end if m==k.ax then team[0].c6+=1 end if m==k.d8 then u=a.biped.place_at_me(shotgun, \"zs_gun\" ,none,5,0,3,none)end if m==k.c7 then u=a.biped.place_at_me(battle_rifle, \"zs_gun\" ,none,5,0,3,none)end if m==k.e2 then u=a.biped.place_at_me(smg, \"zs_gun\" ,none,5,0,3,none)end if m==k.da then u=a.biped.place_at_me(sniper_rifle, \"zs_gun\" ,none,5,0,3,none)end if m==k.cs then u=a.biped.place_at_me(rocket_launcher, \"zs_gun\" ,none,5,0,3,none)end if m==k.d6 then u=a.biped.place_at_me(carbine, \"zs_gun\" ,none,5,0,3,none)end if m==k.dr then u=a.biped.place_at_me(mauler, \"zs_gun\" ,none,5,0,3,none)end if m==k.cc then u=a.biped.place_at_me(energy_sword, \"zs_gun\" ,none,5,0,3,none)end if m==k.c8 then u=a.biped.place_at_me(flamethrower, \"zs_gun\" ,none,5,0,3,none)end if m==k.bj then u=a.biped.place_at_me(spartan_laser, \"zs_gun\" ,none,5,0,3,none)end if m==k.dl then u=a.biped.place_at_me(brute_shot, \"zs_gun\" ,none,5,0,3,none)end if m==k.cy then u=a.biped.place_at_me(gravity_hammer, \"zs_gun\" ,none,5,0,3,none)end if m==k.d7 then u=a.biped.place_at_me(needler, \"zs_gun\" ,none,5,0,3,none)end if m==k.c9 then u=a.biped.place_at_me(plasma_rifle, \"zs_gun\" ,none,5,0,3,none)end if m==k.dk then u=a.biped.place_at_me(beam_rifle, \"zs_gun\" ,none,5,0,3,none)end if m==k.cd then u=a.biped.place_at_me(fuel_rod_gun, \"zs_gun\" ,none,5,0,3,none)end if m==k.dj then a.refill_ammo()end if m==k.el then a.give_equipment(deployable_cover)end if m==k.c3 then a.give_equipment(bubble_shield)end if m==k.de then a.give_equipment(regenerator)end if m==k.cz then a.give_equipment(trip_mine)end if m==k.ce then a.give_equipment(radar_jammer)end if m==k.cl then a.give_equipment(active_camo)end if m==k.ax then a.give_equipment(invincibility)end if m>=k.ce and m<=k.ax then a.ba=1 end if m==k.bg then c=a.w c|=t.a5 a.w=c b[6].set_text_for(a, \"Bought: your next prop comes with a grav lift to throw it\" ) if a.a7!=j then a.aa=k.cq a.give_equipment(grav_lift) a.ba=1 end end if m>=k.dm and m<=k.az then a.aa=m a.give_equipment(grav_lift) a.ba=1 end end end function du() b[7].set_color(a,235,240,245,255) b[8].set_color(a,235,240,245,255) b[9].set_color(a,235,240,245,255) b[10].set_color(a,235,240,245,255) b[11].set_color(a,235,240,245,255) b[12].set_color(a,235,240,245,255) b[13].set_color(a,235,240,245,255) b[14].set_color(a,235,240,245,255) b[7].set_background(a,15,27,39,255) b[8].set_background(a,15,27,39,255) b[9].set_background(a,15,27,39,255) b[10].set_background(a,15,27,39,255) b[11].set_background(a,15,27,39,255) b[12].set_background(a,15,27,39,255) b[13].set_background(a,15,27,39,255) b[14].set_background(a,15,27,39,255) end function fd() du() b6=a6 c=a.w c&=t.bv if c!=0 then b6=5 end b[15].set_text_for(a, \"<  Previous\" ) b[16].set_text_for(a, \"Next  >\" ) b[17].set_text_for(a, \"Close\" ) if a.aq==0 then b[5].set_text_for(a, \"ARSENAL  -  WEAPONS, WAVES 1-2  (1 / 4)\" ) b[7].set_text_for(a, \"SMG  |  15 pts\" ) b[8].set_text_for(a, \"Plasma Rifle  |  20 pts\" ) b[9].set_text_for(a, \"Battle Rifle  |  25 pts\" ) b[10].set_text_for(a, \"Carbine  |  25 pts\" ) b[11].set_text_for(a, \"Needler  |  25 pts\" ) b[12].set_text_for(a, \"Shotgun  |  35 pts\" ) b[13].set_text_for(a, \"Mauler  |  45 pts\" ) b[14].set_text_for(a, \"Brute Shot  |  60 pts\" ) if b6<2 then b[13].set_text_for(a, \"Mauler  |  opens in wave 2\" ) b[13].set_color(a,110,118,130,255) b[14].set_text_for(a, \"Brute Shot  |  opens in wave 2\" ) b[14].set_color(a,110,118,130,255) end end if a.aq==1 then b[5].set_text_for(a, \"ARSENAL  -  WEAPONS, WAVES 2-4  (2 / 4)\" ) b[7].set_text_for(a, \"Sniper Rifle  |  70 pts\" ) b[8].set_text_for(a, \"Beam Rifle  |  70 pts\" ) b[9].set_text_for(a, \"Energy Sword  |  90 pts\" ) b[10].set_text_for(a, \"Flamethrower  |  90 pts\" ) b[11].set_text_for(a, \"Gravity Hammer  |  90 pts\" ) b[12].set_text_for(a, \"Fuel Rod Gun  |  120 pts\" ) b[13].set_text_for(a, \"Rocket Launcher  |  130 pts\" ) b[14].set_text_for(a, \"Spartan Laser  |  150 pts\" ) if b6<2 then b[7].set_text_for(a, \"Sniper Rifle  |  opens in wave 2\" ) b[7].set_color(a,110,118,130,255) b[8].set_text_for(a, \"Beam Rifle  |  opens in wave 2\" ) b[8].set_color(a,110,118,130,255) end if b6<3 then b[9].set_text_for(a, \"Energy Sword  |  opens in wave 3\" ) b[9].set_color(a,110,118,130,255) b[10].set_text_for(a, \"Flamethrower  |  opens in wave 3\" ) b[10].set_color(a,110,118,130,255) b[11].set_text_for(a, \"Gravity Hammer  |  opens in wave 3\" ) b[11].set_color(a,110,118,130,255) end if b6<4 then b[12].set_text_for(a, \"Fuel Rod Gun  |  opens in wave 4\" ) b[12].set_color(a,110,118,130,255) b[13].set_text_for(a, \"Rocket Launcher  |  opens in wave 4\" ) b[13].set_color(a,110,118,130,255) end if b6<4 then b[14].set_text_for(a, \"Spartan Laser  |  opens in wave 4\" ) b[14].set_color(a,110,118,130,255) end end if a.aq==2 then b[5].set_text_for(a, \"ARSENAL  -  PLACEABLES  (3 / 4)\" ) b[7].set_text_for(a, \"Prop Placer: throw one prop into place  |  20 pts\" ) b[8].set_text_for(a, \"Barrier (standing Hunter)  |  50 pts\" ) b[9].set_text_for(a, \"Machine Gun Emplacement  |  80 pts\" ) b[10].set_text_for(a, \"Plasma Cannon Emplacement  |  110 pts\" ) b[11].set_text_for(a, \"Resupply Box: ammo every 20 s  |  80 pts\" ) b[12].set_text_for(a, \"Quartermaster: earns you 10 percent  |  100 pts\" ) l=0 for each object with label \"zs_qm\" do l+=1 end if l>=2 then b[12].set_text_for(a, \"Quartermaster  |  2 / 2 placed\" ) b[12].set_color(a,110,118,130,255) end c=a.w c&=t.a5 if c!=0 then b[7].set_text_for(a, \"Prop Placer  |  ready\" )end if a6<2 then b[9].set_text_for(a, \"Machine Gun  |  opens in wave 2\" ) b[9].set_color(a,110,118,130,255) end if a6<3 then b[10].set_text_for(a, \"Plasma Cannon  |  opens in wave 3\" ) b[10].set_color(a,110,118,130,255) end l=0 for each object with label \"zs_ammo\" do l+=1 end if l>=2 then b[11].set_text_for(a, \"Resupply Box  |  2 / 2 placed\" ) b[11].set_color(a,110,118,130,255) end if a6<2 then b[11].set_text_for(a, \"Resupply Box  |  opens in wave 2\" ) b[11].set_color(a,110,118,130,255) end m=k.ay ev() if l==1 then b[10].set_text_for(a, \"Plasma Cannon  |  not on this map\" ) b[10].set_color(a,110,118,130,255) end end if a.aq==3 then b[5].set_text_for(a, \"ARSENAL  -  EQUIPMENT  (4 / 4)\" ) b[7].set_text_for(a, \"Ammo refill  |  20 pts\" ) b[8].set_text_for(a, \"Radar Jammer  |  15 pts\" ) b[9].set_text_for(a, \"Deployable Cover  |  25 pts\" ) b[10].set_text_for(a, \"Trip Mine  |  30 pts\" ) b[11].set_text_for(a, \"Regenerator  |  45 pts\" ) b[12].set_text_for(a, \"Bubble Shield  |  45 pts\" ) b[13].set_text_for(a, \"Active Camo  |  60 pts\" ) b[14].set_text_for(a, \"Invincibility (2 a round)  |  100 pts\" ) if a6<2 then b[10].set_text_for(a, \"Trip Mine  |  opens in wave 2\" ) b[10].set_color(a,110,118,130,255) b[11].set_text_for(a, \"Regenerator  |  opens in wave 2\" ) b[11].set_color(a,110,118,130,255) b[12].set_text_for(a, \"Bubble Shield  |  opens in wave 2\" ) b[12].set_color(a,110,118,130,255) end if a6<3 then b[13].set_text_for(a, \"Active Camo  |  opens in wave 3\" ) b[13].set_color(a,110,118,130,255) end if team[0].c6>=2 then b[14].set_text_for(a, \"Invincibility  |  sold out this round\" ) b[14].set_color(a,110,118,130,255) end if a6<5 then b[14].set_text_for(a, \"Invincibility  |  opens in wave 5\" ) b[14].set_color(a,110,118,130,255) end end if ag==ah.z then es() if bz==j then c=a.aq c+=1 b[5].set_text_for(a, \"ARSENAL  (%n / 4)  |  card prices +50 percent away from a quartermaster\" ,c) end end c=a.w c&=t.a5 if not a.ba.is_zero()or a.aa>0 or c!=0 then if a.aq>=2 then b[5].set_text_for(a, \"ARSENAL  -  use what you carry first\" ) if a.aq!=3 then b[7].set_color(a,110,118,130,255)end b[8].set_color(a,110,118,130,255) b[9].set_color(a,110,118,130,255) b[10].set_color(a,110,118,130,255) b[11].set_color(a,110,118,130,255) b[12].set_color(a,110,118,130,255) b[13].set_color(a,110,118,130,255) b[14].set_color(a,110,118,130,255) end end end function eq() s=0 c=a.w h=c h&=t.dp if h!=0 then s+=40 end h=c h&=t.dq if h!=0 then s-=30 end h=c h&=t.b0 if h!=0 then s+=50 end h=c h&=t.dc if h!=0 then s-=40 end h=c h&=t.bt if h!=0 then s+=40 end h=c h&=t.ck if h!=0 then s-=30 end h=c h&=t.cb if h!=0 then s+=30 end h=c h&=t.d0 if h!=0 then s+=40 end h=c h&=t.cu if h!=0 then s+=50 end o=p[an.cn] if o==1 then s=0 end end function e8() du() eq() b[5].set_text_for(a, \"TRAITS  |  cost %n  |  you have %n points\" ,s,a.a4) b[17].set_text_for(a, \"Ready: spawn\" ) b[7].set_text_for(a, \"Fast Feet: 25 percent faster  |  costs 40\" ) b[8].set_text_for(a, \"Slow: 10 percent slower  |  gives 30\" ) b[9].set_text_for(a, \"Overshield: double shields  |  costs 50\" ) b[10].set_text_for(a, \"Frail: no shields  |  gives 40\" ) b[11].set_text_for(a, \"Hard Hitter: 25 percent more damage  |  costs 40\" ) b[12].set_text_for(a, \"Weak Arm: 25 percent less damage  |  gives 30\" ) b[13].set_text_for(a, \"Grenadier: 2 frags that come back  |  costs 30\" ) b[14].set_text_for(a, \"Tough: takes less damage  |  costs 40\" ) b[19].set_text_for(a, \"Assault: spawn with an Assault Rifle too  |  costs 50\" ) b[19].set_color(a,235,240,245,255) c=a.w h=c h&=t.cu if h!=0 then b[19].set_color(a,232,184,82,255)end h=c h&=t.dp if h!=0 then b[7].set_color(a,232,184,82,255)end h=c h&=t.dq if h!=0 then b[8].set_color(a,232,184,82,255)end h=c h&=t.b0 if h!=0 then b[9].set_color(a,232,184,82,255)end h=c h&=t.dc if h!=0 then b[10].set_color(a,232,184,82,255)end h=c h&=t.bt if h!=0 then b[11].set_color(a,232,184,82,255)end h=c h&=t.ck if h!=0 then b[12].set_color(a,232,184,82,255)end h=c h&=t.cb if h!=0 then b[13].set_color(a,232,184,82,255)end h=c h&=t.d0 if h!=0 then b[14].set_color(a,232,184,82,255)end end function fe() h=0 if g==e.a3 or g==e.a9 or g==e.ab then h=1 end if g==e.aw or g==e.y or g==e.ae then h=2 end if g==e.i or g==e.bp then h=3 end end function ea() g=a.aq if g<e.aj or g>e.ai then g=e.aj end if g>e.a9 and g<e.y then g=e.aj end c=0 if g>=e.q and g<=e.n then c=1 end if g==e.ai then c=1 end if c==1 then if a!=af or bq==1 then g=e.aj end end ap=0 c=al if ag==ah.z and c>6 then ap=1 end if ap==1 then g=e.a8 end end function eo() ea() fe() l=1 if bl<h then l=0 end o=p[an.bn] if g==e.a0 then if ag!=ah.a1 or cw<o then l=0 end end if l==0 then b[6].set_text_for(a, \"Still locked\" )end if l==1 then c=g if g==e.ai then c=e.i end l=a.deploy_class(c) if l==0 then b[6].set_text_for(a, \"Can't take that form now\" )end if l==1 then b[6].set_text_for(a, \"\" )end h=0 if g>=e.q and g<=e.n then h=1 end if g==e.ai then h=1 end if l==1 and h==1 then bq=1 team[1].ej=70 if g==e.ai then c=a.w c|=t.ak a.w=c end d5() end end end function dw() u=j if dv!=j then h=af.get_deployment_class() c=af.w c&=t.ak if c!=0 then h=e.ai end if h==e.x or h==e.q then if g==e.a3 or g==e.ab then u=dv end end if h==e.q then if g==e.aj or g==e.am or g==e.bp then u=dv end end if h==e.ai then if g==e.a9 or g==e.ar or g==e.ae then u=dv end if g==e.y or g==e.i then u=dv end end end end function e7() du() ea() b[5].set_text_for(a, \"INFECTED  -  CHOOSE A FORM\" ) b[15].set_text_for(a, \"Spawn\" ) b[16].set_text_for(a, \"Spawn at Nest\" ) b[19].set_color(a,235,240,245,255) b[19].set_background(a,15,27,39,255) b[24].set_color(a,235,240,245,255) b[24].set_background(a,15,27,39,255) b[25].set_color(a,235,240,245,255) b[25].set_background(a,15,27,39,255) b[26].set_color(a,235,240,245,255) b[26].set_background(a,15,27,39,255) b[7].set_text_for(a, \"Flood Human  |  tier 1\" ) b[8].set_text_for(a, \"Baby Stalker  |  tier 1  |  tiny, fast, fragile\" ) b[9].set_text_for(a, \"Breacher  |  tier 1  |  big and tough, 2 max\" ) b[10].set_text_for(a, \"Flood Brute  |  tier 2\" ) b[11].set_text_for(a, \"Flood Stalker  |  tier 2\" ) b[12].set_text_for(a, \"Jumper Brute  |  tier 2  |  high jumps, 1 max\" ) b[13].set_text_for(a, \"Flood Elite  |  tier 3  |  shields, hits hard, 3 max\" ) b[14].set_text_for(a, \"Nest Stalker  |  tier 3  |  builds the nest\" ) b[19].set_text_for(a, \"Invis Stalker  |  tier 3  |  near-invisible, 2 max\" ) b[24].set_text_for(a, \"Shifter Stalker  |  tier 4  |  turret or Tank, 2 max\" ) b[25].set_text_for(a, \"Flood Tank  |  tier 4\" ) b[26].set_text_for(a, \"Sword Spartan  |  last wave only\" ) if bl<3 then o=p[an.ch] c=bl c+=1 o*=c o+=1 c+=1 b[5].set_text_for(a, \"INFECTED  |  tier %n opens in wave %n\" ,c,o) end if bl<1 then b[10].set_color(a,110,118,130,255) b[11].set_color(a,110,118,130,255) b[12].set_color(a,110,118,130,255) end if bl<2 then b[13].set_color(a,110,118,130,255) b[14].set_color(a,110,118,130,255) b[19].set_color(a,110,118,130,255) end if bl<3 then b[24].set_color(a,110,118,130,255) b[25].set_color(a,110,118,130,255) end l=game.get_deployment_occupied(e.y) if bl>=2 and l>0 then b[14].set_text_for(a, \"Nest Stalker  |  taken\" ) b[14].set_color(a,110,118,130,255) end l=game.get_deployment_occupied(e.aw) if bl>=2 and l>=3 then b[13].set_text_for(a, \"Flood Elite  |  full (3 max)\" ) b[13].set_color(a,110,118,130,255) end l=game.get_deployment_occupied(e.am) if l>=2 then b[9].set_text_for(a, \"Breacher  |  full (2 max)\" ) b[9].set_color(a,110,118,130,255) end l=game.get_deployment_occupied(e.ab) if bl>=1 and l>0 then b[12].set_text_for(a, \"Jumper Brute  |  taken\" ) b[12].set_color(a,110,118,130,255) end l=game.get_deployment_occupied(e.ae) if bl>=2 and l>=2 then b[19].set_text_for(a, \"Invis Stalker  |  full (2 max)\" ) b[19].set_color(a,110,118,130,255) end l=game.get_deployment_occupied(e.i) if bl>=3 and l>=2 then b[24].set_text_for(a, \"Shifter Stalker  |  full (2 max)\" ) b[24].set_color(a,110,118,130,255) end o=p[an.bn] if ag!=ah.a1 or cw<o then b[26].set_color(a,110,118,130,255)end if ap==1 then b[5].set_text_for(a, \"BREAK  -  YOU RISE AS A MONITOR\" ) b[7].set_text_for(a, \"Infected Monitor  |  flies, harmless  |  Flood again next wave\" ) end if dg!=j then c=dg.health b[16].set_text_for(a, \"Spawn at Nest (health %n)\" ,c) end dw() if u!=j then b[16].set_text_for(a, \"Spawn on the boss\" )end if g==e.aj or g==e.a8 then b[7].set_background(a,45,75,105,255)end if g==e.ar then b[8].set_background(a,45,75,105,255)end if g==e.am then b[9].set_background(a,45,75,105,255)end if g==e.a3 then b[10].set_background(a,45,75,105,255)end if g==e.a9 then b[11].set_background(a,45,75,105,255)end if g==e.ab then b[12].set_background(a,45,75,105,255)end if g==e.aw then b[13].set_background(a,45,75,105,255)end if g==e.y then b[14].set_background(a,45,75,105,255)end if g==e.ae then b[19].set_background(a,45,75,105,255)end if g==e.i then b[24].set_background(a,45,75,105,255)end if g==e.bp then b[25].set_background(a,45,75,105,255)end if g==e.a0 then b[26].set_background(a,45,75,105,255)end b[20].set_background(a,60,45,15,255) b[20].set_color(a,232,184,82,255) b[20].set_text_for(a, \"BOSS  |  Juggernaut: giant Tank, A1 smashes builds, Flood spawn on him  |  click to change\" ) if g>=e.q and g<=e.n then b[20].set_background(a,120,90,30,255)end if g==e.ai then b[20].set_background(a,120,90,30,255) b[20].set_text_for(a, \"BOSS  |  Stalker Matriarch: huge, fastest, turret, Stalkers spawn on her  |  click to change\" ) end if g==e.x then b[20].set_text_for(a, \"BOSS  |  Brute Chieftain: big Flood Brute, fastest, Brutes spawn on him  |  click to change\" )end if g==e.n then b[20].set_text_for(a, \"BOSS  |  Master Chief: invisible, sword, A1 equipment  |  click to change\" )end end function fa() if dg==j and dn.is_zero()then dg=a.biped.place_at_me(flood_carrier, \"zs_nest\" ,never_garbage_collect,5,0,0,shielded) dg.copy_rotation_from(a.biped,false) dg.set_scale(150) dg.set_garbage_collection_disabled(true) dg.max_health=400 dn=30 dn.set_rate(-100%) end end function e4() l=0 o=p[an.dt] if a.aa==k.cq then l= -1 h=0 for each object do if f.is_of_type(biped)then c=f.get_distance_to(a.co) if c<5 then h=1 end end end if h==1 then b[6].set_text_for(a, \"Too close to someone: grav lift returned\" )end if h==0 then if a.a7!=j then a.a7.detach() a.a7.attach_to(a.co,0,0,0,relative) a.a7.detach() if a.is_not_respawning()then a.a7.copy_rotation_from(a.biped,false)end a.a7.set_garbage_collection_disabled(true) a.a7.d1=a a.a7.c5=5 a.a7.c5.set_rate(-100%) end a.a7=j a.aa=0 c=a.w c~=t.a5 a.w=c b[6].set_text_for(a, \"Placed\" ) end end if a.aa==k.c1 then for each object with label \"zs_turret\" do l+=1 end end if a.aa==k.dm then for each object with label \"zs_wall\" do l+=1 end end if a.aa==k.ay then for each object with label \"zs_plasma\" do l+=1 end end if a.aa==k.bu then for each object with label \"zs_ammo\" do l+=1 end end if l>=o then b[6].set_text_for(a, \"Your team already has %n of those: grav lift returned\" ,l)end if l<o and l>=0 then if a.aa==k.c1 then u=a.co.place_at_me(machine_gun_emplacement, \"zs_turret\" ,none,0,0,0,none)end if a.aa==k.dm then u=a.co.place_at_me(hunter, \"zs_wall\" ,never_garbage_collect,0,0,0,none) u.set_garbage_collection_disabled(true) u.max_health=300 end if a.aa==k.ay then u=a.co.place_at_me(plasma_cannon_emplacement, \"zs_plasma\" ,none,0,0,0,none)end if a.aa==k.bu then u=a.co.place_at_me(sentinel_constructor, \"zs_ammo\" ,never_garbage_collect,0,0,0,none) u.set_scale(200) u.set_invincibility(true) u.set_garbage_collection_disabled(true) u.eu=a end if a.aa==k.az then u=a.co.place_at_me(marine, \"zs_qm\" ,never_garbage_collect,0,0,0,none) u.set_invincibility(true) u.set_garbage_collection_disabled(true) u.e5=a end u.copy_rotation_from(a.biped,false) a.aa=0 b[6].set_text_for(a, \"Placed\" ) end a.co.kill(false) a.co=j end function fl() for each object do if f.is_of_type(plasma_cannon_emplacement)then fi|=1 end end end on widget click:do a.w|=t.bm c=rand(100) if a.bb==bc.c2 then if clicked_widget==7 then a.aq=e.aj end if clicked_widget==8 then a.aq=e.ar end if clicked_widget==9 then a.aq=e.am end if clicked_widget==10 then a.aq=e.a3 end if clicked_widget==11 then a.aq=e.a9 end if clicked_widget==12 then a.aq=e.ab end if clicked_widget==13 then a.aq=e.aw end if clicked_widget==14 then a.aq=e.y end if clicked_widget==19 then a.aq=e.ae end if clicked_widget==24 then a.aq=e.i end if clicked_widget==25 then a.aq=e.bp end if clicked_widget==26 then a.aq=e.a0 end if clicked_widget==20 then c=a.aq a.aq=e.q if c==e.q then a.aq=e.x end if c==e.x then a.aq=e.n end if c==e.n then a.aq=e.ai end end if clicked_widget==15 then a.set_primary_respawn_object(j) eo() end if clicked_widget==16 then ea() dw() if u==j then u=dg end if u!=j then a.set_primary_respawn_object(u) eo() end end end if a.bb==bc.bd then if clicked_widget>=7 and clicked_widget<=14 then h=1 l=clicked_widget l-=7 h<<=l c=a.w c^=h if clicked_widget==7 then c~=t.dq end if clicked_widget==8 then c~=t.dp end if clicked_widget==9 then c~=t.dc end if clicked_widget==10 then c~=t.b0 end if clicked_widget==11 then c~=t.ck end if clicked_widget==12 then c~=t.bt end a.w=c end if clicked_widget==19 then c=a.w c^=t.cu a.w=c end if clicked_widget==17 then eq() if a.a4<s then b[6].set_text_for(a, \"Not enough points: that costs %n\" ,s)end if a.a4>=s then a.a4-=s c=a.w c|=t.en a.w=c b7() b[6].set_text_for(a, \"Traits set\" ) end end end if a.bb==bc.b5 then if clicked_widget>=7 and clicked_widget<=14 then m=a.aq m*=8 m+=clicked_widget m-=7 ap=1 if m>k.az and m<k.dj then ap=0 end if ap==1 then fm()end end if clicked_widget==15 then a.aq-=1 if a.aq<0 then a.aq=3 end end if clicked_widget==16 then a.aq+=1 if a.aq>3 then a.aq=0 end end if clicked_widget==17 then b7()end end end on button press:do c=rand(100) if pressed_button==button.equipment then a.ba=0 if a.aa>0 then a.e0=3 a.e0.set_rate(-100%) end end if a.au==av.v and a.is_not_respawning()then if pressed_button==button.ability_1 then fg()end if pressed_button==button.flashlight then ap=0 if a.a7!=j then ap=1 end if ap==1 then for each object do if f.is_of_type(biped)and f!=a.biped then c=f.get_distance_to(a.a7) if c<5 then ap=2 end end end if ap==2 then b[6].set_text_for(a, \"Too close to someone: props can't be dropped within 4 ft\" )end end if ap==1 then a.a7.detach() a.a7.copy_rotation_from(a.biped,false) a.a7.set_garbage_collection_disabled(true) a.a7.d1=a a.a7.c5=5 a.a7.c5.set_rate(-100%) a.a7=j if a.aa==k.cq then a.aa=0 a.give_equipment(none) a.ba=0 end b[6].set_text_for(a, \"Placed\" ) end if ap==0 then u=j o=9 h=0 for each object do ap=1 if f.is_of_type(biped)or f.is_of_type(vehicle)then ap=0 end if f.is_of_type(weapon)or f.is_of_type(equipment)then ap=0 end bf=f.get_carrier() if bf!=no_player then ap=0 end if ap==1 then c=f.get_distance_to(a.biped) if f.d1!=a and not f.c5.is_zero()then if c<9 then h=1 end c=100 end if c<o then o=c u=f end end end if u==j then b[6].set_text_for(a, \"No prop within 8 ft\" )end if u==j and h==1 then b[6].set_text_for(a, \"Someone just placed that prop: wait a few seconds\" )end if u!=j then a.a7=u u.attach_to(a.biped,5,0,2,relative) b[6].set_text_for(a, \"Picked up a prop %n ft away\" ,o) c=a.w c&=t.a5 if c!=0 and a.ba.is_zero()and a.aa==0 then a.aa=k.cq a.give_equipment(grav_lift) a.ba=1 end end end end end g=a.get_deployment_class() if a.is_not_respawning()then if pressed_button==button.crouch then ap=0 if g==e.aj or g==e.am or g==e.aw then ap=1 end if g==e.a3 or g==e.ab then ap=1 end if g>=e.q and g<=e.n then ap=1 end h=a.w h&=t.ak if g==e.i and a.b2==0 and h!=0 then ap=1 end if ap==1 and a.biped.ca==0 and a.biped.b4.is_zero()then a.biped.ca=1 a.biped.b4=1 a.biped.b4.set_rate(-200%) end end if g==e.y and pressed_button==button.ability_1 then fa()end if pressed_button==button.ability_1 and a.bk.is_zero()then if g==e.n then c=rand(7) if c==0 then a.give_equipment(bubble_shield)end if c==1 then a.give_equipment(regenerator)end if c==2 then a.give_equipment(trip_mine)end if c==3 then a.give_equipment(radar_jammer)end if c==4 then a.give_equipment(deployable_cover)end if c==5 then a.give_equipment(grav_lift)end if c==6 then a.give_equipment(flare)end a.bk=20 end if g==e.q then l=0 for each object do ap=0 if f.has_forge_label( \"zs_wall\" )or f.has_forge_label( \"zs_turret\" )then ap=1 end if f.has_forge_label( \"zs_plasma\" )or f.has_forge_label( \"zs_ammo\" )then ap=1 end c=1 if f.is_of_type(biped)or f.is_of_type(vehicle)then c=0 end if f.is_of_type(weapon)or f.is_of_type(equipment)then c=0 end if c==1 then ap=1 end if ap==1 then c=f.get_distance_to(a.biped) if c<=20 then f.delete() l+=1 end end end b[6].set_text_for(a, \"Siege Smash: %n Survivor builds destroyed\" ,l) a.bk=30 end a.bk.set_rate(-100%) end if g==e.i and a.bk.is_zero()and a.ad==j and a.b2<=1 then ap=0 if pressed_button==button.ability_1 or pressed_button==button.ability_2 then ap=1 end h=a.w h&=t.ak if h!=0 and pressed_button==button.ability_2 then ap=0 end if ap==1 and a.b2==0 then c=a.w c~=t.b1 if pressed_button==button.ability_2 then c|=t.b1 end a.w=c end if ap==1 then a.b2+=2 a.ds=1 a.ds.set_rate(-100%) end end end c=p[an.ei] if c==1 and pressed_button==button.ability_4 then al=0 end end if af!=no_player and bq==1 then c=af.get_death_count() if c!=af.ek then af=no_player for each player do if a.au==av.v then a.a4+=10 b[6].set_text_for(a, \"The boss is dead: +10 points for every Survivor\" ) c=a.get_kill_count() c-=a.ez if c>0 then a.a4+=25 b[6].set_text_for(a, \"You killed the boss: +35 points\" ) end end end end end c=rand(100) bx=0 a2=0 bs=0 for each player do if a.au==av.e6 then a.au=av.v o=p[an.d4] a.a4=o a.ek=a.get_death_count() a.ez=a.get_kill_count() if cw>=2 then cj()end end bx+=1 if a.au==av.v then a2+=1 end if a.au==av.ao then bs+=1 end end if ci.is_zero()then fl() ci=2 ci.set_rate(-100%) end if ag==ah.bo then o=p[an.c4] al.set_rate(-100%) if bx<o then al=p[an.cr] al.set_rate(0%) end if bx>=o and al.is_zero()then bi=bx h=p[an.cx] bi*=h bi+=99 bi/=100 if bi<1 then bi=1 end if bi>=bx then bi=bx bi-=1 end l=a2 for each player do if bi>0 and a.au==av.v then c=rand(l) if c<bi then cj() bi-=1 bs+=1 a2-=1 end l-=1 end end di=0 cw=1 ep() end end if ag==ah.a1 and al.is_zero()then o=p[an.bn] if cw>=o and a2>0 then b[0].set_text( \"The Survivors held out. SURVIVORS WIN\" ) team[0].end_round() ag=ah.cv end if ag==ah.a1 then o=p[an.ef] for each player do if a.au==av.v then a.a4+=o end end d2=no_player l=0 for each player randomly do if a.au==av.v and a.is_not_respawning()then c=a.biped.d3 if c>l then l=c d2=a end a.biped.d3=0 end end for each player do b[6].set_text_for(a, \"Wave %n award: most kills %n\" ,cw,l) c=a.w if a==d2 then c|=t.bv b[6].set_text_for(a, \"WAVE AWARD: most kills (%n). Every weapon tier opens, and your next one is free\" ,l) end a.w=c end al=p[an.dy] al.set_rate(-100%) ag=ah.z af=no_player d5() end end if ag==ah.z and al.is_zero()then cw+=1 ep() af=no_player bq=0 o= -1 for each player randomly do c=a.get_kill_count() if a.au==av.ao and c>o then o=c af=a end end if af!=no_player then b[6].set_text_for(af, \"You're this wave's boss: pick a boss card\" ) b[4].set_size(af,900,560) b[20].set_position(af,210,165) b[20].set_size(af,860,48) b[7].set_position(af,210,219) b[8].set_position(af,650,219) b[9].set_position(af,210,273) b[10].set_position(af,650,273) b[11].set_position(af,210,327) b[12].set_position(af,650,327) b[13].set_position(af,210,381) b[14].set_position(af,650,381) b[19].set_position(af,210,435) b[24].set_position(af,650,435) b[25].set_position(af,210,489) b[26].set_position(af,650,489) b[15].set_position(af,210,575) b[16].set_position(af,430,575) end end if ag==ah.a1 or ag==ah.z then if bs==0 and bx>=2 then for each player randomly do if bs==0 and a.au==av.v then cj() bs+=1 a2-=1 end end end if a2==0 and bx>0 then b[0].set_text( \"The Flood consumed every Survivor. INFECTED WIN\" ) team[1].end_round() ag=ah.cv end if a2==1 and em==0 then em=1 team[0].set_color(232,184,82) b[1].set_color(d,232,184,82,255) for each player do b[6].set_text_for(a, \"One Survivor left: hunt them down\" ) if a.au==av.v then b[6].set_text_for(a, \"You're the last Survivor: 2x health, bottomless mag, fast shields\" ) a.set_max_health(200) end end end end for each player do if a.dh==2 and a.is_not_respawning()then a.biped.kill(false)end if a.dh==2 and not a.is_not_respawning()then a.dh=0 end if a.dh==1 then a.dh=2 end g=a.get_deployment_class() if ag==ah.a1 and g==e.a8 and a.is_not_respawning()and a.dh==0 then a.dh=1 end if a.is_not_respawning()then if g==e.a8 and a.dh==0 then a.apply_traits(r[0])end if g==e.aj then a.apply_traits(r[1])end if g==e.aw then a.apply_traits(r[10])end if g==e.a3 then a.apply_traits(r[11])end if g==e.a9 then a.apply_traits(r[12])end if g==e.i and a.b2==0 then a.apply_traits(r[12])end c=a.w c&=t.ak if g==e.i and c!=0 then a.apply_traits(r[13])end if g==e.ab then a.apply_traits(r[12])end if g==e.am then a.apply_traits(r[1])end if g==e.y then a.apply_traits(r[2])end if g==e.x or g==e.ar or g==e.ae then a.apply_traits(r[13])end if g==e.n then a.apply_traits(r[14])end if g==e.a0 then a.apply_traits(r[11])end if a.au==av.ao then c=a.biped.ca if c==1 and a.biped.b4.is_zero()then u=a.biped.place_at_me(magnum, \"zs_leap\" ,none,0,0,20,none) u.set_hidden(true) a.biped.cg=u u=a.biped.place_at_me(magnum, \"zs_leap\" ,none,30,0,20,none) u.set_hidden(true) a.biped.cg.b9=u u=a.biped.place_at_me(magnum, \"zs_leap\" ,none,0,0,20,none) u.set_hidden(true) u.set_velocity(30,0,0) a.biped.cg.eb=u u=a.biped.place_at_me(magnum, \"zs_leap\" ,none,0,0,20,none) u.set_hidden(true) u.set_velocity(0,30,0) a.biped.cg.ec=u a.biped.dx=0 a.biped.ca=5 end if c==5 then a.biped.dx+=1 if a.biped.dx>=3 then ac=a.biped.cg ct=ac.get_distance_to(ac.b9) b3=ac.get_distance_to(ac.eb) cf=ac.b9.get_distance_to(ac.eb) eg() a.biped.e3=bh ct=ac.get_distance_to(ac.b9) b3=ac.get_distance_to(ac.ec) cf=ac.b9.get_distance_to(ac.ec) eg() df=9 ed=6 if g==e.a3 or g==e.aw or g==e.q then df=10 ed=6 end if g==e.ab or g==e.x or g==e.n or g==e.i then df=15 ed=8 end b3=df b3*=a.biped.e3 b3/=100 cf=df cf*=bh cf/=100 a.biped.set_velocity(b3,cf,ed) ac.b9.delete() ac.eb.delete() ac.ec.delete() ac.delete() a.biped.ca=2 a.biped.b4=2 a.biped.b4.set_rate(-100%) end end if c==2 and a.biped.b4.is_zero()then a.biped.ca=0 end end if a.au==av.ao and a.b2>=2 and a.ds.is_zero()and a.ad==j then a.ey=a.biped if a.b2==3 then a.ad=a.biped.place_at_me(flood_stalker,none,none,0,0,0,none)end c=a.w c&=t.b1 if a.b2==2 and g==e.i and c==0 then a.ad=a.biped.place_at_me(flood_ranged,none,none,0,0,0,none)end if a.b2==2 and g==e.i and c!=0 then a.ad=a.biped.place_at_me(flood_tank,none,none,0,0,0,none)end a.ad.fh=a.biped.health a.set_biped(a.ad) end if a.ad!=j then a.ad.e1+=1 if a.biped==a.ad then a.ey.delete() c=a.ad.fh if c>100 then c=100 end if c>0 then a.ad.health=c end c=a.b2 a.b2=1 if c==3 then a.b2=0 end a.ad=j a.bk=3 a.bk.set_rate(-100%) end if a.ad!=j then c=a.ad.e1 if c>=30 then a.ad.delete() a.ad=j a.b2-=2 end end end if a.fj!=a.biped then a.fj=a.biped c=a.w c&=t.b1 if g==e.i and a.b2==1 and c!=0 then a.biped.set_scale(120)end if g==e.ar then a.biped.set_scale(50)end if g==e.am then a.biped.set_scale(130)end if g==e.ae then a.biped.set_scale(85)end if g==e.bp then a.biped.set_scale(150)end if g==e.q then a.biped.set_scale(200)end if g==e.x then a.biped.set_scale(175)end h=a.w h&=t.ak if g==e.i and h!=0 then a.biped.set_scale(250)end if a.au==av.ao then a.set_max_shields(1) if g==e.aw or g==e.a0 or g==e.n then a.set_max_shields(100)end a.set_max_health(100) if g==e.aj then a.set_max_health(200)end if g==e.y then a.set_max_health(150)end if g==e.ar then a.set_max_health(40)end if g==e.am then a.set_max_health(300)end if g==e.ae then a.set_max_health(85)end if g==e.i and a.b2==1 and c!=0 then a.set_max_health(125)end if g==e.bp then a.set_max_health(200)end if g==e.q then a.set_max_health(400)end if g==e.x then a.set_max_health(300)end if g==e.i and h!=0 then a.set_max_health(150)end c=a.biped.fh if c>100 then c=100 end if c>0 then a.biped.health=c end end if a.au==av.v then a.set_max_shields(50) end end end if not a.is_not_respawning()and a.au==av.ao then a.b2=0 c=a.w c&=25599 a.w=c if a.ad!=j then a.ad.delete() a.ad=j end end if g==e.a8 then a.set_vehicle_use(false) a.set_turret_use(false) end if g>=e.cp and g!=e.a8 then a.set_vehicle_use(true) a.set_turret_use(true) end if a.au==av.v then if a.is_not_respawning()then c=a.w h=c h&=t.dp if h!=0 then a.apply_traits(r[2])end h=c h&=t.dq if h!=0 then a.apply_traits(r[3])end h=c h&=t.b0 if h!=0 then a.apply_traits(r[4])end h=c h&=t.dc if h!=0 then a.apply_traits(r[5])end h=c h&=t.bt if h!=0 then a.apply_traits(r[6])end h=c h&=t.ck if h!=0 then a.apply_traits(r[7])end h=c h&=t.cb if h!=0 then a.apply_traits(r[8])end h=c h&=t.d0 if h!=0 then a.apply_traits(r[9])end if a2==1 and ag>=ah.a1 then a.apply_traits(r[15]) end end end c=a.get_death_count() if c!=a.ek then a.ek=c h=a.w h~=t.ak a.w=h a.ba=0 if a.au==av.v then ew()end ap=1 if a.dh>0 then a.dh=0 ap=0 end if ap==1 and a.au==av.v and ag!=ah.bo then cj() di+=1 end end c=a.get_kill_count() c-=a.ez a.ez=a.get_kill_count() if c>0 and a.au==av.ao and a.is_not_respawning()then h=a.biped.health h+=25 o=a.w o&=t.ak if g<e.q or g>e.n then if o==0 then h=100 end end if h>100 then h=100 end a.biped.health=h end if c>0 and a.au==av.v then if a.biped!=j then a.biped.d3+=c end o=p[an.d9] c*=o a.a4+=c end if a.a4>100000 then a.a4=100000 end if a.au==av.v and a.team!=team[0]then a.team=team[0]end if a.au==av.ao and a.team!=team[1]then a.team=team[1]end end fc=di fc+=a2 if cw>0 then c=cw c-=1 h=p[an.ch] c/=h if c>3 then c=3 end if c>bl then bl=c end end dv=j if af!=no_player and bq==1 then if af.is_not_respawning()then dv=af.biped end end for each player do g=a.get_deployment_class() ap=0 if a.au==av.v and not a.is_not_respawning()and g== -1 and ag!=ah.cv then h=a.w h&=t.en if h!=0 then l=e.cp c=a.w c&=t.cb if c!=0 then l=e.db end c=a.w c&=t.cu if c!=0 and l==e.db then l=e.dd end if c!=0 and l==e.cp then l=e.er end c=a.deploy_class(l) end if h==0 then ap=2 end end c=a.get_respawn_time() if a.au==av.ao and not a.is_not_respawning()and g== -1 and c==0 and ag!=ah.cv then ap=1 end if ap==1 and a.bb==bc.bw then a.bb=bc.c2 a.w|=t.bm a.set_ui_menu(true) end if ap==2 and a.bb==bc.bw then a.bb=bc.bd a.w|=t.bm a.set_ui_menu(true) end if ap!=1 and a.bb==bc.c2 then b7()end if ap!=2 and a.bb==bc.bd then b7()end if a.bb==bc.b5 and not a.is_not_respawning()then b7()end end for each object do if f.is_of_type(grav_lift)then f.e1+=1 end if f.has_forge_label( \"zs_ammo\" )and f.b8.is_zero()then f.b8=20 f.b8.set_rate(-100%) for each player do if a.au==av.v and a.is_not_respawning()then c=a.biped.get_distance_to(f) if c<=10 then a.refill_ammo() b[6].set_text_for(a, \"Resupply Box: ammo refilled\" ) bf=f.eu if bf!=a and bf!=no_player and bf.au==av.v then bf.a4+=1 end end end end end if f.has_forge_label( \"zs_wall\" )and f.b8.is_zero()then c=f.health c-=1 if c>=1 then f.health=c end if c<1 then f.kill(false)end f.b8=3 f.b8.set_rate(-100%) end if f.has_forge_label( \"zs_leap\" )then f.e1+=1 if f.e1>=60 then f.delete()end end if f.is_of_type(weapon)and not f.has_forge_label( \"zs_gun\" )and not f.has_forge_label( \"zs_leap\" )and not f.has_forge_label( \"zs_ammo\" )then ap=1 bf=f.get_carrier() if bf!=no_player then ap=0 f.fk=1 end if ap==1 and f.fk==1 then for each player do if a.is_not_respawning()then c=a.biped.get_distance_to(f) if c<6 then ap=0 end end end end if ap==1 then f.delete()end end end for each player do if a.aa>0 and a.is_not_respawning()then if a.co==j and not a.e0.is_zero()then u=j o=100000 for each object do if f.is_of_type(grav_lift)and f.e9==0 and f.e1<90 then c=f.get_distance_to(a.biped) if c<o then o=c u=f end end end if u!=j then u.e9=1 a.co=u end end if a.co!=j then c=a.co.get_speed() l=a.co.e1 if c==0 and l>=5 then e4()end end if a.ba.is_zero()and a.e0.is_zero()and a.co==j and a.aa>0 then a.give_equipment(grav_lift) a.ba=1 end end end ee=al a6=cw if ag==ah.bo then a6=1 end if ag==ah.z then a6+=1 end o=p[an.c4] if ag==ah.bo then b[0].set_text( \"WARMUP  |  outbreak in %n s\" ,ee) if bx<o then b[0].set_text( \"FLOOD SURVIVAL  |  waiting for %n players\" ,o)end end if ag==ah.a1 then o=p[an.bn] b[0].set_text( \"WAVE %n / %n  |  %n s left\" ,cw,o,ee) end if ag==ah.z then c=cw c+=1 b[0].set_text( \"BREAK  |  wave %n starts in %n s\" ,c,ee) end c=bl c+=1 b[1].set_text( \"Survivors %n  |  Infected %n  |  Flood tier %n / 4\" ,a2,bs,c) if a2==1 and ag>=ah.a1 then b[1].set_text( \"LAST SURVIVOR STANDING  |  Infected %n  |  Flood tier %n / 4\" ,bs,c)end b[0].set_visibility(d,true) b[1].set_visibility(d,true) b[6].set_visibility(d,true) c=team[1].ej b[22].set_visibility(d,false) if c>0 and af!=no_player and bq==1 then if af.is_not_respawning()then team[1].ej-=1 if c>=8 then h=af.get_deployment_class() o=af.w o&=t.ak b[22].set_text( \"THE JUGGERNAUT HAS RISEN\" ) if h==e.x then b[22].set_text( \"THE BRUTE CHIEFTAIN HAS RISEN\" )end if h==e.n then b[22].set_text( \"MASTER CHIEF HAS RISEN\" )end if o!=0 then b[22].set_text( \"THE STALKER MATRIARCH HAS RISEN\" )end b[22].set_font_size(d,c) b[22].set_visibility(d,true) end end end for each player do h=rand(10) c=a.w c&=t.bm if c!=0 or h==0 then a.w~=t.bm b[18].set_visibility(a,false) if a.au==av.v then b[2].set_text_for(a, \"%n points\" ,a.a4) o=p[an.cn] if o==1 then b[2].set_text_for(a, \"%n points  |  test: FREE arsenal\" ,a.a4)end c=a.w c&=t.bv if c!=0 then b[2].set_text_for(a, \"%n points  |  award: every weapon tier open, next weapon free\" ,a.a4)end b[3].set_text_for(a, \"Ability 1: arsenal  |  Flashlight: pick up a prop\" ) if a.aa>0 then b[3].set_text_for(a, \"Throw your grav lift to build it\" )end if a.a7!=j then b[3].set_text_for(a, \"Carrying a prop  |  Flashlight drops it\" )end if a.aa==k.cq then b[3].set_text_for(a, \"Carrying a prop  |  Flashlight drops it, or throw the grav lift\" )end if a.is_not_respawning()and ag!=ah.bo and ag!=ah.cv then o=p[an.br] b[18].set_color(a,235,240,245,255) b[18].set_text_for(a, \"Arsenal: only within %n ft of a quartermaster during waves\" ,o) if ag==ah.z then b[18].set_color(a,232,184,82,255) b[18].set_text_for(a, \"BREAK  |  arsenal open anywhere, prices +50 percent away from a quartermaster\" ) end b[18].set_visibility(a,true) end end if a.au==av.ao then b[2].set_text_for(a, \"Survivors converted: %n of %n\" ,di,fc) b[3].set_text_for(a, \"\" ) g=a.get_deployment_class() if g==e.aj or g==e.am or g==e.aw or g==e.a3 or g==e.ab then b[3].set_text_for(a, \"Crouch: leap the way you face\" )end if g>=e.q and g<=e.n then b[3].set_text_for(a, \"Crouch: leap the way you face\" )end if g==e.y then c=dn b[3].set_text_for(a, \"Nest Stalker  |  A1 build the nest (ready in %n s)\" ,c) if dg!=j then b[3].set_text_for(a, \"Nest Stalker  |  your team's nest is standing\" )end end c=a.bk if g==e.i then b[3].set_text_for(a, \"Shifter Stalker  |  A1 turret, A2 Tank, again to change back (ready in %n s)\" ,c)end h=a.w h&=t.ak if g==e.i and h!=0 then b[3].set_text_for(a, \"Stalker Matriarch  |  Crouch: leap  |  A1 turret and back (ready in %n s)\" ,c)end if g==e.q then b[3].set_text_for(a, \"Juggernaut  |  Crouch: leap  |  A1 Siege Smash (ready in %n s)\" ,c)end if g==e.n then b[3].set_text_for(a, \"Master Chief  |  Crouch: leap  |  A1 random equipment (ready in %n s)\" ,c)end end b[2].set_visibility(a,true) b[3].set_visibility(a,true) ex() if af!=no_player and bq==1 and a.bb==bc.bw and team[1].ej==0 then if af.is_not_respawning()then c=af.biped.health h=af.get_deployment_class() b[20].set_text_for(a, \"JUGGERNAUT  |  HEALTH %n\" ,c) if h==e.x then b[20].set_text_for(a, \"BRUTE CHIEFTAIN  |  HEALTH %n\" ,c)end if h==e.n then b[20].set_text_for(a, \"MASTER CHIEF  |  HEALTH %n\" ,c)end o=af.w o&=t.ak if o!=0 then b[20].set_text_for(a, \"STALKER MATRIARCH  |  HEALTH %n\" ,c)end b[20].set_position(a,470,100) b[20].set_size(a,340,36) b[20].set_color(a,230,40,40,255) b[20].set_background(a,0,0,0,220) b[20].set_visibility(a,true) end end if a.bb==bc.b5 or a.bb==bc.bd then if a.bb==bc.b5 then fd()end if a.bb==bc.bd then e8()end b[4].set_visibility(a,true) b[5].set_visibility(a,true) b[7].set_visibility(a,true) b[8].set_visibility(a,true) b[9].set_visibility(a,true) b[10].set_visibility(a,true) b[11].set_visibility(a,true) b[12].set_visibility(a,true) if a.bb==bc.bd or a.aq!=2 then b[13].set_visibility(a,true) b[14].set_visibility(a,true) end if a.bb==bc.b5 then b[15].set_visibility(a,true) b[16].set_visibility(a,true) end if a.bb==bc.bd then b[19].set_visibility(a,true)end if a.bb==bc.bd then b[21].set_text_for(a, \"LAST SURVIVOR\" ) b[21].set_visibility(a,true) b[27].set_text_for(a, \"With one Survivor left, they get 2x health and shields that recharge twice as fast.\" ) b[27].set_visibility(a,true) b[30].set_text_for(a, \"They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING.\" ) b[30].set_visibility(a,true) b[28].set_text_for(a, \"WAVE AWARDS\" ) b[28].set_visibility(a,true) b[29].set_text_for(a, \"Most kills in a wave: every weapon tier opens for you, and your next weapon is free.\" ) b[29].set_visibility(a,true) b[31].set_text_for(a, \"Each wave's award goes to the living Survivor with the most kills since the last one.\" ) b[31].set_visibility(a,true) end if a.bb==bc.b5 then b[21].set_text_for(a, \"BUILD A BASE\" ) b[21].set_visibility(a,true) b[27].set_text_for(a, \"Flashlight picks up the closest prop (8 ft). Press again to drop it: quick but rough.\" ) b[27].set_visibility(a,true) b[30].set_text_for(a, \"Prop Placer (20 points) is more accurate: buy one, pick up a prop, then throw the grav lift.\" ) b[30].set_visibility(a,true) b[28].set_text_for(a, \"THE ARSENAL\" ) b[28].set_visibility(a,true) b[29].set_text_for(a, \"Waves: only near a quartermaster. Breaks: anywhere, but +50 percent away from one.\" ) b[29].set_visibility(a,true) b[31].set_text_for(a, \"Quartermaster (100, Placeables): shop near one in waves; its owner earns 10 percent.\" ) b[31].set_visibility(a,true) end b[17].set_visibility(a,true) end if a.bb==bc.c2 then e7() b[4].set_visibility(a,true) b[5].set_visibility(a,true) b[7].set_visibility(a,true) b[15].set_visibility(a,true) if ap==0 then b[8].set_visibility(a,true) b[9].set_visibility(a,true) b[10].set_visibility(a,true) b[11].set_visibility(a,true) b[12].set_visibility(a,true) b[13].set_visibility(a,true) b[14].set_visibility(a,true) b[19].set_visibility(a,true) b[24].set_visibility(a,true) b[25].set_visibility(a,true) b[26].set_visibility(a,true) if a==af and bq==0 then b[20].set_visibility(a,true)end end if dg!=j then b[16].set_visibility(a,true)end dw() if u!=j then b[16].set_visibility(a,true)end b[21].set_text_for(a, \"BOSSES\" ) b[21].set_visibility(a,true) b[27].set_text_for(a, \"The Infected with the most kills picks a boss at the start of each wave.\" ) b[27].set_visibility(a,true) b[30].set_text_for(a, \"Bosses start in wave 2. Click the gold card to cycle through them.\" ) b[30].set_visibility(a,true) if ap==1 then b[21].set_text_for(a, \"THE BREAK\" ) b[27].set_text_for(a, \"Died in a break? You rise as a Monitor: you can fly, but you can't hurt anyone.\" ) b[30].set_text_for(a, \"Scout their base. In the break's last 6 seconds you can pick a Flood form again.\" ) b[28].set_text_for(a, \"NEXT WAVE\" ) b[28].set_visibility(a,true) b[29].set_text_for(a, \"A new tier of Flood forms opens when the next wave starts.\" ) b[29].set_visibility(a,true) b[31].set_text_for(a, \"The Infected with the most kills becomes the next wave's boss.\" ) b[31].set_visibility(a,true) end end end end",
+      "megalo_traits": [
+        {
+          "resistance": 12
+        },
+        {
+          "damage": 10,
+          "speed": 10
+        },
+        {
+          "speed": 7
+        },
+        {
+          "speed": 4
+        },
+        {
+          "shields": 3
+        },
+        {
+          "shields": 1
+        },
+        {
+          "damage": 8
+        },
+        {
+          "damage": 4
+        },
+        {
+          "grenade_regeneration": 2
+        },
+        {
+          "resistance": 6
+        },
+        {
+          "damage": 11,
+          "shields": 2,
+          "speed": 9
+        },
+        {
+          "damage": 10,
+          "speed": 8
+        },
+        {
+          "damage": 9,
+          "speed": 9
+        },
+        {
+          "speed": 10
+        },
+        {
+          "camouflage": 4,
+          "headshots": 2,
+          "recharge": 4,
+          "speed": 9
+        },
+        {
+          "ammo": 3,
+          "recharge": 8,
+          "waypoint": 3
+        }
+      ],
+      "objects": {},
+      "globals": [],
+      "team_initial": [],
+      "options": {
+        "break_seconds": {
+          "value": 60.0,
+          "min": 10.0,
+          "max": 300.0
+        },
+        "free_shop": {
+          "value": 0.0,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "gun_cap": {
+          "value": 100.0,
+          "min": 10.0,
+          "max": 160.0
+        },
+        "kill_points": {
+          "value": 10.0,
+          "min": 0.0,
+          "max": 1000.0
+        },
+        "min_players": {
+          "value": 2.0,
+          "min": 1.0,
+          "max": 16.0
+        },
+        "placeable_limit": {
+          "value": 4.0,
+          "min": 0.0,
+          "max": 16.0
+        },
+        "quartermaster_radius": {
+          "value": 20.0,
+          "min": 10.0,
+          "max": 100.0
+        },
+        "start_infected_percent": {
+          "value": 10.0,
+          "min": 1.0,
+          "max": 50.0
+        },
+        "start_points": {
+          "value": 100.0,
+          "min": 0.0,
+          "max": 10000.0
+        },
+        "test_keys": {
+          "value": 0.0,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "tier_step_waves": {
+          "value": 1.0,
+          "min": 1.0,
+          "max": 3.0
+        },
+        "warmup_seconds": {
+          "value": 45.0,
+          "min": 5.0,
+          "max": 300.0
+        },
+        "wave1_seconds": {
+          "value": 90.0,
+          "min": 30.0,
+          "max": 900.0
+        },
+        "wave_bonus": {
+          "value": 25.0,
+          "min": 0.0,
+          "max": 1000.0
+        },
+        "wave_count": {
+          "value": 5.0,
+          "min": 1.0,
+          "max": 10.0
+        },
+        "wave_increase_seconds": {
+          "value": 15.0,
+          "min": 0.0,
+          "max": 120.0
+        }
+      },
+      "functions": {},
+      "on_round_start": [],
+      "on_round_end": [],
+      "on_join": [],
+      "on_leave": [],
+      "on_tick": [],
+      "seed": 0
+    }
+  },
+  "options": {
+    "respawn.seconds": 5,
+    "rounds.friendly_fire": 0,
+    "rounds.limit": 1,
+    "rounds.minutes": 0,
+    "rounds.teams": 1
+  },
+  "map": null
+}
