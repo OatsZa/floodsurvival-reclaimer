@@ -1,4 +1,4 @@
-# Name key (v0.52)
+# Name key (v0.66)
 
 The mode file's script uses short names to save space: the mode stores the script's source text, and that counts toward its 64 KiB. `tools/build.ps1` makes the short copy with `tools/shrink.ps1` from the readable `scripts/flood-survival.rvt`, which is the file to read and edit. What each part of it does is in [how-the-script-works.md](how-the-script-works.md).
 
@@ -12,130 +12,134 @@ Every build rewrites this table. The most-used names get the shortest letters, s
 | `f` | `current_object` |
 | `b` | `script_widget` |
 | `d` | `all_players` |
-| `k` | `no_object` |
-| `l` | `script_option` |
-| `o` | `script_traits` |
+| `i` | `no_object` |
+| `m` | `script_option` |
+| `r` | `script_traits` |
 
 ## Variables
 
 | Short | Name | Slot |
 | --- | --- | --- |
-| `ai` | `phase` | `global.number[0]` |
-| `cp` | `wave` | `global.number[1]` |
-| `bk` | `unlock` | `global.number[2]` |
-| `bo` | `players` | `global.number[3]` |
-| `a2` | `survivors` | `global.number[4]` |
-| `bm` | `infected` | `global.number[5]` |
-| `dg` | `converted` | `global.number[6]` |
-| `d8` | `seconds` | `global.number[7]` |
-| `z` | `open_wave` | `global.number[8]` |
-| `e0` | `avail` | `global.number[9]` |
-| `df` | `boss_used` | `global.number[10]` |
-| `eg` | `last_alert` | `global.number[11]` |
-| `an` | `quartermaster` | `global.object[0]` |
-| `t` | `made` | `global.object[1]` |
-| `c0` | `nest` | `global.object[2]` |
-| `ee` | `holder` | `global.player[0]` |
-| `a9` | `boss` | `global.player[1]` |
-| `c9` | `top_killer` | `global.player[2]` |
-| `cw` | `top_builder` | `global.player[3]` |
-| `ac` | `phase_timer` | `global.timer[0]` |
-| `b9` | `purge_timer` | `global.timer[2]` |
+| `af` | `phase` | `global.number[0]` |
+| `cs` | `wave` | `global.number[1]` |
+| `bi` | `unlock` | `global.number[2]` |
+| `bs` | `players` | `global.number[3]` |
+| `az` | `survivors` | `global.number[4]` |
+| `bn` | `infected` | `global.number[5]` |
+| `df` | `converted` | `global.number[6]` |
+| `ec` | `seconds` | `global.number[7]` |
+| `a3` | `open_wave` | `global.number[8]` |
+| `fe` | `avail` | `global.number[9]` |
+| `cl` | `boss_used` | `global.number[10]` |
+| `ej` | `last_alert` | `global.number[11]` |
+| `d7` | `chief` | `global.object[0]` |
+| `u` | `made` | `global.object[1]` |
+| `dd` | `nest` | `global.object[2]` |
+| `bb` | `holder` | `global.player[0]` |
+| `ap` | `boss` | `global.player[1]` |
+| `dx` | `top_killer` | `global.player[2]` |
+| `ah` | `phase_timer` | `global.timer[0]` |
+| `cd` | `purge_timer` | `global.timer[2]` |
 | `dk` | `nest_wait` | `global.timer[3]` |
-| `er` | `age` | `object.number[0]` |
-| `ez` | `claimed` | `object.number[1]` |
-| `fb` | `held` | `object.number[2]` |
-| `fc` | `kept` | `object.number[3]` |
-| `ck` | `counted_wave` | `object.number[4]` |
-| `bx` | `leap_state` | `object.number[5]` |
-| `dx` | `wave_kills` | `object.number[5]` |
+| `ew` | `age` | `object.number[0]` |
+| `e4` | `claimed` | `object.number[1]` |
+| `fg` | `held` | `object.number[2]` |
+| `fd` | `kept` | `object.number[3]` |
+| `b4` | `leap_state` | `object.number[5]` |
+| `dy` | `wave_kills` | `object.number[5]` |
 | `ds` | `leap_ticks` | `object.number[6]` |
-| `da` | `wave_props` | `object.number[6]` |
-| `eu` | `leap_cos` | `object.number[7]` |
-| `b6` | `leap_origin` | `object.object[0]` |
-| `bw` | `leap_ahead` | `object.object[1]` |
-| `d5` | `leap_px` | `object.object[2]` |
-| `d6` | `leap_py` | `object.object[3]` |
+| `ey` | `leap_cos` | `object.number[7]` |
+| `cb` | `leap_origin` | `object.object[0]` |
+| `b3` | `leap_ahead` | `object.object[1]` |
+| `d9` | `leap_px` | `object.object[2]` |
+| `ea` | `leap_py` | `object.object[3]` |
 | `dw` | `prop_owner` | `object.player[0]` |
-| `br` | `leap_wait` | `object.timer[0]` |
-| `cz` | `prop_lock` | `object.timer[1]` |
-| `ax` | `role` | `player.number[0]` |
-| `es` | `deaths` | `player.number[1]` |
-| `e3` | `kills` | `player.number[2]` |
-| `b1` | `form` | `player.number[3]` |
-| `a8` | `points` | `player.number[3]` |
-| `bb` | `menu` | `player.number[4]` |
-| `ap` | `page` | `player.number[5]` |
-| `w` | `pending` | `player.number[6]` |
+| `eq` | `box_owner` | `object.player[1]` |
+| `e0` | `qm_owner` | `object.player[1]` |
+| `bw` | `leap_wait` | `object.timer[0]` |
+| `c2` | `prop_lock` | `object.timer[1]` |
+| `b2` | `decay_wait` | `object.timer[2]` |
+| `ar` | `role` | `player.number[0]` |
+| `eh` | `deaths` | `player.number[1]` |
+| `eu` | `kills` | `player.number[2]` |
+| `b6` | `form` | `player.number[3]` |
+| `a1` | `points` | `player.number[3]` |
+| `a8` | `menu` | `player.number[4]` |
+| `ao` | `page` | `player.number[5]` |
+| `z` | `pending` | `player.number[6]` |
 | `de` | `swap` | `player.number[7]` |
-| `co` | `tool` | `player.object[0]` |
-| `x` | `morph_new` | `player.object[1]` |
-| `eo` | `morph_old` | `player.object[2]` |
-| `aw` | `prop` | `player.object[2]` |
-| `fa` | `body` | `player.object[3]` |
-| `ec` | `buy_wait` | `player.timer[0]` |
-| `c6` | `morph_wait` | `player.timer[0]` |
-| `a5` | `carrying` | `player.timer[1]` |
+| `cj` | `tool` | `player.object[0]` |
+| `ad` | `morph_new` | `player.object[1]` |
+| `et` | `morph_old` | `player.object[2]` |
+| `a9` | `prop` | `player.object[2]` |
+| `ff` | `body` | `player.object[3]` |
+| `ef` | `buy_wait` | `player.timer[0]` |
+| `bh` | `morph_wait` | `player.timer[0]` |
+| `a6` | `carrying` | `player.timer[1]` |
 | `dp` | `morph_delay` | `player.timer[2]` |
-| `eq` | `watch` | `player.timer[2]` |
-| `ab` | `perks` | `player.timer[3]` |
-| `h` | `class` | `temporaries.number[0]` |
+| `ev` | `watch` | `player.timer[2]` |
+| `ac` | `perks` | `player.timer[3]` |
+| `c3` | `invinc_bought` | `team.number[0]` |
+| `g` | `class` | `temporaries.number[0]` |
 | `c` | `scratch` | `temporaries.number[1]` |
-| `j` | `item` | `temporaries.number[2]` |
-| `ce` | `leap_den` | `temporaries.number[2]` |
+| `k` | `item` | `temporaries.number[2]` |
+| `ch` | `leap_den` | `temporaries.number[2]` |
 | `bd` | `leap_num` | `temporaries.number[3]` |
-| `q` | `price` | `temporaries.number[3]` |
-| `n` | `count` | `temporaries.number[4]` |
-| `bq` | `leap_s` | `temporaries.number[4]` |
-| `au` | `ok` | `temporaries.number[5]` |
-| `dd` | `leap_fwd` | `temporaries.number[6]` |
-| `bh` | `picks` | `temporaries.number[6]` |
-| `d7` | `leap_up` | `temporaries.number[7]` |
-| `e4` | `total` | `temporaries.number[7]` |
-| `b5` | `leap_d` | `temporaries.number[8]` |
-| `g` | `need` | `temporaries.number[8]` |
-| `cm` | `leap_r` | `temporaries.number[9]` |
-| `p` | `limit` | `temporaries.number[9]` |
-| `v` | `leap_helper` | `temporaries.object[0]` |
+| `o` | `price` | `temporaries.number[3]` |
+| `l` | `count` | `temporaries.number[4]` |
+| `bv` | `leap_s` | `temporaries.number[4]` |
+| `an` | `ok` | `temporaries.number[5]` |
+| `dc` | `leap_fwd` | `temporaries.number[6]` |
+| `bf` | `picks` | `temporaries.number[6]` |
+| `bz` | `shop_wave` | `temporaries.number[6]` |
+| `eb` | `leap_up` | `temporaries.number[7]` |
+| `e7` | `total` | `temporaries.number[7]` |
+| `ca` | `leap_d` | `temporaries.number[8]` |
+| `h` | `need` | `temporaries.number[8]` |
+| `cp` | `leap_r` | `temporaries.number[9]` |
+| `n` | `limit` | `temporaries.number[9]` |
+| `ab` | `leap_helper` | `temporaries.object[0]` |
+| `bm` | `qm_near` | `temporaries.object[1]` |
 
 ## Functions
 
 | Short | Name |
 | --- | --- |
-| `e1()` | `build_nest()` |
-| `fe()` | `buy()` |
-| `dz()` | `card_rows()` |
-| `d0()` | `check_map()` |
-| `bv()` | `close_menu()` |
-| `ex()` | `draw_picker()` |
-| `e5()` | `draw_shop()` |
-| `ey()` | `draw_traits()` |
-| `en()` | `drop_prop()` |
-| `e2()` | `find_price()` |
-| `e6()` | `form_need()` |
-| `e7()` | `hide_menu()` |
-| `e8()` | `item_wave()` |
-| `ea()` | `leap_cosine()` |
-| `ca()` | `make_infected()` |
-| `e9()` | `open_shop()` |
-| `ep()` | `pick_form()` |
-| `ev()` | `place_object()` |
-| `fd()` | `purge()` |
+| `e5()` | `build_nest()` |
+| `fi()` | `buy()` |
+| `d0()` | `card_rows()` |
+| `er()` | `check_map()` |
+| `b1()` | `close_menu()` |
+| `e2()` | `draw_picker()` |
+| `e8()` | `draw_shop()` |
+| `e3()` | `draw_traits()` |
+| `es()` | `drop_prop()` |
+| `e6()` | `find_price()` |
+| `d8()` | `find_qm()` |
+| `e9()` | `form_need()` |
+| `fa()` | `hide_menu()` |
+| `fb()` | `item_wave()` |
+| `ee()` | `leap_cosine()` |
+| `ce()` | `make_infected()` |
+| `fc()` | `open_shop()` |
+| `d6()` | `pick_form()` |
+| `ez()` | `place_object()` |
+| `fh()` | `purge()` |
 | `dr()` | `reset_cards()` |
-| `ei()` | `spawn_form()` |
-| `ej()` | `start_wave()` |
-| `ek()` | `trait_cost()` |
+| `el()` | `spawn_form()` |
+| `em()` | `start_wave()` |
+| `en()` | `trait_cost()` |
 
 ## Enums
 
-Used as `Enum.member`: for example `Item.shotgun` is `i.d3` in the short copy.
+Used as `Enum.member`: for example `Item.shotgun` is `j.d3` in the short copy.
 
 | Short | Enum | Members (short = name) |
 | --- | --- | --- |
-| `i` | `Item` | `et` = smg, `c3` = plasma_rifle, `c1` = battle_rifle, `d1` = carbine, `d2` = needler, `d3` = shotgun, `dn` = mauler, `di` = brute_shot, `c4` = sniper_rifle, `dh` = beam_rifle, `b2` = energy_sword, `c2` = flamethrower, `cr` = gravity_hammer, `b3` = fuel_rod_gun, `cl` = rocket_launcher, `a1` = spartan_laser, `az` = prop_placer, `dj` = wall, `cu` = turret, `ar` = plasma_cannon, `aj` = missile_pod, `ch` = ammo, `b4` = radar_jammer, `ef` = cover, `cs` = trip_mine, `dc` = regenerator, `cx` = bubble_shield, `cd` = active_camo, `bf` = invincibility, `ci` = prop |
-| `ba` | `Menu` | `b7` = closed, `bs` = shop, `cv` = picker, `bc` = traits |
-| `ae` | `Option` | `dt` = break_seconds, `cf` = free_shop, `em` = gun_cap, `d4` = kill_points, `cy` = min_players, `dq` = placeable_limit, `bl` = quartermaster_radius, `cq` = start_infected_percent, `dy` = start_points, `ed` = test_keys, `b8` = tier_step_waves, `cj` = warmup_seconds, `du` = wave1_seconds, `d9` = wave_bonus, `bj` = wave_count, `ct` = wave_increase_seconds |
-| `r` | `Perk` | `dl` = fast, `dm` = slow, `bp` = overshield, `c7` = frail, `bn` = hard_hitter, `cc` = weak_arm, `b0` = grenadier, `dv` = tough, `eh` = ready, `cn` = assault, `a0` = prop_placer, `bg` = shift_tank, `cb` = free_gun, `bz` = free_gear, `eb` = awards |
-| `ah` | `Phase` | `bt` = warmup, `aq` = wave, `ak` = intermission, `c8` = over |
-| `ay` | `Role` | `ew` = arrival, `s` = survivor, `af` = infected |
-| `e` | `ZsClass` | `cg` = survivor, `ag` = human, `a7` = elite, `a6` = brute, `bi` = stalker, `a3` = monitor, `c5` = grenadier, `el` = assault, `db` = assault_grenadier, `u` = nest_stalker, `m` = shifter_stalker, `av` = baby_stalker, `bu` = tank, `a4` = sword_spartan, `am` = juggernaut, `ad` = brute_chieftain, `ao` = spartan_boss, `al` = breacher, `aa` = jumper_brute, `y` = invis_stalker |
+| `j` | `Item` | `ex` = smg, `c6` = plasma_rifle, `c4` = battle_rifle, `d1` = carbine, `d2` = needler, `d3` = shotgun, `dn` = mauler, `di` = brute_shot, `c7` = sniper_rifle, `dh` = beam_rifle, `b7` = energy_sword, `c5` = flamethrower, `cu` = gravity_hammer, `b8` = fuel_rod_gun, `co` = rocket_launcher, `bg` = spartan_laser, `bc` = prop_placer, `dj` = wall, `cx` = turret, `aw` = plasma_cannon, `bp` = resupply, `ax` = quartermaster, `dg` = ammo, `b9` = radar_jammer, `ei` = cover, `cv` = trip_mine, `db` = regenerator, `cz` = bubble_shield, `cg` = active_camo, `av` = invincibility, `cm` = prop |
+| `a7` | `Menu` | `br` = closed, `bx` = shop, `cy` = picker, `ba` = traits |
+| `aj` | `Option` | `dt` = break_seconds, `ci` = free_shop, `ep` = gun_cap, `d4` = kill_points, `c0` = min_players, `dq` = placeable_limit, `c1` = quartermaster_radius, `ct` = start_infected_percent, `dz` = start_points, `eg` = test_keys, `cc` = tier_step_waves, `cn` = warmup_seconds, `du` = wave1_seconds, `ed` = wave_bonus, `bk` = wave_count, `cw` = wave_increase_seconds |
+| `x` | `Perk` | `dl` = fast, `dm` = slow, `bt` = overshield, `c9` = frail, `bo` = hard_hitter, `cf` = weak_arm, `b5` = grenadier, `dv` = tough, `ek` = ready, `cq` = assault, `a2` = prop_placer, `bu` = shift_tank, `bq` = free_gun, `d5` = tank |
+| `ag` | `Phase` | `bl` = warmup, `aq` = wave, `y` = intermission, `cr` = over |
+| `au` | `Role` | `e1` = arrival, `q` = survivor, `al` = infected |
+| `e` | `ZsClass` | `ck` = survivor, `ai` = human, `a0` = elite, `am` = brute, `bj` = stalker, `a4` = monitor, `c8` = grenadier, `eo` = assault, `da` = assault_grenadier, `aa` = nest_stalker, `p` = shifter_stalker, `ay` = baby_stalker, `b0` = tank, `a5` = sword_spartan, `s` = juggernaut, `w` = brute_chieftain, `t` = spartan_boss, `ak` = breacher, `v` = jumper_brute, `ae` = invis_stalker |

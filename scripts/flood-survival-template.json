@@ -13,7 +13,8 @@
     "rounds.teams": 1,
     "rounds.limit": 1,
     "rounds.minutes": 0,
-    "respawn.seconds": 5
+    "respawn.seconds": 5,
+    "rounds.friendly_fire": 0
   },
   "script": {
     "version": 2,
@@ -27,7 +28,7 @@
           "max": 300
         },
         "free_shop": {
-          "value": 1,
+          "value": 0,
           "min": 0,
           "max": 1
         },
@@ -52,7 +53,7 @@
           "max": 16
         },
         "quartermaster_radius": {
-          "value": 30,
+          "value": 20,
           "min": 10,
           "max": 100
         },
@@ -67,7 +68,7 @@
           "max": 10000
         },
         "test_keys": {
-          "value": 1,
+          "value": 0,
           "min": 0,
           "max": 1
         },
@@ -82,7 +83,7 @@
           "max": 300
         },
         "wave1_seconds": {
-          "value": 120,
+          "value": 90,
           "min": 30,
           "max": 900
         },
@@ -120,7 +121,8 @@
           "shields": 3
         },
         {
-          "shields": 1
+          "speed": 2,
+          "resistance": 10
         },
         {
           "damage": 8
@@ -136,7 +138,7 @@
         },
         {
           "speed": 9,
-          "damage": 9,
+          "damage": 11,
           "shields": 2
         },
         {
@@ -158,7 +160,8 @@
         },
         {
           "ammo": 3,
-          "recharge": 9
+          "recharge": 8,
+          "waypoint": 3
         }
       ],
       "deployment": {
@@ -210,7 +213,7 @@
           },
           {
             "name": "Flood Elite",
-            "description": "Tougher melee form",
+            "description": "Tougher melee form (3 at a time)",
             "team": 1,
             "cost": 0,
             "biped": "flood_elite",
@@ -229,7 +232,7 @@
               "speed": 9,
               "vehicles": 1
             },
-            "max_active": 0
+            "max_active": 3
           },
           {
             "name": "Flood Brute",
@@ -403,7 +406,7 @@
               0,
               0
             ],
-            "traits": {
+            "traits": {"damage": 3, 
               "pickup": 2,
               "resistance": 4,
               "shields": 1,
@@ -476,11 +479,11 @@
           },
           {
             "name": "Brute Chieftain",
-            "description": "Boss: giant, fastest, invincibility equipment, one life",
+            "description": "Boss: a giant Flood Brute, fastest, headshot-immune, one life",
             "team": 1,
             "cost": 0,
-            "biped": "brute_chieftain",
-            "model_variant": "chieftain_armor",
+            "biped": "flood_brute",
+            "model_variant": "default",
             "camera": "third_person",
             "grenades": [
               0,
@@ -488,7 +491,7 @@
               0,
               0
             ],
-            "traits": {
+            "traits": {"headshots": 1, "damage": 11, "shields": 1, 
               "pickup": 2,
               "vehicles": 1,
               "resistance": 8

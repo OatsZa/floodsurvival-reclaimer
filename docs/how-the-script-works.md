@@ -460,3 +460,21 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 - `wave_kills` (object.number[5]) and `wave_props` (object.number[6]) on the Survivor's body. These are `leap_state` and `leap_ticks` on Flood bodies: every leap writer checks a Flood class or the Infected role, and a body is never both. Kills are added in the kill-points code; props in both placing paths, once per prop per period (`counted_wave`, object.number[4], compared with `open_wave`, which is the award period: warmup and wave 1 = 1, break 1 and wave 2 = 2, ...).
 - Wave end (not the last wave): `for each player randomly` picks `top_killer` / `top_builder` (global.player[2] / [3], strict `>` so a random one of the tied wins, 0 never wins) and resets both counters. Winners get `Perk.free_gun` / `Perk.free_gear` (`Perk.awards` = both). The Infected respawn's `perks &= 1023` clears them.
 - `buy()`: `picks` holds the award bit that applies (weapons: item <= spartan_laser; gear: item >= prop_placer except ammo); price becomes 0, and the bit is cleared only when the purchase goes through.
+
+## v0.53: quartermasters, breaks, boss leaps
+
+- `find_qm()` loops the `zs_qm` objects for the nearest to the current player: `scratch` = its distance (10000 if none), `limit` = the radius option, `qm_near` (temporaries.object[1]) = it if within the radius, else no_object. It clobbers `scratch` and `limit`.
+- `open_shop()` / `buy()`: waves need `qm_near`; breaks without one multiply the price by 3/2 before free_shop and awards; commission `price / 10` goes to `qm_near.qm_owner` (object.player[1]) through `holder` when the owner is another Survivor.
+- Quartermaster = Item 21 on Placeables card 6 (widget 12, now shown on page 2), placed by `place_object()` like the Hunter barrier. The old spawn at the first Survivor is gone, and so is `global.object[0]`.
+- Invincibility limit: `team[0].invinc_bought` (team.number[0]) counts buys for the round.
+- Trait set 15 has `waypoint` 3. The Halo 3 adapter rejects `set_waypoint_*` calls, so the trait is the only route.
+- Boss leap: the Crouch check and the leap strength include classes juggernaut..spartan_boss.
+
+## v0.62-v0.63
+
+- The mode stores a packed copy of the short-name script (tools/pack.ps1). Runtime errors can't be traced by line any more; use the readable script and the message text.
+- Object health is a share of its maximum, 1-100. Writing anything outside that stops the script ('Health must be 1% through 100%'): the barrier decay kills at 1% instead of writing 0, and the Shifter's kept health is capped at 100.
+
+## v0.66: max health and shields once per body
+
+- set_max_health / set_max_shields are called only in the new-body block (`body != biped`), not every tick. Calling them every tick seemed to refill health, so Flood only died to one-tick bursts (headshots). The Shifter's `kept` health share is applied again after the new max health; the Last Survivor's 200 health is set once in the alert loop.

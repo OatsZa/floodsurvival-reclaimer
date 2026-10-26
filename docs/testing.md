@@ -1,13 +1,13 @@
 # Testing
 
-Two players plus **Ability 4** (with `test_keys` = 1) to skip timers is the quickest way. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
+Two players plus **Ability 4** to skip timers is the quickest way: set `test_keys` = 1 (and `free_shop` = 1 unless you are checking prices) under Custom mode options, since both are off by default from v0.61. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
 
-## Still to test (v0.52)
+## Still to test (v0.66)
 
 Fill in and paste back. Items already answered are in "Confirmed in game" below.
 
 ```text
-FLOOD SURVIVAL v0.52 RESULTS
+FLOOD SURVIVAL v0.66 RESULTS
 -- Fixed or changed in v0.22-v0.23 --
 E1. Bought equipment (cover, radar jammer...) stays in your hands; after using it you can buy another (no softlock)? ->
 E2. Equipment and grenades you pick up from the map are no longer deleted? ->
@@ -38,19 +38,26 @@ C3. (v0.48, quick look) Trait screen: a 'LAST SURVIVOR' card on the left, right 
 C1. The arsenal card's last line reads 'Gear, Placeables, and Equipment open by wave.' (v0.46) and fits? ->
 C2. Infected picker: a 'BOSSES' card on the left (title and two boxes), the right side empty? Readable next to the form cards? ->
 -- New in v0.47 (untested) --
-LS1. Last Survivor: with one Survivor left (1v1: from the outbreak on), that Survivor gets a message 'You're the last Survivor...', the Infected get 'One Survivor left: hunt them down'? The top line turns gold and reads LAST SURVIVOR STANDING? The Survivor's armour turns gold? The Survivor never has to reload (bottomless mag), takes about twice the shots to kill (200 health; the health bar shows a share), and shields come back about twice as fast? After turning Infected, the bonuses are gone? ->
 -- New in v0.49 (wording only) --
 W1. Texts read right and fit: trait cards (Weak Arm, Grenadier, Tough), boss card (Master Chief ... weak to headshots | click to change), HUD second line 'Flood tier 1 / 4' in wave 1 rising to 4 / 4, how-to boxes on the trait screen, arsenal and picker don't overlap each other? ->
 -- New in v0.50 (trim, no change meant) --
 T1. Plays as v0.49: arsenal buys (all 4 pages, Prop Placer refused while one is ready with 'You already have a Prop Placer ready'), Infected picker (forms, Monitor in breaks, the gold boss card cycles and turns brighter when picked)? ->
 G2. Grenadier: throw both frags, then time how long until one comes back (and whether it stops at 2)? The script only switches on the engine's grenade regeneration trait, so this is the first time the speed is measured ->
 -- New in v0.51 (untested) --
-PS1. Prop safety (needs 2 players): drop a prop with Flashlight, then the other player tries Flashlight on it at once: 'Someone just placed that prop: wait a few seconds', and after about 5 s they can take it? You can take your own back at once? Drop a prop with the other player standing at it: 'Too close to someone: props can't be dropped within 4 ft' and you still carry it (if every drop is refused even with nobody near, say so)? Prop Placer: throw the grav lift at your own feet or at the other player: 'Too close to someone: grav lift returned', you get the grav lift back and still carry the prop; a throw farther away places it as before? ->
 -- New in v0.52 (untested; free_shop 0 to see the award make a price free) --
-WA1. Trait screen: 'WAVE AWARDS' card on the right, readable, not overlapping? ->
-WA2. Get a kill and place a prop (Flashlight drop) in warmup or wave 1, then end the wave (Ability 4): everyone sees 'Wave 1 awards: most kills 1, most props placed 1'? You get 'WAVE AWARDS: most kills and most props...'? The points line says 'award: next weapon and next gear free'? ->
-WA3. With free_shop 0: buying any open gun costs nothing and says 'Bought with your wave award', and the next gun costs points again? Same for a placeable or equipment (Ammo refill still costs 20)? Buying a locked item doesn't use the award? ->
-WA4. Moving the same prop again and again in one wave counts it once (a second wave with only that prop: 'most props placed 1')? With no kills the wave's top killer gets nothing? Awards gone after turning Infected? ->
+-- New in v0.57 (untested; needs 2+ Infected or a boss + a dead Infected) --
+CH1. While the Brute Chieftain boss is alive, a dead Infected who selects Flood Brute or Jumper Brute sees 'Spawn on the Chief'; clicking it spawns them at the Chief? Other forms still see Spawn at Nest (when a nest stands)? The button goes away when the Chief dies? ->
+-- New in v0.62-v0.63 --
+PK1. Since v0.62 the mode is stored packed (no spare spaces or line breaks): a full round plays as before and the HUD never freezes? ->
+HB2. Place a Hunter barrier and leave it about 5 minutes: it breaks by itself and the game keeps going (v0.61 stopped the script here: 'Health must be 1% through 100%')? ->
+BS2. Bosses again after the v0.61 stop: each boss spawns as itself, not as a Spartan with an Assault Rifle? ->
+-- New in v0.64 --
+RN1. Over 4-5 games in a 1v1, both players end up Infected first at least once (click traits or press keys differently each game)? If it's still always player 1, the game's randomness ignores the draws and another source is needed ->
+-- New in v0.65 (needs 4+ Infected to fill) --
+EL1. Flood Elite card says '3 max'; with 3 Elites out it turns grey 'full (3 max)' and a 4th can't spawn as one? ->
+-- New in v0.66 --
+HP1. Flood Human, Flood Brute and Brute Chieftain now go down to body shots (Assault Rifle, SMG), not only headshots; their health bar drops when hit? Human takes about twice a Stalker's shots? ->
+HP2. Survivors still spawn with half shields (none with Frail, double with Overshield); the Last Survivor gets 200 health once and still recharges? Shifter Stalker keeps its damage when it changes form (doesn't heal)? ->
 -- Not reported yet --
 T7. Sword Spartan only on wave 5? First person, sword, green-yellow? ->
 B1. No boss in wave 1; at the start of wave 2 an Infected gets the boss message, even with zero kills? ->
@@ -76,6 +83,12 @@ X. HUD froze or vanished (script stopped)? Paste the "Custom game mode stopped" 
 - X2 (v0.34, 2026-10-25): Turret, Tank and Nest Stalker all work as wanted.
 - J1 leap (v0.42, 2026-10-25): works (Crouch, thrown forward and up the way you face).
 - Confirmed by the user (2026-10-25): P1 weapon purge with your own and bought guns, R2 Prop Placer, A3 arsenal by wave and its prices, F1-F6 picker and the v0.38 forms (Baby Stalker, Breacher, Jumper Brute, Invis Stalker, Shifter Stalker).
+- LS1 Last Survivor (v0.47, 2026-10-26): works. LS2 (v0.53): the marker over their head (waypoint trait) works.
+- BL1 (v0.53, 2026-10-26): bosses leap on Crouch.
+- PS1 prop safety (2026-10-26): props and the Prop Placer's grav lift are refused on top of a player.
+- RS1/RS2 Resupply Box (v0.56, 2026-10-26): works, the drone shows (small: scale 200 since v0.58), ammo refill works. Not checkable during Last Survivor (bottomless mag).
+- v0.53-v0.61 (2026-10-26, user): quartermasters work (bought, discounts and normal prices); Monitor break cards; friendly fire off; Spartan Laser wave 4 and Invincibility wave 5 limited correctly; Baby Stalker hits less; Brute Chieftain not invincible and playable; Juggernaut tank mode and Master Chief random equipment work; boss HUD and bounty work (only checked 1v1); wave award (kills) and trait changes work. Hunter barrier decay can't be seen in a short test but should work. Spawn on the Chief (CH1) still to test.
+- Roadmap step 5 (invisible-prop filter) DROPPED 2026-10-26: Test 17 showed no usable filter route (v1 hit the execution budget; the user doubts any filter works).
 - C1 how-to cards (v0.45, 2026-10-25): 'BUILD A BASE' and 'THE ARSENAL' boxes show correctly beside the trait screen.
 
 ## Results that changed the plan

@@ -7,7 +7,7 @@ param(
     [switch]$Install
 )
 # Builds modes\flood-survival-v<Version>.json from scripts\: megalo-check,
-# a short-name copy (shrink.ps1), mode-compile, mode-check, then a size report. Older builds in modes\ are
+# a short-name copy (shrink.ps1), a packed copy (pack.ps1), mode-compile, mode-check, then a size report. Older builds in modes\ are
 # removed, so the repo keeps one version.
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
@@ -42,7 +42,14 @@ $short = Join-Path $env:TEMP 'flood-survival-short.rvt'
 & (Join-Path $PSScriptRoot 'shrink.ps1') -Source $rvt -Out $short -Key (Join-Path $root 'docs\name-key.md') -Version $Version
 $shortCheck = & $Exe megalo-check $short 2>&1 | Out-String
 if ($LASTEXITCODE -ne 0 -or $shortCheck -cne $check) { throw "The short-name copy checks differently:`n$shortCheck" }
-& $Exe mode-compile $short --template $template --output $out --name "Flood Survival v$Version"
+
+# Then a packed copy without spare spaces or line breaks (tools\pack.ps1,
+# which proves only spaces changed). It must check the same too.
+$packed = Join-Path $env:TEMP 'flood-survival-packed.rvt'
+& (Join-Path $PSScriptRoot 'pack.ps1') -Source $short -Out $packed
+$packedCheck = & $Exe megalo-check $packed 2>&1 | Out-String
+if ($LASTEXITCODE -ne 0 -or $packedCheck -cne $check) { throw "The packed copy checks differently:`n$packedCheck" }
+& $Exe mode-compile $packed --template $template --output $out --name "Flood Survival v$Version"
 if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) { throw 'mode-compile failed.' }
 & $Exe mode-check $out
 if ($LASTEXITCODE -ne 0) { throw 'mode-check failed.' }
