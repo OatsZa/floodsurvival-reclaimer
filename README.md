@@ -6,9 +6,13 @@ A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.
 
 ## Play it
 
-1. Put [`modes/flood-survival-v1.0.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v1.0**. Tested on The Pit and Guardian.
+**You only need one file:** `flood-survival-v1.0.json`. Download it from the [latest release](https://github.com/OatsZa/floodsurvival-reclaimer/releases/latest), or open [`modes/flood-survival-v1.0.json`](modes/flood-survival-v1.0.json) and use GitHub's download button. Everything else in this repository is the source code and notes for modders.
+
+1. Put `flood-survival-v1.0.json` in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v1.0**, then pick any map.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
+
+**Maps:** it works on any map: the script uses the map's own props and spawns, and Project Reclaimer supplies the Flood bodies. Tested on The Pit and Guardian. Custom and modded maps should work too, but haven't been tested; the Plasma Cannon card says "not on this map" on maps without one.
 
 Mouse and keyboard only: controllers can't use the script's menus.
 
@@ -88,7 +92,10 @@ Survivor roles (for example an engineer), a vehicles page in the arsenal, horde 
 
 Wave count and lengths, break length, warmup, starting Infected share, waves per tier, points, quartermaster range, placeable and gun limits: all under **Custom mode options**. The full list and defaults are in [docs/rules.md](docs/rules.md).
 
-## Files
+## For modders
+
+You don't need any of this to play. It's how the mode is made:
+
 
 | Path | What |
 | --- | --- |
