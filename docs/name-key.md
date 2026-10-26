@@ -1,4 +1,4 @@
-# Name key (v0.50)
+# Name key (v0.52)
 
 The mode file's script uses short names to save space: the mode stores the script's source text, and that counts toward its 64 KiB. `tools/build.ps1` makes the short copy with `tools/shrink.ps1` from the readable `scripts/flood-survival.rvt`, which is the file to read and edit. What each part of it does is in [how-the-script-works.md](how-the-script-works.md).
 
@@ -9,126 +9,133 @@ Every build rewrites this table. The most-used names get the shortest letters, s
 | Short | Built-in |
 | --- | --- |
 | `a` | `current_player` |
-| `h` | `current_object` |
+| `f` | `current_object` |
 | `b` | `script_widget` |
-| `c` | `all_players` |
-| `l` | `no_object` |
-| `k` | `script_option` |
-| `n` | `script_traits` |
+| `d` | `all_players` |
+| `k` | `no_object` |
+| `l` | `script_option` |
+| `o` | `script_traits` |
 
 ## Variables
 
 | Short | Name | Slot |
 | --- | --- | --- |
-| `ag` | `phase` | `global.number[0]` |
+| `ai` | `phase` | `global.number[0]` |
 | `cp` | `wave` | `global.number[1]` |
-| `bi` | `unlock` | `global.number[2]` |
-| `bm` | `players` | `global.number[3]` |
-| `az` | `survivors` | `global.number[4]` |
-| `bk` | `infected` | `global.number[5]` |
-| `c9` | `converted` | `global.number[6]` |
-| `dz` | `seconds` | `global.number[7]` |
-| `ai` | `open_wave` | `global.number[8]` |
-| `eq` | `avail` | `global.number[9]` |
-| `c8` | `boss_used` | `global.number[10]` |
-| `d6` | `last_alert` | `global.number[11]` |
-| `am` | `quartermaster` | `global.object[0]` |
-| `u` | `made` | `global.object[1]` |
-| `cv` | `nest` | `global.object[2]` |
-| `d4` | `holder` | `global.player[0]` |
-| `a5` | `boss` | `global.player[1]` |
-| `aa` | `phase_timer` | `global.timer[0]` |
-| `b7` | `purge_timer` | `global.timer[2]` |
-| `dd` | `nest_wait` | `global.timer[3]` |
-| `eh` | `age` | `object.number[0]` |
-| `ep` | `claimed` | `object.number[1]` |
-| `e1` | `held` | `object.number[2]` |
-| `e2` | `kept` | `object.number[3]` |
-| `bw` | `leap_state` | `object.number[5]` |
-| `dk` | `leap_ticks` | `object.number[6]` |
-| `ek` | `leap_cos` | `object.number[7]` |
-| `b4` | `leap_origin` | `object.object[0]` |
-| `bv` | `leap_ahead` | `object.object[1]` |
-| `dw` | `leap_px` | `object.object[2]` |
-| `dx` | `leap_py` | `object.object[3]` |
-| `bp` | `leap_wait` | `object.timer[0]` |
+| `bk` | `unlock` | `global.number[2]` |
+| `bo` | `players` | `global.number[3]` |
+| `a2` | `survivors` | `global.number[4]` |
+| `bm` | `infected` | `global.number[5]` |
+| `dg` | `converted` | `global.number[6]` |
+| `d8` | `seconds` | `global.number[7]` |
+| `z` | `open_wave` | `global.number[8]` |
+| `e0` | `avail` | `global.number[9]` |
+| `df` | `boss_used` | `global.number[10]` |
+| `eg` | `last_alert` | `global.number[11]` |
+| `an` | `quartermaster` | `global.object[0]` |
+| `t` | `made` | `global.object[1]` |
+| `c0` | `nest` | `global.object[2]` |
+| `ee` | `holder` | `global.player[0]` |
+| `a9` | `boss` | `global.player[1]` |
+| `c9` | `top_killer` | `global.player[2]` |
+| `cw` | `top_builder` | `global.player[3]` |
+| `ac` | `phase_timer` | `global.timer[0]` |
+| `b9` | `purge_timer` | `global.timer[2]` |
+| `dk` | `nest_wait` | `global.timer[3]` |
+| `er` | `age` | `object.number[0]` |
+| `ez` | `claimed` | `object.number[1]` |
+| `fb` | `held` | `object.number[2]` |
+| `fc` | `kept` | `object.number[3]` |
+| `ck` | `counted_wave` | `object.number[4]` |
+| `bx` | `leap_state` | `object.number[5]` |
+| `dx` | `wave_kills` | `object.number[5]` |
+| `ds` | `leap_ticks` | `object.number[6]` |
+| `da` | `wave_props` | `object.number[6]` |
+| `eu` | `leap_cos` | `object.number[7]` |
+| `b6` | `leap_origin` | `object.object[0]` |
+| `bw` | `leap_ahead` | `object.object[1]` |
+| `d5` | `leap_px` | `object.object[2]` |
+| `d6` | `leap_py` | `object.object[3]` |
+| `dw` | `prop_owner` | `object.player[0]` |
+| `br` | `leap_wait` | `object.timer[0]` |
+| `cz` | `prop_lock` | `object.timer[1]` |
 | `ax` | `role` | `player.number[0]` |
-| `ei` | `deaths` | `player.number[1]` |
-| `et` | `kills` | `player.number[2]` |
-| `bz` | `form` | `player.number[3]` |
-| `bh` | `points` | `player.number[3]` |
-| `a7` | `menu` | `player.number[4]` |
+| `es` | `deaths` | `player.number[1]` |
+| `e3` | `kills` | `player.number[2]` |
+| `b1` | `form` | `player.number[3]` |
+| `a8` | `points` | `player.number[3]` |
+| `bb` | `menu` | `player.number[4]` |
 | `ap` | `page` | `player.number[5]` |
-| `v` | `pending` | `player.number[6]` |
-| `c7` | `swap` | `player.number[7]` |
+| `w` | `pending` | `player.number[6]` |
+| `de` | `swap` | `player.number[7]` |
 | `co` | `tool` | `player.object[0]` |
 | `x` | `morph_new` | `player.object[1]` |
-| `ee` | `morph_old` | `player.object[2]` |
-| `bs` | `prop` | `player.object[2]` |
-| `e0` | `body` | `player.object[3]` |
-| `d2` | `buy_wait` | `player.timer[0]` |
-| `c1` | `morph_wait` | `player.timer[0]` |
-| `a2` | `carrying` | `player.timer[1]` |
-| `dh` | `morph_delay` | `player.timer[2]` |
-| `eg` | `watch` | `player.timer[2]` |
-| `an` | `perks` | `player.timer[3]` |
-| `f` | `class` | `temporaries.number[0]` |
-| `d` | `scratch` | `temporaries.number[1]` |
+| `eo` | `morph_old` | `player.object[2]` |
+| `aw` | `prop` | `player.object[2]` |
+| `fa` | `body` | `player.object[3]` |
+| `ec` | `buy_wait` | `player.timer[0]` |
+| `c6` | `morph_wait` | `player.timer[0]` |
+| `a5` | `carrying` | `player.timer[1]` |
+| `dp` | `morph_delay` | `player.timer[2]` |
+| `eq` | `watch` | `player.timer[2]` |
+| `ab` | `perks` | `player.timer[3]` |
+| `h` | `class` | `temporaries.number[0]` |
+| `c` | `scratch` | `temporaries.number[1]` |
 | `j` | `item` | `temporaries.number[2]` |
-| `cb` | `leap_den` | `temporaries.number[2]` |
-| `ba` | `leap_num` | `temporaries.number[3]` |
-| `p` | `price` | `temporaries.number[3]` |
-| `q` | `count` | `temporaries.number[4]` |
-| `bo` | `leap_s` | `temporaries.number[4]` |
+| `ce` | `leap_den` | `temporaries.number[2]` |
+| `bd` | `leap_num` | `temporaries.number[3]` |
+| `q` | `price` | `temporaries.number[3]` |
+| `n` | `count` | `temporaries.number[4]` |
+| `bq` | `leap_s` | `temporaries.number[4]` |
 | `au` | `ok` | `temporaries.number[5]` |
-| `c6` | `leap_fwd` | `temporaries.number[6]` |
-| `cj` | `picks` | `temporaries.number[6]` |
-| `dy` | `leap_up` | `temporaries.number[7]` |
-| `eu` | `total` | `temporaries.number[7]` |
-| `b3` | `leap_d` | `temporaries.number[8]` |
+| `dd` | `leap_fwd` | `temporaries.number[6]` |
+| `bh` | `picks` | `temporaries.number[6]` |
+| `d7` | `leap_up` | `temporaries.number[7]` |
+| `e4` | `total` | `temporaries.number[7]` |
+| `b5` | `leap_d` | `temporaries.number[8]` |
 | `g` | `need` | `temporaries.number[8]` |
-| `ch` | `leap_r` | `temporaries.number[9]` |
-| `o` | `limit` | `temporaries.number[9]` |
-| `t` | `leap_helper` | `temporaries.object[0]` |
+| `cm` | `leap_r` | `temporaries.number[9]` |
+| `p` | `limit` | `temporaries.number[9]` |
+| `v` | `leap_helper` | `temporaries.object[0]` |
 
 ## Functions
 
 | Short | Name |
 | --- | --- |
-| `er()` | `build_nest()` |
-| `e4()` | `buy()` |
-| `dq()` | `card_rows()` |
-| `dr()` | `check_map()` |
-| `bu()` | `close_menu()` |
-| `en()` | `draw_picker()` |
-| `ev()` | `draw_shop()` |
-| `eo()` | `draw_traits()` |
-| `ed()` | `drop_prop()` |
-| `es()` | `find_price()` |
-| `ew()` | `form_need()` |
-| `ex()` | `hide_menu()` |
-| `ey()` | `item_wave()` |
-| `d1()` | `leap_cosine()` |
-| `b8()` | `make_infected()` |
-| `ez()` | `open_shop()` |
-| `ef()` | `pick_form()` |
-| `el()` | `place_object()` |
-| `e3()` | `purge()` |
-| `dj()` | `reset_cards()` |
-| `d8()` | `spawn_form()` |
-| `d9()` | `start_wave()` |
-| `ea()` | `trait_cost()` |
+| `e1()` | `build_nest()` |
+| `fe()` | `buy()` |
+| `dz()` | `card_rows()` |
+| `d0()` | `check_map()` |
+| `bv()` | `close_menu()` |
+| `ex()` | `draw_picker()` |
+| `e5()` | `draw_shop()` |
+| `ey()` | `draw_traits()` |
+| `en()` | `drop_prop()` |
+| `e2()` | `find_price()` |
+| `e6()` | `form_need()` |
+| `e7()` | `hide_menu()` |
+| `e8()` | `item_wave()` |
+| `ea()` | `leap_cosine()` |
+| `ca()` | `make_infected()` |
+| `e9()` | `open_shop()` |
+| `ep()` | `pick_form()` |
+| `ev()` | `place_object()` |
+| `fd()` | `purge()` |
+| `dr()` | `reset_cards()` |
+| `ei()` | `spawn_form()` |
+| `ej()` | `start_wave()` |
+| `ek()` | `trait_cost()` |
 
 ## Enums
 
-Used as `Enum.member`: for example `Item.shotgun` is `i.du` in the short copy.
+Used as `Enum.member`: for example `Item.shotgun` is `i.d3` in the short copy.
 
 | Short | Enum | Members (short = name) |
 | --- | --- | --- |
-| `i` | `Item` | `ej` = smg, `cy` = plasma_rifle, `cw` = battle_rifle, `ds` = carbine, `dt` = needler, `du` = shotgun, `dg` = mauler, `db` = brute_shot, `cz` = sniper_rifle, `da` = beam_rifle, `b0` = energy_sword, `cx` = flamethrower, `cl` = gravity_hammer, `b1` = fuel_rod_gun, `cg` = rocket_launcher, `bc` = spartan_laser, `a9` = prop_placer, `dc` = wall, `cq` = turret, `ar` = plasma_cannon, `ah` = missile_pod, `cs` = ammo, `b2` = radar_jammer, `d5` = cover, `cm` = trip_mine, `c5` = regenerator, `ct` = bubble_shield, `ca` = active_camo, `bb` = invincibility, `ce` = prop |
-| `a6` | `Menu` | `b5` = closed, `bq` = shop, `cr` = picker, `a8` = traits |
-| `ac` | `Option` | `dl` = break_seconds, `cc` = free_shop, `ec` = gun_cap, `dv` = kill_points, `cu` = min_players, `di` = placeable_limit, `bj` = quartermaster_radius, `ck` = start_infected_percent, `dp` = start_points, `d3` = test_keys, `b6` = tier_step_waves, `cf` = warmup_seconds, `dm` = wave1_seconds, `d0` = wave_bonus, `bg` = wave_count, `cn` = wave_increase_seconds |
-| `w` | `Perk` | `de` = fast, `df` = slow, `bn` = overshield, `c2` = frail, `bl` = hard_hitter, `b9` = weak_arm, `bx` = grenadier, `dn` = tough, `d7` = ready, `ci` = assault, `aw` = prop_placer, `bd` = shift_tank |
-| `af` | `Phase` | `br` = warmup, `aq` = wave, `aj` = intermission, `c3` = over |
-| `ay` | `Role` | `em` = arrival, `r` = survivor, `ad` = infected |
-| `e` | `ZsClass` | `cd` = survivor, `ae` = human, `a4` = elite, `a3` = brute, `bf` = stalker, `a0` = monitor, `c0` = grenadier, `eb` = assault, `c4` = assault_grenadier, `s` = nest_stalker, `m` = shifter_stalker, `av` = baby_stalker, `bt` = tank, `a1` = sword_spartan, `al` = juggernaut, `ab` = brute_chieftain, `ao` = spartan_boss, `ak` = breacher, `z` = jumper_brute, `y` = invis_stalker |
+| `i` | `Item` | `et` = smg, `c3` = plasma_rifle, `c1` = battle_rifle, `d1` = carbine, `d2` = needler, `d3` = shotgun, `dn` = mauler, `di` = brute_shot, `c4` = sniper_rifle, `dh` = beam_rifle, `b2` = energy_sword, `c2` = flamethrower, `cr` = gravity_hammer, `b3` = fuel_rod_gun, `cl` = rocket_launcher, `a1` = spartan_laser, `az` = prop_placer, `dj` = wall, `cu` = turret, `ar` = plasma_cannon, `aj` = missile_pod, `ch` = ammo, `b4` = radar_jammer, `ef` = cover, `cs` = trip_mine, `dc` = regenerator, `cx` = bubble_shield, `cd` = active_camo, `bf` = invincibility, `ci` = prop |
+| `ba` | `Menu` | `b7` = closed, `bs` = shop, `cv` = picker, `bc` = traits |
+| `ae` | `Option` | `dt` = break_seconds, `cf` = free_shop, `em` = gun_cap, `d4` = kill_points, `cy` = min_players, `dq` = placeable_limit, `bl` = quartermaster_radius, `cq` = start_infected_percent, `dy` = start_points, `ed` = test_keys, `b8` = tier_step_waves, `cj` = warmup_seconds, `du` = wave1_seconds, `d9` = wave_bonus, `bj` = wave_count, `ct` = wave_increase_seconds |
+| `r` | `Perk` | `dl` = fast, `dm` = slow, `bp` = overshield, `c7` = frail, `bn` = hard_hitter, `cc` = weak_arm, `b0` = grenadier, `dv` = tough, `eh` = ready, `cn` = assault, `a0` = prop_placer, `bg` = shift_tank, `cb` = free_gun, `bz` = free_gear, `eb` = awards |
+| `ah` | `Phase` | `bt` = warmup, `aq` = wave, `ak` = intermission, `c8` = over |
+| `ay` | `Role` | `ew` = arrival, `s` = survivor, `af` = infected |
+| `e` | `ZsClass` | `cg` = survivor, `ag` = human, `a7` = elite, `a6` = brute, `bi` = stalker, `a3` = monitor, `c5` = grenadier, `el` = assault, `db` = assault_grenadier, `u` = nest_stalker, `m` = shifter_stalker, `av` = baby_stalker, `bu` = tank, `a4` = sword_spartan, `am` = juggernaut, `ad` = brute_chieftain, `ao` = spartan_boss, `al` = breacher, `aa` = jumper_brute, `y` = invis_stalker |

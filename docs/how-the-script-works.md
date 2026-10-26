@@ -448,3 +448,15 @@ Forms by tier, opened by the unlock steps (25/50/75 percent converted, `unlock` 
 
 - Removed as unreachable or repeated: the second Prop Placer bit read in buy(), the Monitor-to-Human line at the end of pick_form() and the Monitor tier line in spawn_form() (both already handled), and the item > 31 guard in the arsenal click (Survivor pages are 0-3; only the Infected picker writes other page values). The boss card background test is now `class >= juggernaut and class <= spartan_boss`.
 - Grenadier: the roster class gives the 2 frags; trait set 8 (`grenade_regeneration` 2) is applied every tick while the perk is set. How fast grenades come back is the engine's, not the script's.
+
+## v0.51: prop safety
+
+- `prop_owner` (object.player[0]) and `prop_lock` (object.timer[1]) live on the map prop itself, so no player slot is used. Both placing paths (Flashlight drop in `on button press`, Prop Placer throw in `place_object()`) set the owner and a 5 s lock.
+- Pickup: a locked prop that isn't yours gets distance 100 (never picked); if it was within 8 ft, `need` = 1 and the message says to wait.
+- 4 ft rule: a `for each object` over bodies (`is_of_type(biped)`). The Flashlight drop skips your own body (the prop rides 5 ft ahead of you) and sets `ok` = 2 to refuse. The Prop Placer throw counts every body near the grav lift; when refused, `count` = -1 keeps the placeable code out, `pending` stays `Item.prop`, and the grav lift is given back by the same tick code that returns it after the placeable limit.
+
+## v0.52: wave awards
+
+- `wave_kills` (object.number[5]) and `wave_props` (object.number[6]) on the Survivor's body. These are `leap_state` and `leap_ticks` on Flood bodies: every leap writer checks a Flood class or the Infected role, and a body is never both. Kills are added in the kill-points code; props in both placing paths, once per prop per period (`counted_wave`, object.number[4], compared with `open_wave`, which is the award period: warmup and wave 1 = 1, break 1 and wave 2 = 2, ...).
+- Wave end (not the last wave): `for each player randomly` picks `top_killer` / `top_builder` (global.player[2] / [3], strict `>` so a random one of the tied wins, 0 never wins) and resets both counters. Winners get `Perk.free_gun` / `Perk.free_gear` (`Perk.awards` = both). The Infected respawn's `perks &= 1023` clears them.
+- `buy()`: `picks` holds the award bit that applies (weapons: item <= spartan_laser; gear: item >= prop_placer except ammo); price becomes 0, and the bit is cleared only when the purchase goes through.

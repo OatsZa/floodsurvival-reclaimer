@@ -75,6 +75,9 @@ ready = 256
 assault = 512
 prop_placer = 1024
 shift_tank = 2048
+free_gun = 4096
+free_gear = 8192
+awards = 12288
 end
 
 enum Item
@@ -127,6 +130,8 @@ alias made = global.object[1]
 alias nest = global.object[2]
 alias holder = global.player[0]
 alias boss = global.player[1]
+alias top_killer = global.player[2]
+alias top_builder = global.player[3]
 alias phase_timer = global.timer[0]
 alias purge_timer = global.timer[2]
 alias nest_wait = global.timer[3]
@@ -179,6 +184,11 @@ alias leap_state = object.number[5]
 alias leap_ticks = object.number[6]
 alias leap_cos = object.number[7]
 alias leap_wait = object.timer[0]
+alias prop_lock = object.timer[1]
+alias prop_owner = object.player[0]
+alias counted_wave = object.number[4]
+alias wave_kills = object.number[5]
+alias wave_props = object.number[6]
 alias leap_origin = object.object[0]
 alias leap_ahead = object.object[1]
 alias leap_px = object.object[2]
@@ -456,6 +466,14 @@ find_price()
 ok = 1
 scratch = script_option[Option.free_shop]
 if scratch == 1 then price = 0 end
+picks = 0
+scratch = current_player.perks
+scratch &= Perk.free_gun
+if scratch != 0 and item <= Item.spartan_laser then picks = Perk.free_gun end
+scratch = current_player.perks
+scratch &= Perk.free_gear
+if scratch != 0 and item >= Item.prop_placer and item != Item.ammo then picks = Perk.free_gear end
+if picks != 0 then price = 0 end
 if current_player.points < price then
 ok = 0
 script_widget[6].set_text_for(current_player, "Not enough points: that costs %n", price)
@@ -500,6 +518,12 @@ current_player.points -= price
 current_player.buy_wait = 1
 current_player.buy_wait.set_rate(-100%)
 script_widget[6].set_text_for(current_player, "Bought")
+if picks != 0 then
+scratch = current_player.perks
+scratch ~= picks
+current_player.perks = scratch
+script_widget[6].set_text_for(current_player, "Bought with your wave award")
+end
 if item == Item.shotgun then made = current_player.biped.place_at_me(shotgun, "zs_gun", none, 5, 0, 3, none) end
 if item == Item.battle_rifle then made = current_player.biped.place_at_me(battle_rifle, "zs_gun", none, 5, 0, 3, none) end
 if item == Item.smg then made = current_player.biped.place_at_me(smg, "zs_gun", none, 5, 0, 3, none) end
@@ -942,19 +966,35 @@ function place_object()
 count = 0
 limit = script_option[Option.placeable_limit]
 if current_player.pending == Item.prop then
+count = -1
+need = 0
+for each object do
+if current_object.is_of_type(biped) then
+scratch = current_object.get_distance_to(current_player.tool)
+if scratch < 5 then need = 1 end
+end
+end
+if need == 1 then script_widget[6].set_text_for(current_player, "Too close to someone: grav lift returned") end
+if need == 0 then
 if current_player.prop != no_object then
 current_player.prop.detach()
 current_player.prop.attach_to(current_player.tool, 0, 0, 0, relative)
 current_player.prop.detach()
 if current_player.is_not_respawning() then current_player.prop.copy_rotation_from(current_player.biped, false) end
+current_player.prop.prop_owner = current_player
+current_player.prop.prop_lock = 5
+current_player.prop.prop_lock.set_rate(-100%)
+scratch = current_player.prop.counted_wave
+if scratch != open_wave then current_player.biped.wave_props += 1 end
+current_player.prop.counted_wave = open_wave
 end
 current_player.prop = no_object
 current_player.pending = 0
 scratch = current_player.perks
 scratch ~= Perk.prop_placer
 current_player.perks = scratch
-count = -1
 script_widget[6].set_text_for(current_player, "Placed")
+end
 end
 if current_player.pending == Item.turret then
 for each object with label "zs_turret" do count += 1 end
@@ -1127,8 +1167,23 @@ if pressed_button == button.flashlight then
 ok = 0
 if current_player.prop != no_object then ok = 1 end
 if ok == 1 then
+for each object do
+if current_object.is_of_type(biped) and current_object != current_player.biped then
+scratch = current_object.get_distance_to(current_player.prop)
+if scratch < 5 then ok = 2 end
+end
+end
+if ok == 2 then script_widget[6].set_text_for(current_player, "Too close to someone: props can't be dropped within 4 ft") end
+end
+if ok == 1 then
 current_player.prop.detach()
 current_player.prop.copy_rotation_from(current_player.biped, false)
+current_player.prop.prop_owner = current_player
+current_player.prop.prop_lock = 5
+current_player.prop.prop_lock.set_rate(-100%)
+scratch = current_player.prop.counted_wave
+if scratch != open_wave then current_player.biped.wave_props += 1 end
+current_player.prop.counted_wave = open_wave
 current_player.prop = no_object
 if current_player.pending == Item.prop then
 current_player.pending = 0
@@ -1140,6 +1195,7 @@ end
 if ok == 0 then
 made = no_object
 limit = 9
+need = 0
 for each object do
 ok = 1
 if current_object.is_of_type(biped) or current_object.is_of_type(vehicle) then ok = 0 end
@@ -1148,6 +1204,10 @@ holder = current_object.get_carrier()
 if holder != no_player then ok = 0 end
 if ok == 1 then
 scratch = current_object.get_distance_to(current_player.biped)
+if current_object.prop_owner != current_player and not current_object.prop_lock.is_zero() then
+if scratch < 9 then need = 1 end
+scratch = 100
+end
 if scratch < limit then
 limit = scratch
 made = current_object
@@ -1155,6 +1215,7 @@ end
 end
 end
 if made == no_object then script_widget[6].set_text_for(current_player, "No prop within 8 ft") end
+if made == no_object and need == 1 then script_widget[6].set_text_for(current_player, "Someone just placed that prop: wait a few seconds") end
 if made != no_object then
 current_player.prop = made
 made.attach_to(current_player.biped, 5, 0, 2, relative)
@@ -1269,6 +1330,40 @@ if phase == Phase.wave then
 limit = script_option[Option.wave_bonus]
 for each player do
 if current_player.role == Role.survivor then current_player.points += limit end
+end
+top_killer = no_player
+top_builder = no_player
+count = 0
+need = 0
+for each player randomly do
+if current_player.role == Role.survivor and current_player.is_not_respawning() then
+scratch = current_player.biped.wave_kills
+if scratch > count then
+count = scratch
+top_killer = current_player
+end
+scratch = current_player.biped.wave_props
+if scratch > need then
+need = scratch
+top_builder = current_player
+end
+current_player.biped.wave_kills = 0
+current_player.biped.wave_props = 0
+end
+end
+for each player do
+script_widget[6].set_text_for(current_player, "Wave %n awards: most kills %n, most props placed %n", wave, count, need)
+scratch = current_player.perks
+if current_player == top_killer then
+scratch |= Perk.free_gun
+script_widget[6].set_text_for(current_player, "WAVE AWARD: most kills (%n). Your next weapon is free, any you like", count)
+end
+if current_player == top_builder then
+scratch |= Perk.free_gear
+script_widget[6].set_text_for(current_player, "WAVE AWARD: most props placed (%n). Next placeable or equipment is free", need)
+end
+if current_player == top_killer and current_player == top_builder then script_widget[6].set_text_for(current_player, "WAVE AWARDS: most kills and most props. Next weapon and next gear are free") end
+current_player.perks = scratch
 end
 phase_timer = script_option[Option.break_seconds]
 phase_timer.set_rate(-100%)
@@ -1553,6 +1648,7 @@ scratch = current_player.get_kill_count()
 scratch -= current_player.kills
 current_player.kills = current_player.get_kill_count()
 if scratch > 0 and current_player.role == Role.survivor then
+if current_player.biped != no_object then current_player.biped.wave_kills += scratch end
 limit = script_option[Option.kill_points]
 scratch *= limit
 current_player.points += scratch
@@ -1705,6 +1801,11 @@ if current_player.role == Role.survivor then
 script_widget[2].set_text_for(current_player, "%n points", current_player.points)
 limit = script_option[Option.free_shop]
 if limit == 1 then script_widget[2].set_text_for(current_player, "%n points  |  test: FREE arsenal", current_player.points) end
+scratch = current_player.perks
+scratch &= Perk.awards
+if scratch == Perk.free_gun then script_widget[2].set_text_for(current_player, "%n points  |  award: next weapon free", current_player.points) end
+if scratch == Perk.free_gear then script_widget[2].set_text_for(current_player, "%n points  |  award: next placeable or equipment free", current_player.points) end
+if scratch == Perk.awards then script_widget[2].set_text_for(current_player, "%n points  |  award: next weapon and next gear free", current_player.points) end
 script_widget[3].set_text_for(current_player, "Ability 1: arsenal  |  Flashlight: pick up a prop")
 if current_player.pending > 0 then script_widget[3].set_text_for(current_player, "Throw your grav lift to build it") end
 if current_player.prop != no_object then script_widget[3].set_text_for(current_player, "Carrying a prop  |  Flashlight drops it") end
@@ -1770,6 +1871,12 @@ script_widget[27].set_text_for(current_player, "With one Survivor left, they get
 script_widget[27].set_visibility(current_player, true)
 script_widget[30].set_text_for(current_player, "They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING.")
 script_widget[30].set_visibility(current_player, true)
+script_widget[28].set_text_for(current_player, "WAVE AWARDS")
+script_widget[28].set_visibility(current_player, true)
+script_widget[29].set_text_for(current_player, "Most kills in a wave: your next weapon from the arsenal is free, any you like.")
+script_widget[29].set_visibility(current_player, true)
+script_widget[31].set_text_for(current_player, "Most props placed (the break before counts): next placeable or equipment free.")
+script_widget[31].set_visibility(current_player, true)
 end
 if current_player.menu == Menu.shop then
 script_widget[21].set_text_for(current_player, "BUILD A BASE")

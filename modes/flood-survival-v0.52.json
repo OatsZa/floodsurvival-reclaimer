@@ -1,0 +1,630 @@
+{
+  "version": 1,
+  "name": "Flood Survival v0.52",
+  "base_map": {
+    "id": 320,
+    "stem": "guardian",
+    "title": "Guardian"
+  },
+  "hosting": {
+    "name": "Project Reclaimer game",
+    "host_name": "",
+    "visibility": "Local",
+    "hosting": "Dedicated",
+    "public_address": "",
+    "automatic_port_mapping": true,
+    "game_port": 11774,
+    "discovery_port": 11775,
+    "voice_enabled": true,
+    "text_chat_enabled": true,
+    "hidden": false,
+    "password": "",
+    "max_players": 16,
+    "share_mods": false,
+    "share_rate": 20
+  },
+  "mode": "Slayer",
+  "rules": {
+    "score_to_win": 0,
+    "kill_points": 1,
+    "death_points": 0,
+    "suicide_points": 0,
+    "betrayal_points": -1
+  },
+  "script": {
+    "version": 2,
+    "name": "Flood Survival v0.52",
+    "initial": [],
+    "on_spawn": [],
+    "on_kill": [],
+    "on_death": [],
+    "logic": {
+      "deployment": {
+        "title": "Flood Survival",
+        "teams": [
+          "Survivors",
+          "Infected"
+        ],
+        "classes": [
+          {
+            "name": "Survivor",
+            "description": "Magnum and fists",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "magnum",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Flood Human",
+            "description": "Fast melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_human",
+            "camera": "third_person",
+            "model_variant": "standard_fch",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Elite",
+            "description": "Tougher melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_elite",
+            "camera": "third_person",
+            "model_variant": "standard_fce",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 6,
+              "shields": 2,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Brute",
+            "description": "Heavy melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "headshots": 1,
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "speed": 8,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Stalker",
+            "description": "Pure form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 5,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Infected Monitor",
+            "description": "Break only. Flies, can't hurt anyone.",
+            "team": 1,
+            "cost": 0,
+            "biped": "forge_monitor",
+            "camera": "third_person",
+            "model_variant": "monitor",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "damage": 1,
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Grenadier)",
+            "description": "Magnum, fists and 2 frag grenades",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "magnum",
+            "grenades": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Assault)",
+            "description": "Assault Rifle, Magnum and fists",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "assault_rifle",
+            "secondary": "magnum",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Survivor (Assault, Grenadier)",
+            "description": "Assault Rifle, Magnum and 2 frag grenades",
+            "team": 0,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "assault_rifle",
+            "secondary": "magnum",
+            "grenades": [
+              2,
+              0,
+              0,
+              0
+            ],
+            "traits": {},
+            "max_active": 0
+          },
+          {
+            "name": "Nest Stalker",
+            "description": "Builds one nest that outlives it; slower, tougher",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Shifter Stalker",
+            "description": "Ability 1 turret, Ability 2 Tank, again to change back (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 2
+          },
+          {
+            "name": "Baby Stalker",
+            "description": "Tiny, very fast, very fragile",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Flood Tank",
+            "description": "Big, very tough melee form",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_tank",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Sword Spartan",
+            "description": "Last wave only: a Spartan with an Energy Sword",
+            "team": 1,
+            "cost": 0,
+            "biped": "spartan",
+            "primary": "energy_sword",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 0
+          },
+          {
+            "name": "Juggernaut",
+            "description": "Boss: the top-killing Infected, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_tank",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 8,
+              "shields": 1,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Brute Chieftain",
+            "description": "Boss: giant, fastest, invincibility equipment, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "brute_chieftain",
+            "camera": "third_person",
+            "model_variant": "chieftain_armor",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 8,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Spartan Boss",
+            "description": "Boss: invisible sword Master Chief, headshot-immune, one life",
+            "team": 1,
+            "cost": 0,
+            "biped": "master_chief",
+            "model_variant": "default",
+            "primary": "energy_sword",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Breacher",
+            "description": "A bigger, tougher Flood Human (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_human",
+            "camera": "third_person",
+            "model_variant": "standard_fch",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 2
+          },
+          {
+            "name": "Jumper Brute",
+            "description": "A Flood Brute with low gravity: huge jumps (1 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "camera": "third_person",
+            "model_variant": "default",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "gravity": 1,
+              "headshots": 1,
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "speed": 8,
+              "vehicles": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Invis Stalker",
+            "description": "A smaller, faster Stalker that is nearly invisible (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "camouflage": 3,
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 5,
+              "vehicles": 1
+            },
+            "max_active": 2
+          }
+        ],
+        "script_menu": true
+      },
+      "megalo": "alias a = current_player alias f = current_object alias b = script_widget alias d = all_players alias k = no_object alias l = script_option alias o = script_traits\n\nenum e\ncg = 0\nag = 1\na7 = 2\na6 = 3\nbi = 4\na3 = 5\nc5 = 6\nel = 7\ndb = 8\nu = 9\nm = 10\nav = 11\nbu = 12\na4 = 13\nam = 14\nad = 15\nao = 16\nal = 17\naa = 18\ny = 19\nend\n\nenum ae\ndt = 0\ncf = 1\nem = 2\nd4 = 3\ncy = 4\ndq = 5\nbl = 6\ncq = 7\ndy = 8\ned = 9\nb8 = 10\ncj = 11\ndu = 12\nd9 = 13\nbj = 14\nct = 15\nend\n\nenum ah\nbt\naq\nak\nc8\nend\n\nenum ay\new\ns\naf\nend\n\nenum ba\nb7\nbs\ncv\nbc\nend\n\nenum r\ndl = 1\ndm = 2\nbp = 4\nc7 = 8\nbn = 16\ncc = 32\nb0 = 64\ndv = 128\neh = 256\ncn = 512\na0 = 1024\nbg = 2048\ncb = 4096\nbz = 8192\neb = 12288\nend\n\nenum i\net = 0\nc3 = 1\nc1 = 2\nd1 = 3\nd2 = 4\nd3 = 5\ndn = 6\ndi = 7\nc4 = 8\ndh = 9\nb2 = 10\nc2 = 11\ncr = 12\nb3 = 13\ncl = 14\na1 = 15\naz = 16\ndj = 17\ncu = 18\nar = 19\naj = 20\nch = 24\nb4 = 25\nef = 26\ncs = 27\ndc = 28\ncx = 29\ncd = 30\nbf = 31\nci = 32\nend\n\nalias ai = global.number[0]\nalias cp = global.number[1]\nalias bk = global.number[2]\nalias bo = global.number[3]\nalias a2 = global.number[4]\nalias bm = global.number[5]\nalias dg = global.number[6]\nalias d8 = global.number[7]\nalias e0 = global.number[9]\nalias z = global.number[8]\nalias df = global.number[10]\nalias eg = global.number[11]\nalias an = global.object[0]\nalias t = global.object[1]\nalias c0 = global.object[2]\nalias ee = global.player[0]\nalias a9 = global.player[1]\nalias c9 = global.player[2]\nalias cw = global.player[3]\nalias ac = global.timer[0]\nalias b9 = global.timer[2]\nalias dk = global.timer[3]\n\nalias h = temporaries.number[0]\nalias c = temporaries.number[1]\nalias j = temporaries.number[2]\nalias q = temporaries.number[3]\nalias n = temporaries.number[4]\nalias au = temporaries.number[5]\nalias bh = temporaries.number[6]\nalias e4 = temporaries.number[7]\nalias g = temporaries.number[8]\nalias p = temporaries.number[9]\nalias cm = temporaries.number[9]\nalias bq = temporaries.number[4]\nalias b5 = temporaries.number[8]\nalias bd = temporaries.number[3]\nalias ce = temporaries.number[2]\nalias dd = temporaries.number[6]\nalias d7 = temporaries.number[7]\nalias v = temporaries.object[0]\n\nalias ax = player.number[0]\nalias es = player.number[1]\nalias e3 = player.number[2]\nalias a8 = player.number[3]\nalias bb = player.number[4]\nalias ap = player.number[5]\nalias w = player.number[6]\nalias de = player.number[7]\nalias co = player.object[0]\nalias x = player.object[1]\nalias eo = player.object[2]\nalias aw = player.object[2]\nalias b1 = player.number[3]\nalias c6 = player.timer[0]\nalias dp = player.timer[2]\nalias fa = player.object[3]\nalias ec = player.timer[0]\nalias a5 = player.timer[1]\nalias eq = player.timer[2]\nalias ab = player.timer[3]\n\nalias er = object.number[0]\nalias ez = object.number[1]\nalias fb = object.number[2]\nalias fc = object.number[3]\nalias bx = object.number[5]\nalias ds = object.number[6]\nalias eu = object.number[7]\nalias br = object.timer[0]\nalias cz = object.timer[1]\nalias dw = object.player[0]\nalias ck = object.number[4]\nalias dx = object.number[5]\nalias da = object.number[6]\nalias b6 = object.object[0]\nalias bw = object.object[1]\nalias d5 = object.object[2]\nalias d6 = object.object[3]\n\nfunction dz()\nb[4].set_size(d, 900, 490)\nb[7].set_position(d, 210, 165)\nb[8].set_position(d, 650, 165)\nb[9].set_position(d, 210, 219)\nb[10].set_position(d, 650, 219)\nb[11].set_position(d, 210, 273)\nb[12].set_position(d, 650, 273)\nb[13].set_position(d, 210, 327)\nb[14].set_position(d, 650, 327)\nb[19].set_position(d, 210, 381)\nb[24].set_position(d, 650, 381)\nb[25].set_position(d, 210, 435)\nb[26].set_position(d, 650, 435)\nb[20].set_position(d, 210, 165)\nb[20].set_size(d, 860, 48)\nb[15].set_position(d, 210, 520)\nb[16].set_position(d, 430, 520)\nend\n\non init: do\nac = l[ae.cj]\nb9 = 3\nb9.set_rate(-100%)\nb[0].set_position(d, 640, 16)\nb[0].set_anchor(d, top)\nb[0].set_font_size(d, 20)\nb[0].set_background(d, 8, 16, 28, 190)\nb[1].set_position(d, 640, 46)\nb[1].set_anchor(d, top)\nb[1].set_font_size(d, 15)\nb[18].set_position(d, 640, 70)\nb[18].set_anchor(d, top)\nb[18].set_font_size(d, 14)\nb[2].set_position(d, 24, 696)\nb[2].set_anchor(d, bottom_left)\nb[2].set_font_size(d, 16)\nb[2].set_color(d, 232, 184, 82, 255)\nb[3].set_position(d, 24, 670)\nb[3].set_anchor(d, bottom_left)\nb[3].set_font_size(d, 14)\nb[6].set_position(d, 640, 640)\nb[6].set_anchor(d, top)\nb[6].set_font_size(d, 16)\nb[6].set_color(d, 232, 184, 82, 255)\nb[4].set_position(d, 640, 110)\nb[4].set_anchor(d, top)\nb[4].set_background(d, 7, 14, 23, 235)\nb[5].set_position(d, 640, 125)\nb[5].set_anchor(d, top)\nb[5].set_font_size(d, 22)\ndz()\nb[7].set_size(d, 420, 48)\nb[8].set_size(d, 420, 48)\nb[9].set_size(d, 420, 48)\nb[10].set_size(d, 420, 48)\nb[11].set_size(d, 420, 48)\nb[12].set_size(d, 420, 48)\nb[13].set_size(d, 420, 48)\nb[14].set_size(d, 420, 48)\nb[7].set_clickable(d, true)\nb[8].set_clickable(d, true)\nb[9].set_clickable(d, true)\nb[10].set_clickable(d, true)\nb[11].set_clickable(d, true)\nb[12].set_clickable(d, true)\nb[13].set_clickable(d, true)\nb[14].set_clickable(d, true)\nb[15].set_size(d, 200, 50)\nb[15].set_background(d, 30, 45, 60, 255)\nb[15].set_clickable(d, true)\nb[16].set_size(d, 300, 50)\nb[16].set_background(d, 30, 45, 60, 255)\nb[16].set_clickable(d, true)\nb[19].set_size(d, 420, 48)\nteam[1].set_color(170, 200, 40)\nb[19].set_background(d, 15, 27, 39, 255)\nb[19].set_clickable(d, true)\nb[24].set_size(d, 420, 48)\nb[24].set_clickable(d, true)\nb[25].set_size(d, 420, 48)\nb[25].set_clickable(d, true)\nb[26].set_size(d, 420, 48)\nb[26].set_clickable(d, true)\nb[20].set_clickable(d, true)\nb[20].set_color(d, 232, 184, 82, 255)\nb[17].set_position(d, 870, 520)\nb[17].set_size(d, 200, 50)\nb[17].set_background(d, 90, 40, 40, 255)\nb[17].set_clickable(d, true)\nb[22].set_position(d, 490, 690)\nb[22].set_background(d, 110, 200, 255, 230)\nb[23].set_position(d, 800, 686)\nb[23].set_font_size(d, 14)\nb[21].set_position(d, 10, 165)\nb[21].set_size(d, 170, 0)\nb[21].set_font_size(d, 16)\nb[21].set_color(d, 232, 184, 82, 255)\nb[21].set_background(d, 7, 14, 23, 235)\nb[27].set_position(d, 10, 192)\nb[27].set_size(d, 170, 0)\nb[27].set_font_size(d, 13)\nb[27].set_color(d, 235, 240, 245, 255)\nb[27].set_background(d, 7, 14, 23, 235)\nb[30].set_position(d, 10, 300)\nb[30].set_size(d, 170, 0)\nb[30].set_font_size(d, 13)\nb[30].set_color(d, 235, 240, 245, 255)\nb[30].set_background(d, 7, 14, 23, 235)\nb[28].set_position(d, 1100, 165)\nb[28].set_size(d, 170, 0)\nb[28].set_font_size(d, 16)\nb[28].set_color(d, 232, 184, 82, 255)\nb[28].set_background(d, 7, 14, 23, 235)\nb[29].set_position(d, 1100, 192)\nb[29].set_size(d, 170, 0)\nb[29].set_font_size(d, 13)\nb[29].set_color(d, 235, 240, 245, 255)\nb[29].set_background(d, 7, 14, 23, 235)\nb[31].set_position(d, 1100, 300)\nb[31].set_size(d, 170, 0)\nb[31].set_font_size(d, 13)\nb[31].set_color(d, 235, 240, 245, 255)\nb[31].set_background(d, 7, 14, 23, 235)\nb[23].set_color(d, 110, 200, 255, 255)\nend\n\nfunction ej()\nc = cp\nc -= 1\np = l[ae.ct]\nc *= p\np = l[ae.du]\nc += p\nac = c\nac.set_rate(-100%)\nai = ah.aq\nend\n\nfunction bv()\nif a.bb != ba.b7 then a.set_ui_menu(false) end\na.bb = ba.b7\nend\n\nfunction en()\nif a.aw != k then a.aw.detach() end\na.aw = k\nif a.w == i.ci then a.w = 0 end\nend\n\nfunction ea()\nif cm > 60 then\ncm /= 2\nbq /= 2\nb5 /= 2\nend\nif cm > 60 then\ncm /= 2\nbq /= 2\nb5 /= 2\nend\nbd = bq\nbd *= bq\nc = cm\nc *= cm\nbd += c\nc = b5\nc *= b5\nbd -= c\nce = bq\nce *= cm\nce *= 2\nce /= 100\nif ce < 1 then ce = 1 end\nbd /= ce\nif bd > 100 then bd = 100 end\nif bd < -100 then bd = -100 end\nend\n\nfunction ca()\nen()\nbv()\na.ax = ay.af\na.w = 0\na.b1 = 0\na.ap = e.ag\nif a.is_not_respawning() then a.de = 2 end\nend\n\nfunction e9()\nau = 0\nif ai == ah.bt or ai == ah.ak then au = 1 end\nif ai == ah.aq and an != k then\nc = a.biped.get_distance_to(an)\np = l[ae.bl]\nif c <= p then au = 1 end\nend\nif a.bb != ba.b7 then au = 0 end\nif au == 0 then b[6].set_text_for(a, \"Too far from the quartermaster\") end\nif au == 1 then\na.bb = ba.bs\na.set_ui_menu(true)\nb[6].set_text_for(a, \"\")\nend\nend\n\nfunction e2()\nq = 0\nif j == i.et then q = 15 end\nif j == i.c3 then q = 20 end\nif j == i.c1 then q = 25 end\nif j == i.d1 then q = 25 end\nif j == i.d2 then q = 25 end\nif j == i.d3 then q = 35 end\nif j == i.dn then q = 45 end\nif j == i.di then q = 60 end\nif j == i.c4 then q = 70 end\nif j == i.dh then q = 70 end\nif j == i.b2 then q = 90 end\nif j == i.c2 then q = 90 end\nif j == i.cr then q = 90 end\nif j == i.b3 then q = 120 end\nif j == i.cl then q = 130 end\nif j == i.a1 then q = 150 end\nif j == i.az then q = 20 end\nif j == i.dj then q = 50 end\nif j == i.cu then q = 80 end\nif j == i.ar then q = 110 end\nif j == i.aj then q = 140 end\nif j == i.ch then q = 20 end\nif j == i.b4 then q = 15 end\nif j == i.ef then q = 25 end\nif j == i.cs then q = 30 end\nif j == i.dc then q = 45 end\nif j == i.cx then q = 45 end\nif j == i.cd then q = 60 end\nif j == i.bf then q = 100 end\nend\n\nfunction e8()\ng = 1\nif j >= i.dn then g = 2 end\nif j >= i.b2 then g = 3 end\nif j >= i.b3 then g = 4 end\nif j >= i.a1 then g = 5 end\nif j >= i.az then g = 1 end\nif j >= i.cu then g = 2 end\nif j >= i.ar then g = 3 end\nif j >= i.aj then g = 4 end\nif j >= i.ch then g = 1 end\nif j >= i.cs then g = 2 end\nif j >= i.cd then g = 3 end\nif j >= i.bf then g = 4 end\nend\n\nfunction d0()\ng = 0\nif j == i.ar then g = 1 end\nif j == i.aj then g = 2 end\nn = 0\nif g != 0 then\nc = e0\nc &= g\nif c == 0 then n = 1 end\nend\nend\n\nfunction fe()\ne2()\nau = 1\nc = l[ae.cf]\nif c == 1 then q = 0 end\nbh = 0\nc = a.ab\nc &= r.cb\nif c != 0 and j <= i.a1 then bh = r.cb end\nc = a.ab\nc &= r.bz\nif c != 0 and j >= i.az and j != i.ch then bh = r.bz end\nif bh != 0 then q = 0 end\nif a.a8 < q then\nau = 0\nb[6].set_text_for(a, \"Not enough points: that costs %n\", q)\nend\nif not a.ec.is_zero() then\nau = 0\nb[6].set_text_for(a, \"One purchase a second\")\nend\nc = a.ab\nc &= r.a0\nif j >= i.az and j != i.ch then\nif not a.a5.is_zero() or a.w > 0 or c != 0 then\nau = 0\nb[6].set_text_for(a, \"Use what you carry first\")\nend\nend\ne8()\nif g > z then\nau = 0\nb[6].set_text_for(a, \"That opens in wave %n\", g)\nend\nif j == i.az and c != 0 then\nau = 0\nb[6].set_text_for(a, \"You already have a Prop Placer ready\")\nend\nd0()\nif n == 1 then\nau = 0\nb[6].set_text_for(a, \"This map doesn't have that\")\nend\nif j <= i.a1 then\nn = 0\nfor each object with label \"zs_gun\" do n += 1 end\np = l[ae.em]\nif n >= p then\nau = 0\nb[6].set_text_for(a, \"Too many guns on the ground: pick some up\")\nend\nend\nif au == 1 then\na.a8 -= q\na.ec = 1\na.ec.set_rate(-100%)\nb[6].set_text_for(a, \"Bought\")\nif bh != 0 then\nc = a.ab\nc ~= bh\na.ab = c\nb[6].set_text_for(a, \"Bought with your wave award\")\nend\nif j == i.d3 then t = a.biped.place_at_me(shotgun, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.c1 then t = a.biped.place_at_me(battle_rifle, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.et then t = a.biped.place_at_me(smg, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.c4 then t = a.biped.place_at_me(sniper_rifle, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.cl then t = a.biped.place_at_me(rocket_launcher, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.d1 then t = a.biped.place_at_me(carbine, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.dn then t = a.biped.place_at_me(mauler, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.b2 then t = a.biped.place_at_me(energy_sword, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.c2 then t = a.biped.place_at_me(flamethrower, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.a1 then t = a.biped.place_at_me(spartan_laser, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.di then t = a.biped.place_at_me(brute_shot, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.cr then t = a.biped.place_at_me(gravity_hammer, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.d2 then t = a.biped.place_at_me(needler, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.c3 then t = a.biped.place_at_me(plasma_rifle, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.dh then t = a.biped.place_at_me(beam_rifle, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.b3 then t = a.biped.place_at_me(fuel_rod_gun, \"zs_gun\", none, 5, 0, 3, none) end\nif j == i.ch then a.refill_ammo() end\nif j == i.ef then a.give_equipment(deployable_cover) end\nif j == i.cx then a.give_equipment(bubble_shield) end\nif j == i.dc then a.give_equipment(regenerator) end\nif j == i.cs then a.give_equipment(trip_mine) end\nif j == i.b4 then a.give_equipment(radar_jammer) end\nif j == i.cd then a.give_equipment(active_camo) end\nif j == i.bf then a.give_equipment(invincibility) end\nif j >= i.b4 and j <= i.bf then a.a5 = 1 end\nif j == i.az then\nc = a.ab\nc |= r.a0\na.ab = c\nb[6].set_text_for(a, \"Bought: your next prop comes with a grav lift to throw it\")\nif a.aw != k then\na.w = i.ci\na.give_equipment(grav_lift)\na.a5 = 1\nend\nend\nif j >= i.dj and j <= i.aj then\na.w = j\na.give_equipment(grav_lift)\na.a5 = 1\nend\nend\nend\n\nfunction dr()\nb[7].set_color(a, 235, 240, 245, 255)\nb[8].set_color(a, 235, 240, 245, 255)\nb[9].set_color(a, 235, 240, 245, 255)\nb[10].set_color(a, 235, 240, 245, 255)\nb[11].set_color(a, 235, 240, 245, 255)\nb[12].set_color(a, 235, 240, 245, 255)\nb[13].set_color(a, 235, 240, 245, 255)\nb[14].set_color(a, 235, 240, 245, 255)\nb[7].set_background(a, 15, 27, 39, 255)\nb[8].set_background(a, 15, 27, 39, 255)\nb[9].set_background(a, 15, 27, 39, 255)\nb[10].set_background(a, 15, 27, 39, 255)\nb[11].set_background(a, 15, 27, 39, 255)\nb[12].set_background(a, 15, 27, 39, 255)\nb[13].set_background(a, 15, 27, 39, 255)\nb[14].set_background(a, 15, 27, 39, 255)\nend\n\nfunction e5()\ndr()\nb[15].set_text_for(a, \"<  Previous\")\nb[16].set_text_for(a, \"Next  >\")\nb[17].set_text_for(a, \"Close\")\nif a.ap == 0 then\nb[5].set_text_for(a, \"ARSENAL  -  WEAPONS, WAVES 1-2  (1 / 4)\")\nb[7].set_text_for(a, \"SMG  |  15 pts\")\nb[8].set_text_for(a, \"Plasma Rifle  |  20 pts\")\nb[9].set_text_for(a, \"Battle Rifle  |  25 pts\")\nb[10].set_text_for(a, \"Carbine  |  25 pts\")\nb[11].set_text_for(a, \"Needler  |  25 pts\")\nb[12].set_text_for(a, \"Shotgun  |  35 pts\")\nb[13].set_text_for(a, \"Mauler  |  45 pts\")\nb[14].set_text_for(a, \"Brute Shot  |  60 pts\")\nif z < 2 then\nb[13].set_text_for(a, \"Mauler  |  opens in wave 2\")\nb[13].set_color(a, 110, 118, 130, 255)\nb[14].set_text_for(a, \"Brute Shot  |  opens in wave 2\")\nb[14].set_color(a, 110, 118, 130, 255)\nend\nend\nif a.ap == 1 then\nb[5].set_text_for(a, \"ARSENAL  -  WEAPONS, WAVES 2-5  (2 / 4)\")\nb[7].set_text_for(a, \"Sniper Rifle  |  70 pts\")\nb[8].set_text_for(a, \"Beam Rifle  |  70 pts\")\nb[9].set_text_for(a, \"Energy Sword  |  90 pts\")\nb[10].set_text_for(a, \"Flamethrower  |  90 pts\")\nb[11].set_text_for(a, \"Gravity Hammer  |  90 pts\")\nb[12].set_text_for(a, \"Fuel Rod Gun  |  120 pts\")\nb[13].set_text_for(a, \"Rocket Launcher  |  130 pts\")\nb[14].set_text_for(a, \"Spartan Laser  |  150 pts\")\nif z < 2 then\nb[7].set_text_for(a, \"Sniper Rifle  |  opens in wave 2\")\nb[7].set_color(a, 110, 118, 130, 255)\nb[8].set_text_for(a, \"Beam Rifle  |  opens in wave 2\")\nb[8].set_color(a, 110, 118, 130, 255)\nend\nif z < 3 then\nb[9].set_text_for(a, \"Energy Sword  |  opens in wave 3\")\nb[9].set_color(a, 110, 118, 130, 255)\nb[10].set_text_for(a, \"Flamethrower  |  opens in wave 3\")\nb[10].set_color(a, 110, 118, 130, 255)\nb[11].set_text_for(a, \"Gravity Hammer  |  opens in wave 3\")\nb[11].set_color(a, 110, 118, 130, 255)\nend\nif z < 4 then\nb[12].set_text_for(a, \"Fuel Rod Gun  |  opens in wave 4\")\nb[12].set_color(a, 110, 118, 130, 255)\nb[13].set_text_for(a, \"Rocket Launcher  |  opens in wave 4\")\nb[13].set_color(a, 110, 118, 130, 255)\nend\nif z < 5 then\nb[14].set_text_for(a, \"Spartan Laser  |  opens in wave 5\")\nb[14].set_color(a, 110, 118, 130, 255)\nend\nend\nif a.ap == 2 then\nb[5].set_text_for(a, \"ARSENAL  -  PLACEABLES  (3 / 4)\")\nb[7].set_text_for(a, \"Prop Placer: throw one prop into place  |  20 pts\")\nb[8].set_text_for(a, \"Barrier (standing Hunter)  |  50 pts\")\nb[9].set_text_for(a, \"Machine Gun Emplacement  |  80 pts\")\nb[10].set_text_for(a, \"Plasma Cannon Emplacement  |  110 pts\")\nb[11].set_text_for(a, \"Missile Pod Emplacement  |  140 pts\")\nc = a.ab\nc &= r.a0\nif c != 0 then b[7].set_text_for(a, \"Prop Placer  |  ready\") end\nif z < 2 then\nb[9].set_text_for(a, \"Machine Gun  |  opens in wave 2\")\nb[9].set_color(a, 110, 118, 130, 255)\nend\nif z < 3 then\nb[10].set_text_for(a, \"Plasma Cannon  |  opens in wave 3\")\nb[10].set_color(a, 110, 118, 130, 255)\nend\nif z < 4 then\nb[11].set_text_for(a, \"Missile Pod  |  opens in wave 4\")\nb[11].set_color(a, 110, 118, 130, 255)\nend\nj = i.ar\nd0()\nif n == 1 then\nb[10].set_text_for(a, \"Plasma Cannon  |  not on this map\")\nb[10].set_color(a, 110, 118, 130, 255)\nend\nj = i.aj\nd0()\nif n == 1 then\nb[11].set_text_for(a, \"Missile Pod  |  not on this map\")\nb[11].set_color(a, 110, 118, 130, 255)\nend\nend\nif a.ap == 3 then\nb[5].set_text_for(a, \"ARSENAL  -  EQUIPMENT  (4 / 4)\")\nb[7].set_text_for(a, \"Ammo refill  |  20 pts\")\nb[8].set_text_for(a, \"Radar Jammer  |  15 pts\")\nb[9].set_text_for(a, \"Deployable Cover  |  25 pts\")\nb[10].set_text_for(a, \"Trip Mine  |  30 pts\")\nb[11].set_text_for(a, \"Regenerator  |  45 pts\")\nb[12].set_text_for(a, \"Bubble Shield  |  45 pts\")\nb[13].set_text_for(a, \"Active Camo  |  60 pts\")\nb[14].set_text_for(a, \"Invincibility  |  100 pts\")\nif z < 2 then\nb[10].set_text_for(a, \"Trip Mine  |  opens in wave 2\")\nb[10].set_color(a, 110, 118, 130, 255)\nb[11].set_text_for(a, \"Regenerator  |  opens in wave 2\")\nb[11].set_color(a, 110, 118, 130, 255)\nb[12].set_text_for(a, \"Bubble Shield  |  opens in wave 2\")\nb[12].set_color(a, 110, 118, 130, 255)\nend\nif z < 3 then\nb[13].set_text_for(a, \"Active Camo  |  opens in wave 3\")\nb[13].set_color(a, 110, 118, 130, 255)\nend\nif z < 4 then\nb[14].set_text_for(a, \"Invincibility  |  opens in wave 4\")\nb[14].set_color(a, 110, 118, 130, 255)\nend\nend\nc = a.ab\nc &= r.a0\nif not a.a5.is_zero() or a.w > 0 or c != 0 then\nif a.ap >= 2 then\nb[5].set_text_for(a, \"ARSENAL  -  use what you carry first\")\nif a.ap != 3 then b[7].set_color(a, 110, 118, 130, 255) end\nb[8].set_color(a, 110, 118, 130, 255)\nb[9].set_color(a, 110, 118, 130, 255)\nb[10].set_color(a, 110, 118, 130, 255)\nb[11].set_color(a, 110, 118, 130, 255)\nb[12].set_color(a, 110, 118, 130, 255)\nb[13].set_color(a, 110, 118, 130, 255)\nb[14].set_color(a, 110, 118, 130, 255)\nend\nend\nend\n\nfunction ek()\nq = 0\nc = a.ab\ng = c\ng &= r.dl\nif g != 0 then q += 40 end\ng = c\ng &= r.dm\nif g != 0 then q -= 30 end\ng = c\ng &= r.bp\nif g != 0 then q += 50 end\ng = c\ng &= r.c7\nif g != 0 then q -= 40 end\ng = c\ng &= r.bn\nif g != 0 then q += 40 end\ng = c\ng &= r.cc\nif g != 0 then q -= 30 end\ng = c\ng &= r.b0\nif g != 0 then q += 30 end\ng = c\ng &= r.dv\nif g != 0 then q += 40 end\ng = c\ng &= r.cn\nif g != 0 then q += 50 end\np = l[ae.cf]\nif p == 1 then q = 0 end\nend\n\nfunction ey()\ndr()\nek()\nb[5].set_text_for(a, \"TRAITS  |  cost %n  |  you have %n points\", q, a.a8)\nb[17].set_text_for(a, \"Ready: spawn\")\nb[7].set_text_for(a, \"Fast Feet: 25 percent faster  |  costs 40\")\nb[8].set_text_for(a, \"Slow: 10 percent slower  |  gives 30\")\nb[9].set_text_for(a, \"Overshield: double shields  |  costs 50\")\nb[10].set_text_for(a, \"Frail: no shields  |  gives 40\")\nb[11].set_text_for(a, \"Hard Hitter: 25 percent more damage  |  costs 40\")\nb[12].set_text_for(a, \"Weak Arm: 25 percent less damage  |  gives 30\")\nb[13].set_text_for(a, \"Grenadier: 2 frags that come back  |  costs 30\")\nb[14].set_text_for(a, \"Tough: takes less damage  |  costs 40\")\nb[19].set_text_for(a, \"Assault: spawn with an Assault Rifle too  |  costs 50\")\nb[19].set_color(a, 235, 240, 245, 255)\nc = a.ab\ng = c\ng &= r.cn\nif g != 0 then b[19].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.dl\nif g != 0 then b[7].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.dm\nif g != 0 then b[8].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.bp\nif g != 0 then b[9].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.c7\nif g != 0 then b[10].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.bn\nif g != 0 then b[11].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.cc\nif g != 0 then b[12].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.b0\nif g != 0 then b[13].set_color(a, 232, 184, 82, 255) end\ng = c\ng &= r.dv\nif g != 0 then b[14].set_color(a, 232, 184, 82, 255) end\nend\n\nfunction e6()\ng = 0\nif h == e.a6 or h == e.bi or h == e.aa then g = 1 end\nif h == e.a7 or h == e.u or h == e.y then g = 2 end\nif h == e.m or h == e.bu then g = 3 end\nend\n\nfunction ep()\nh = a.ap\nif h < e.ag or h > e.y then h = e.ag end\nif h > e.bi and h < e.u then h = e.ag end\nc = 0\nif h >= e.am and h <= e.ao then c = 1 end\nif c == 1 then\nif a != a9 or df == 1 then h = e.ag end\nend\nau = 0\nc = ac\nif ai == ah.ak and c > 6 then au = 1 end\nif au == 1 then h = e.a3 end\nend\n\nfunction ei()\nep()\ne6()\nn = 1\nif bk < g then n = 0 end\np = l[ae.bj]\nif h == e.a4 then\nif ai != ah.aq or cp < p then n = 0 end\nend\nif n == 0 then b[6].set_text_for(a, \"Still locked\") end\nif n == 1 then\nn = a.deploy_class(h)\nif n == 0 then b[6].set_text_for(a, \"Can't take that form now\") end\nif n == 1 then b[6].set_text_for(a, \"\") end\ng = 0\nif h >= e.am and h <= e.ao then g = 1 end\nif n == 1 and g == 1 then\ndf = 1\ndz()\nend\nend\nend\n\nfunction ex()\ndr()\nep()\nb[5].set_text_for(a, \"INFECTED  -  CHOOSE A FORM\")\nb[15].set_text_for(a, \"Spawn\")\nb[16].set_text_for(a, \"Spawn at Nest\")\nb[19].set_color(a, 235, 240, 245, 255)\nb[19].set_background(a, 15, 27, 39, 255)\nb[24].set_color(a, 235, 240, 245, 255)\nb[24].set_background(a, 15, 27, 39, 255)\nb[25].set_color(a, 235, 240, 245, 255)\nb[25].set_background(a, 15, 27, 39, 255)\nb[26].set_color(a, 235, 240, 245, 255)\nb[26].set_background(a, 15, 27, 39, 255)\nb[7].set_text_for(a, \"Flood Human  |  tier 1\")\nb[8].set_text_for(a, \"Baby Stalker  |  tier 1  |  tiny, fast, fragile\")\nb[9].set_text_for(a, \"Breacher  |  tier 1  |  big and tough, 2 max\")\nb[10].set_text_for(a, \"Flood Brute  |  tier 2\")\nb[11].set_text_for(a, \"Flood Stalker  |  tier 2\")\nb[12].set_text_for(a, \"Jumper Brute  |  tier 2  |  high jumps, 1 max\")\nb[13].set_text_for(a, \"Flood Elite  |  tier 3  |  shields\")\nb[14].set_text_for(a, \"Nest Stalker  |  tier 3  |  builds the nest\")\nb[19].set_text_for(a, \"Invis Stalker  |  tier 3  |  near-invisible, 2 max\")\nb[24].set_text_for(a, \"Shifter Stalker  |  tier 4  |  turret or Tank, 2 max\")\nb[25].set_text_for(a, \"Flood Tank  |  tier 4\")\nb[26].set_text_for(a, \"Sword Spartan  |  last wave only\")\nif bk < 3 then\np = l[ae.b8]\nc = bk\nc += 1\np *= c\np += 1\nc += 1\nb[5].set_text_for(a, \"INFECTED  |  tier %n opens in wave %n\", c, p)\nend\nif bk < 1 then\nb[10].set_color(a, 110, 118, 130, 255)\nb[11].set_color(a, 110, 118, 130, 255)\nb[12].set_color(a, 110, 118, 130, 255)\nend\nif bk < 2 then\nb[13].set_color(a, 110, 118, 130, 255)\nb[14].set_color(a, 110, 118, 130, 255)\nb[19].set_color(a, 110, 118, 130, 255)\nend\nif bk < 3 then\nb[24].set_color(a, 110, 118, 130, 255)\nb[25].set_color(a, 110, 118, 130, 255)\nend\nn = game.get_deployment_occupied(e.u)\nif bk >= 2 and n > 0 then\nb[14].set_text_for(a, \"Nest Stalker  |  taken\")\nb[14].set_color(a, 110, 118, 130, 255)\nend\nn = game.get_deployment_occupied(e.al)\nif n >= 2 then\nb[9].set_text_for(a, \"Breacher  |  full (2 max)\")\nb[9].set_color(a, 110, 118, 130, 255)\nend\nn = game.get_deployment_occupied(e.aa)\nif bk >= 1 and n > 0 then\nb[12].set_text_for(a, \"Jumper Brute  |  taken\")\nb[12].set_color(a, 110, 118, 130, 255)\nend\nn = game.get_deployment_occupied(e.y)\nif bk >= 2 and n >= 2 then\nb[19].set_text_for(a, \"Invis Stalker  |  full (2 max)\")\nb[19].set_color(a, 110, 118, 130, 255)\nend\nn = game.get_deployment_occupied(e.m)\nif bk >= 3 and n >= 2 then\nb[24].set_text_for(a, \"Shifter Stalker  |  full (2 max)\")\nb[24].set_color(a, 110, 118, 130, 255)\nend\np = l[ae.bj]\nif ai != ah.aq or cp < p then b[26].set_color(a, 110, 118, 130, 255) end\nif au == 1 then\nb[5].set_text_for(a, \"BREAK  -  YOU RISE AS A MONITOR\")\nb[7].set_text_for(a, \"Infected Monitor  |  flies, harmless  |  Flood again next wave\")\nend\nif c0 != k then\nc = c0.health\nb[16].set_text_for(a, \"Spawn at Nest (health %n)\", c)\nend\nif h == e.ag or h == e.a3 then b[7].set_background(a, 45, 75, 105, 255) end\nif h == e.av then b[8].set_background(a, 45, 75, 105, 255) end\nif h == e.al then b[9].set_background(a, 45, 75, 105, 255) end\nif h == e.a6 then b[10].set_background(a, 45, 75, 105, 255) end\nif h == e.bi then b[11].set_background(a, 45, 75, 105, 255) end\nif h == e.aa then b[12].set_background(a, 45, 75, 105, 255) end\nif h == e.a7 then b[13].set_background(a, 45, 75, 105, 255) end\nif h == e.u then b[14].set_background(a, 45, 75, 105, 255) end\nif h == e.y then b[19].set_background(a, 45, 75, 105, 255) end\nif h == e.m then b[24].set_background(a, 45, 75, 105, 255) end\nif h == e.bu then b[25].set_background(a, 45, 75, 105, 255) end\nif h == e.a4 then b[26].set_background(a, 45, 75, 105, 255) end\nb[20].set_background(a, 60, 45, 15, 255)\nb[20].set_text_for(a, \"BOSS  |  Juggernaut: giant Tank, 4x health  |  click to change\")\nif h >= e.am and h <= e.ao then b[20].set_background(a, 120, 90, 30, 255) end\nif h == e.ad then b[20].set_text_for(a, \"BOSS  |  Brute Chieftain: giant, fastest, invincibility  |  click to change\") end\nif h == e.ao then b[20].set_text_for(a, \"BOSS  |  Master Chief: invisible, sword, weak to headshots  |  click to change\") end\nend\n\nfunction e1()\nif c0 == k and dk.is_zero() then\nc0 = a.biped.place_at_me(flood_carrier, \"zs_nest\", never_garbage_collect, 5, 0, 0, shielded)\nc0.copy_rotation_from(a.biped, false)\nc0.set_scale(150)\nc0.set_garbage_collection_disabled(true)\nc0.max_health = 400\ndk = 30\ndk.set_rate(-100%)\nend\nend\n\nfunction ev()\nn = 0\np = l[ae.dq]\nif a.w == i.ci then\nn = -1\ng = 0\nfor each object do\nif f.is_of_type(biped) then\nc = f.get_distance_to(a.co)\nif c < 5 then g = 1 end\nend\nend\nif g == 1 then b[6].set_text_for(a, \"Too close to someone: grav lift returned\") end\nif g == 0 then\nif a.aw != k then\na.aw.detach()\na.aw.attach_to(a.co, 0, 0, 0, relative)\na.aw.detach()\nif a.is_not_respawning() then a.aw.copy_rotation_from(a.biped, false) end\na.aw.dw = a\na.aw.cz = 5\na.aw.cz.set_rate(-100%)\nc = a.aw.ck\nif c != z then a.biped.da += 1 end\na.aw.ck = z\nend\na.aw = k\na.w = 0\nc = a.ab\nc ~= r.a0\na.ab = c\nb[6].set_text_for(a, \"Placed\")\nend\nend\nif a.w == i.cu then\nfor each object with label \"zs_turret\" do n += 1 end\nend\nif a.w == i.dj then\nfor each object with label \"zs_wall\" do n += 1 end\nend\nif a.w == i.ar then\nfor each object with label \"zs_plasma\" do n += 1 end\nend\nif a.w == i.aj then\nfor each object with label \"zs_pod\" do n += 1 end\nend\nif n >= p then b[6].set_text_for(a, \"Your team already has %n of those: grav lift returned\", n) end\nif n < p and n >= 0 then\nif a.w == i.cu then t = a.co.place_at_me(machine_gun_emplacement, \"zs_turret\", none, 0, 0, 0, none) end\nif a.w == i.dj then\nt = a.co.place_at_me(hunter, \"zs_wall\", never_garbage_collect, 0, 0, 0, none)\nt.set_garbage_collection_disabled(true)\nt.max_health = 300\nend\nif a.w == i.ar then t = a.co.place_at_me(plasma_cannon_emplacement, \"zs_plasma\", none, 0, 0, 0, none) end\nif a.w == i.aj then t = a.co.place_at_me(missile_pod_emplacement, \"zs_pod\", none, 0, 0, 0, none) end\nt.copy_rotation_from(a.biped, false)\na.w = 0\nb[6].set_text_for(a, \"Placed\")\nend\na.co.delete()\na.co = k\nend\n\nfunction fd()\nfor each object do\nif f.is_of_type(vehicle) then\nau = 1\nif f.has_forge_label(\"zs_turret\") or f.has_forge_label(\"zs_plasma\") then au = 0 end\nif f.has_forge_label(\"zs_pod\") then au = 0 end\nif au == 1 then\nif f.is_of_type(plasma_cannon_emplacement) then e0 |= 1 end\nif f.is_of_type(missile_pod_emplacement) then e0 |= 2 end\nf.delete()\nend\nend\nend\nend\n\nfunction e7()\nb[4].set_visibility(a, false)\nb[5].set_visibility(a, false)\nb[7].set_visibility(a, false)\nb[8].set_visibility(a, false)\nb[9].set_visibility(a, false)\nb[10].set_visibility(a, false)\nb[11].set_visibility(a, false)\nb[12].set_visibility(a, false)\nb[13].set_visibility(a, false)\nb[14].set_visibility(a, false)\nb[15].set_visibility(a, false)\nb[16].set_visibility(a, false)\nb[17].set_visibility(a, false)\nb[19].set_visibility(a, false)\nb[20].set_visibility(a, false)\nb[24].set_visibility(a, false)\nb[25].set_visibility(a, false)\nb[26].set_visibility(a, false)\nb[21].set_visibility(a, false)\nb[27].set_visibility(a, false)\nb[28].set_visibility(a, false)\nb[29].set_visibility(a, false)\nb[30].set_visibility(a, false)\nb[31].set_visibility(a, false)\nend\n\non widget click: do\nif a.bb == ba.cv then\nif clicked_widget == 7 then a.ap = e.ag end\nif clicked_widget == 8 then a.ap = e.av end\nif clicked_widget == 9 then a.ap = e.al end\nif clicked_widget == 10 then a.ap = e.a6 end\nif clicked_widget == 11 then a.ap = e.bi end\nif clicked_widget == 12 then a.ap = e.aa end\nif clicked_widget == 13 then a.ap = e.a7 end\nif clicked_widget == 14 then a.ap = e.u end\nif clicked_widget == 19 then a.ap = e.y end\nif clicked_widget == 24 then a.ap = e.m end\nif clicked_widget == 25 then a.ap = e.bu end\nif clicked_widget == 26 then a.ap = e.a4 end\nif clicked_widget == 20 then\nc = a.ap\na.ap = e.am\nif c == e.am then a.ap = e.ad end\nif c == e.ad then a.ap = e.ao end\nend\nif clicked_widget == 15 then\na.set_primary_respawn_object(k)\nei()\nend\nif clicked_widget == 16 and c0 != k then\na.set_primary_respawn_object(c0)\nei()\nend\nend\nif a.bb == ba.bc then\nif clicked_widget >= 7 and clicked_widget <= 14 then\ng = 1\nn = clicked_widget\nn -= 7\ng <<= n\nc = a.ab\nc ^= g\nif clicked_widget == 7 then c ~= r.dm end\nif clicked_widget == 8 then c ~= r.dl end\nif clicked_widget == 9 then c ~= r.c7 end\nif clicked_widget == 10 then c ~= r.bp end\nif clicked_widget == 11 then c ~= r.cc end\nif clicked_widget == 12 then c ~= r.bn end\na.ab = c\nend\nif clicked_widget == 19 then\nc = a.ab\nc ^= r.cn\na.ab = c\nend\nif clicked_widget == 17 then\nek()\nif a.a8 < q then b[6].set_text_for(a, \"Not enough points: that costs %n\", q) end\nif a.a8 >= q then\na.a8 -= q\nc = a.ab\nc |= r.eh\na.ab = c\nbv()\nb[6].set_text_for(a, \"Traits set\")\nend\nend\nend\nif a.bb == ba.bs then\nif clicked_widget >= 7 and clicked_widget <= 14 then\nj = a.ap\nj *= 8\nj += clicked_widget\nj -= 7\nau = 1\nif j > i.aj and j < i.ch then au = 0 end\nif au == 1 then fe() end\nend\nif clicked_widget == 15 then\na.ap -= 1\nif a.ap < 0 then a.ap = 3 end\nend\nif clicked_widget == 16 then\na.ap += 1\nif a.ap > 3 then a.ap = 0 end\nend\nif clicked_widget == 17 then bv() end\nend\nend\n\non button press: do\nif pressed_button == button.equipment then\na.a5 = 0\nif a.w > 0 then\na.eq = 3\na.eq.set_rate(-100%)\nend\nend\nif a.ax == ay.s and a.is_not_respawning() then\nif pressed_button == button.ability_1 then e9() end\nif pressed_button == button.flashlight then\nau = 0\nif a.aw != k then au = 1 end\nif au == 1 then\nfor each object do\nif f.is_of_type(biped) and f != a.biped then\nc = f.get_distance_to(a.aw)\nif c < 5 then au = 2 end\nend\nend\nif au == 2 then b[6].set_text_for(a, \"Too close to someone: props can't be dropped within 4 ft\") end\nend\nif au == 1 then\na.aw.detach()\na.aw.copy_rotation_from(a.biped, false)\na.aw.dw = a\na.aw.cz = 5\na.aw.cz.set_rate(-100%)\nc = a.aw.ck\nif c != z then a.biped.da += 1 end\na.aw.ck = z\na.aw = k\nif a.w == i.ci then\na.w = 0\na.give_equipment(none)\na.a5 = 0\nend\nb[6].set_text_for(a, \"Placed\")\nend\nif au == 0 then\nt = k\np = 9\ng = 0\nfor each object do\nau = 1\nif f.is_of_type(biped) or f.is_of_type(vehicle) then au = 0 end\nif f.is_of_type(weapon) or f.is_of_type(equipment) then au = 0 end\nee = f.get_carrier()\nif ee != no_player then au = 0 end\nif au == 1 then\nc = f.get_distance_to(a.biped)\nif f.dw != a and not f.cz.is_zero() then\nif c < 9 then g = 1 end\nc = 100\nend\nif c < p then\np = c\nt = f\nend\nend\nend\nif t == k then b[6].set_text_for(a, \"No prop within 8 ft\") end\nif t == k and g == 1 then b[6].set_text_for(a, \"Someone just placed that prop: wait a few seconds\") end\nif t != k then\na.aw = t\nt.attach_to(a.biped, 5, 0, 2, relative)\nb[6].set_text_for(a, \"Picked up a prop %n ft away\", p)\nc = a.ab\nc &= r.a0\nif c != 0 and a.a5.is_zero() and a.w == 0 then\na.w = i.ci\na.give_equipment(grav_lift)\na.a5 = 1\nend\nend\nend\nend\nend\nh = a.get_deployment_class()\nif a.is_not_respawning() then\nif pressed_button == button.crouch then\nau = 0\nif h == e.ag or h == e.al or h == e.a7 then au = 1 end\nif h == e.a6 or h == e.aa then au = 1 end\nif au == 1 and a.biped.bx == 0 and a.biped.br.is_zero() then\na.biped.bx = 1\na.biped.br = 1\na.biped.br.set_rate(-200%)\nend\nend\nif h == e.u and pressed_button == button.ability_1 then e1() end\nif h == e.m and a.c6.is_zero() and a.x == k and a.b1 <= 1 then\nau = 0\nif pressed_button == button.ability_1 or pressed_button == button.ability_2 then au = 1 end\nif au == 1 and a.b1 == 0 then\nc = a.ab\nc ~= r.bg\nif pressed_button == button.ability_2 then c |= r.bg end\na.ab = c\nend\nif au == 1 then\na.b1 += 2\na.dp = 1\na.dp.set_rate(-100%)\nend\nend\nend\nc = l[ae.ed]\nif c == 1 and pressed_button == button.ability_4 then ac = 0 end\nend\n\nbo = 0\na2 = 0\nbm = 0\nfor each player do\nif a.ax == ay.ew then\na.ax = ay.s\np = l[ae.dy]\na.a8 = p\na.es = a.get_death_count()\na.e3 = a.get_kill_count()\nif cp >= 2 then ca() end\nend\nbo += 1\nif a.ax == ay.s then a2 += 1 end\nif a.ax == ay.af then bm += 1 end\nend\n\nif b9.is_zero() then\nfd()\nb9 = 2\nb9.set_rate(-100%)\nend\n\nif ai == ah.bt then\np = l[ae.cy]\nac.set_rate(-100%)\nif bo < p then\nac = l[ae.cj]\nac.set_rate(0%)\nend\nif bo >= p and ac.is_zero() then\nbh = bo\ng = l[ae.cq]\nbh *= g\nbh += 99\nbh /= 100\nif bh < 1 then bh = 1 end\nif bh >= bo then\nbh = bo\nbh -= 1\nend\nfor each player randomly do\nif bh > 0 and a.ax == ay.s then\nca()\nbh -= 1\nbm += 1\na2 -= 1\nend\nend\ndg = 0\ncp = 1\nej()\nend\nend\n\nif ai == ah.aq and ac.is_zero() then\np = l[ae.bj]\nif cp >= p and a2 > 0 then\nb[0].set_text(\"The Survivors held out. SURVIVORS WIN\")\nteam[0].end_round()\nai = ah.c8\nend\nif ai == ah.aq then\np = l[ae.d9]\nfor each player do\nif a.ax == ay.s then a.a8 += p end\nend\nc9 = no_player\ncw = no_player\nn = 0\ng = 0\nfor each player randomly do\nif a.ax == ay.s and a.is_not_respawning() then\nc = a.biped.dx\nif c > n then\nn = c\nc9 = a\nend\nc = a.biped.da\nif c > g then\ng = c\ncw = a\nend\na.biped.dx = 0\na.biped.da = 0\nend\nend\nfor each player do\nb[6].set_text_for(a, \"Wave %n awards: most kills %n, most props placed %n\", cp, n, g)\nc = a.ab\nif a == c9 then\nc |= r.cb\nb[6].set_text_for(a, \"WAVE AWARD: most kills (%n). Your next weapon is free, any you like\", n)\nend\nif a == cw then\nc |= r.bz\nb[6].set_text_for(a, \"WAVE AWARD: most props placed (%n). Next placeable or equipment is free\", g)\nend\nif a == c9 and a == cw then b[6].set_text_for(a, \"WAVE AWARDS: most kills and most props. Next weapon and next gear are free\") end\na.ab = c\nend\nac = l[ae.dt]\nac.set_rate(-100%)\nai = ah.ak\na9 = no_player\ndz()\nend\nend\n\nif ai == ah.ak and ac.is_zero() then\ncp += 1\nej()\na9 = no_player\ndf = 0\np = -1\nfor each player randomly do\nc = a.get_kill_count()\nif a.ax == ay.af and c > p then\np = c\na9 = a\nend\nend\nif a9 != no_player then\nb[6].set_text_for(a9, \"You're this wave's boss: pick a boss card\")\nb[4].set_size(a9, 900, 560)\nb[20].set_position(a9, 210, 165)\nb[20].set_size(a9, 860, 48)\nb[7].set_position(a9, 210, 219)\nb[8].set_position(a9, 650, 219)\nb[9].set_position(a9, 210, 273)\nb[10].set_position(a9, 650, 273)\nb[11].set_position(a9, 210, 327)\nb[12].set_position(a9, 650, 327)\nb[13].set_position(a9, 210, 381)\nb[14].set_position(a9, 650, 381)\nb[19].set_position(a9, 210, 435)\nb[24].set_position(a9, 650, 435)\nb[25].set_position(a9, 210, 489)\nb[26].set_position(a9, 650, 489)\nb[15].set_position(a9, 210, 575)\nb[16].set_position(a9, 430, 575)\nend\nend\n\nif ai == ah.aq or ai == ah.ak then\nif bm == 0 and bo >= 2 then\nfor each player randomly do\nif bm == 0 and a.ax == ay.s then\nca()\nbm += 1\na2 -= 1\nend\nend\nend\nif a2 == 0 and bo > 0 then\nb[0].set_text(\"The Flood consumed every Survivor. INFECTED WIN\")\nteam[1].end_round()\nai = ah.c8\nend\nif a2 == 1 and eg == 0 then\neg = 1\nteam[0].set_color(232, 184, 82)\nb[1].set_color(d, 232, 184, 82, 255)\nfor each player do\nb[6].set_text_for(a, \"One Survivor left: hunt them down\")\nif a.ax == ay.s then b[6].set_text_for(a, \"You're the last Survivor: 2x health, bottomless mag, fast shields\") end\nend\nend\nend\n\nfor each player do\nif a.de == 2 and a.is_not_respawning() then a.biped.kill(false) end\nif a.de == 2 and not a.is_not_respawning() then a.de = 0 end\nif a.de == 1 then a.de = 2 end\nh = a.get_deployment_class()\nif ai == ah.aq and h == e.a3 and a.is_not_respawning() and a.de == 0 then a.de = 1 end\nif a.is_not_respawning() then\nif h == e.a3 and a.de == 0 then a.apply_traits(o[0]) end\nif h == e.ag then a.apply_traits(o[1]) end\nif h == e.a7 then a.apply_traits(o[10]) end\nif h == e.a6 then a.apply_traits(o[11]) end\nif h == e.bi then a.apply_traits(o[12]) end\nif h == e.m and a.b1 == 0 then a.apply_traits(o[12]) end\nif h == e.aa then a.apply_traits(o[12]) end\nif h == e.al then a.apply_traits(o[1]) end\nif h == e.u then a.apply_traits(o[2]) end\nif h == e.ad or h == e.av or h == e.y then a.apply_traits(o[13]) end\nif h == e.ao then a.apply_traits(o[14]) end\nif h == e.a4 then a.apply_traits(o[11]) end\nif a.ax == ay.af then\na.set_max_health(100)\nif h == e.ag then a.set_max_health(200) end\nif h == e.u then a.set_max_health(150) end\nif h == e.av then a.set_max_health(40) end\nif h == e.al then a.set_max_health(300) end\nif h == e.y then a.set_max_health(85) end\nc = a.ab\nc &= r.bg\nif h == e.m and a.b1 == 1 and c != 0 then a.set_max_health(125) end\nif h == e.bu then a.set_max_health(200) end\nif h == e.am then a.set_max_health(400) end\nif h == e.ad then a.set_max_health(300) end\nend\nif a.ax == ay.af then\nc = a.biped.bx\nif c == 1 and a.biped.br.is_zero() then\nt = a.biped.place_at_me(magnum, \"zs_leap\", none, 0, 0, 20, none)\nt.set_hidden(true)\na.biped.b6 = t\nt = a.biped.place_at_me(magnum, \"zs_leap\", none, 30, 0, 20, none)\nt.set_hidden(true)\na.biped.b6.bw = t\nt = a.biped.place_at_me(magnum, \"zs_leap\", none, 0, 0, 20, none)\nt.set_hidden(true)\nt.set_velocity(30, 0, 0)\na.biped.b6.d5 = t\nt = a.biped.place_at_me(magnum, \"zs_leap\", none, 0, 0, 20, none)\nt.set_hidden(true)\nt.set_velocity(0, 30, 0)\na.biped.b6.d6 = t\na.biped.ds = 0\na.biped.bx = 5\nend\nif c == 5 then\na.biped.ds += 1\nif a.biped.ds >= 3 then\nv = a.biped.b6\ncm = v.get_distance_to(v.bw)\nbq = v.get_distance_to(v.d5)\nb5 = v.bw.get_distance_to(v.d5)\nea()\na.biped.eu = bd\ncm = v.get_distance_to(v.bw)\nbq = v.get_distance_to(v.d6)\nb5 = v.bw.get_distance_to(v.d6)\nea()\ndd = 9\nd7 = 6\nif h == e.a6 or h == e.a7 then\ndd = 10\nd7 = 6\nend\nif h == e.aa then\ndd = 15\nd7 = 8\nend\nbq = dd\nbq *= a.biped.eu\nbq /= 100\nb5 = dd\nb5 *= bd\nb5 /= 100\na.biped.set_velocity(bq, b5, d7)\nv.bw.delete()\nv.d5.delete()\nv.d6.delete()\nv.delete()\na.biped.bx = 2\na.biped.br = 2\na.biped.br.set_rate(-100%)\nend\nend\nif c == 2 and a.biped.br.is_zero() then a.biped.bx = 0 end\nend\nif a.ax == ay.af and a.b1 >= 2 and a.dp.is_zero() and a.x == k then\na.eo = a.biped\nif a.b1 == 3 then a.x = a.biped.place_at_me(flood_stalker, none, none, 0, 0, 0, none) end\nc = a.ab\nc &= r.bg\nif a.b1 == 2 and h == e.m and c == 0 then a.x = a.biped.place_at_me(flood_ranged, none, none, 0, 0, 0, none) end\nif a.b1 == 2 and h == e.m and c != 0 then a.x = a.biped.place_at_me(flood_tank, none, none, 0, 0, 0, none) end\na.x.fc = a.biped.health\na.set_biped(a.x)\nend\nif a.x != k then\na.x.er += 1\nif a.biped == a.x then\na.eo.delete()\nc = a.x.fc\nif c > 0 then a.x.health = c end\nc = a.b1\na.b1 = 1\nif c == 3 then a.b1 = 0 end\na.x = k\na.c6 = 3\na.c6.set_rate(-100%)\nend\nif a.x != k then\nc = a.x.er\nif c >= 30 then\na.x.delete()\na.x = k\na.b1 -= 2\nend\nend\nend\nif a.fa != a.biped then\na.fa = a.biped\nc = a.ab\nc &= r.bg\nif h == e.m and a.b1 == 1 and c != 0 then a.biped.set_scale(120) end\nif h == e.av then a.biped.set_scale(50) end\nif h == e.al then a.biped.set_scale(130) end\nif h == e.y then a.biped.set_scale(85) end\nif h == e.bu then a.biped.set_scale(150) end\nif h == e.am then a.biped.set_scale(200) end\nif h == e.ad then\na.biped.set_scale(300)\na.give_equipment(invincibility)\nend\nend\nend\nif not a.is_not_respawning() and a.ax == ay.af then\na.b1 = 0\nc = a.ab\nc &= 1023\na.ab = c\nif a.x != k then\na.x.delete()\na.x = k\nend\nend\nif h == e.a3 then\na.set_vehicle_use(false)\na.set_turret_use(false)\nend\nif h >= e.cg and h != e.a3 then\na.set_vehicle_use(true)\na.set_turret_use(true)\nend\nif a.ax == ay.s then\na.set_max_shields(50)\nif a.is_not_respawning() then\nc = a.ab\ng = c\ng &= r.dl\nif g != 0 then a.apply_traits(o[2]) end\ng = c\ng &= r.dm\nif g != 0 then a.apply_traits(o[3]) end\ng = c\ng &= r.bp\nif g != 0 then a.apply_traits(o[4]) end\ng = c\ng &= r.c7\nif g != 0 then a.apply_traits(o[5]) end\ng = c\ng &= r.bn\nif g != 0 then a.apply_traits(o[6]) end\ng = c\ng &= r.cc\nif g != 0 then a.apply_traits(o[7]) end\ng = c\ng &= r.b0\nif g != 0 then a.apply_traits(o[8]) end\ng = c\ng &= r.dv\nif g != 0 then a.apply_traits(o[9]) end\nif a2 == 1 and ai >= ah.aq then\na.apply_traits(o[15])\na.set_max_health(200)\nend\nend\nend\nif a.ax == ay.af then a.set_max_shields(100) end\nc = a.get_death_count()\nif c != a.es then\na.es = c\na.a5 = 0\nif a.ax == ay.s then en() end\nau = 1\nif a.de > 0 then\na.de = 0\nau = 0\nend\nif au == 1 and a.ax == ay.s and ai != ah.bt then\nca()\ndg += 1\nend\nend\nc = a.get_kill_count()\nc -= a.e3\na.e3 = a.get_kill_count()\nif c > 0 and a.ax == ay.s then\nif a.biped != k then a.biped.dx += c end\np = l[ae.d4]\nc *= p\na.a8 += c\nend\nif a.a8 > 100000 then a.a8 = 100000 end\nif a.ax == ay.s and a.team != team[0] then a.team = team[0] end\nif a.ax == ay.af and a.team != team[1] then a.team = team[1] end\nend\n\ne4 = dg\ne4 += a2\nif cp > 0 then\nc = cp\nc -= 1\ng = l[ae.b8]\nc /= g\nif c > 3 then c = 3 end\nif c > bk then bk = c end\nend\n\nfor each player do\nh = a.get_deployment_class()\nau = 0\nif a.ax == ay.s and not a.is_not_respawning() and h == -1 and ai != ah.c8 then\ng = a.ab\ng &= r.eh\nif g != 0 then\nn = e.cg\nc = a.ab\nc &= r.b0\nif c != 0 then n = e.c5 end\nc = a.ab\nc &= r.cn\nif c != 0 and n == e.c5 then n = e.db end\nif c != 0 and n == e.cg then n = e.el end\nc = a.deploy_class(n)\nend\nif g == 0 then au = 2 end\nend\nc = a.get_respawn_time()\nif a.ax == ay.af and not a.is_not_respawning() and h == -1 and c == 0 and ai != ah.c8 then au = 1 end\nif au == 1 and a.bb == ba.b7 then\na.bb = ba.cv\na.set_ui_menu(true)\nend\nif au == 2 and a.bb == ba.b7 then\na.bb = ba.bc\na.set_ui_menu(true)\nend\nif au != 1 and a.bb == ba.cv then bv() end\nif au != 2 and a.bb == ba.bc then bv() end\nif a.bb == ba.bs and not a.is_not_respawning() then bv() end\nend\n\nif an == k then\nfor each player do\nif an == k and a.ax == ay.s and a.is_not_respawning() then\nan = a.biped.place_at_me(marine, \"zs_qm\", never_garbage_collect, 20, 0, 0, none)\nan.copy_rotation_from(a.biped, false)\nan.set_invincibility(true)\nan.set_garbage_collection_disabled(true)\nend\nend\nend\n\nfor each object do\nif f.is_of_type(grav_lift) then f.er += 1 end\nif f.has_forge_label(\"zs_leap\") then\nf.er += 1\nif f.er >= 60 then f.delete() end\nend\nif f.is_of_type(weapon) and not f.has_forge_label(\"zs_gun\") and not f.has_forge_label(\"zs_leap\") then\nau = 1\nee = f.get_carrier()\nif ee != no_player then\nau = 0\nf.fb = 1\nend\nif au == 1 and f.fb == 1 then\nfor each player do\nif a.is_not_respawning() then\nc = a.biped.get_distance_to(f)\nif c < 6 then au = 0 end\nend\nend\nend\nif au == 1 then f.delete() end\nend\nend\nfor each player do\nif a.w > 0 and a.is_not_respawning() then\nif a.co == k and not a.eq.is_zero() then\nt = k\np = 100000\nfor each object do\nif f.is_of_type(grav_lift) and f.ez == 0 and f.er < 90 then\nc = f.get_distance_to(a.biped)\nif c < p then\np = c\nt = f\nend\nend\nend\nif t != k then\nt.ez = 1\na.co = t\nend\nend\nif a.co != k then\nc = a.co.get_speed()\nn = a.co.er\nif c == 0 and n >= 5 then ev() end\nend\nif a.a5.is_zero() and a.eq.is_zero() and a.co == k and a.w > 0 then\na.give_equipment(grav_lift)\na.a5 = 1\nend\nend\nend\n\nd8 = ac\nz = cp\nif ai == ah.bt then z = 1 end\nif ai == ah.ak then z += 1 end\np = l[ae.cy]\nif ai == ah.bt then\nb[0].set_text(\"WARMUP  |  outbreak in %n s\", d8)\nif bo < p then b[0].set_text(\"FLOOD SURVIVAL  |  waiting for %n players\", p) end\nend\nif ai == ah.aq then\np = l[ae.bj]\nb[0].set_text(\"WAVE %n / %n  |  %n s left\", cp, p, d8)\nend\nif ai == ah.ak then\nc = cp\nc += 1\nb[0].set_text(\"BREAK  |  wave %n starts in %n s\", c, d8)\nend\nc = bk\nc += 1\nb[1].set_text(\"Survivors %n  |  Infected %n  |  Flood tier %n / 4\", a2, bm, c)\nif a2 == 1 and ai >= ah.aq then b[1].set_text(\"LAST SURVIVOR STANDING  |  Infected %n  |  Flood tier %n / 4\", bm, c) end\nb[0].set_visibility(d, true)\nb[1].set_visibility(d, true)\nb[6].set_visibility(d, true)\n\nfor each player do\nb[18].set_visibility(a, false)\nif a.ax == ay.s then\nb[2].set_text_for(a, \"%n points\", a.a8)\np = l[ae.cf]\nif p == 1 then b[2].set_text_for(a, \"%n points  |  test: FREE arsenal\", a.a8) end\nc = a.ab\nc &= r.eb\nif c == r.cb then b[2].set_text_for(a, \"%n points  |  award: next weapon free\", a.a8) end\nif c == r.bz then b[2].set_text_for(a, \"%n points  |  award: next placeable or equipment free\", a.a8) end\nif c == r.eb then b[2].set_text_for(a, \"%n points  |  award: next weapon and next gear free\", a.a8) end\nb[3].set_text_for(a, \"Ability 1: arsenal  |  Flashlight: pick up a prop\")\nif a.w > 0 then b[3].set_text_for(a, \"Throw your grav lift to build it\") end\nif a.aw != k then b[3].set_text_for(a, \"Carrying a prop  |  Flashlight drops it\") end\nif a.w == i.ci then b[3].set_text_for(a, \"Carrying a prop  |  Flashlight drops it, or throw the grav lift\") end\nif ai == ah.aq and an != k and a.is_not_respawning() then\nc = a.biped.get_distance_to(an)\np = l[ae.bl]\nb[18].set_text_for(a, \"Quartermaster %n ft  |  arsenal within %n ft\", c, p)\nb[18].set_visibility(a, true)\nend\nend\nif a.ax == ay.af then\nb[2].set_text_for(a, \"Survivors converted: %n of %n\", dg, e4)\nb[3].set_text_for(a, \"\")\nh = a.get_deployment_class()\nif h == e.ag or h == e.al or h == e.a7 or h == e.a6 or h == e.aa then b[3].set_text_for(a, \"Crouch: leap the way you face\") end\nif h == e.u then\nc = dk\nb[3].set_text_for(a, \"Nest Stalker  |  A1 build the nest (ready in %n s)\", c)\nif c0 != k then b[3].set_text_for(a, \"Nest Stalker  |  your team's nest is standing\") end\nend\nc = a.c6\nif h == e.m then b[3].set_text_for(a, \"Shifter Stalker  |  A1 turret, A2 Tank, again to change back (ready in %n s)\", c) end\nend\nb[2].set_visibility(a, true)\nb[3].set_visibility(a, true)\nb[22].set_visibility(a, false)\nb[23].set_visibility(a, false)\nif a.biped != k then\nc = a.biped.health\nif c < 1 then c = 1 end\nb[23].set_text_for(a, \"%n/100\", c)\nc *= 3\nb[22].set_size(a, c, 14)\nb[22].set_visibility(a, true)\nb[23].set_visibility(a, true)\nend\ne7()\nif a.bb == ba.bs or a.bb == ba.bc then\nif a.bb == ba.bs then e5() end\nif a.bb == ba.bc then ey() end\nb[4].set_visibility(a, true)\nb[5].set_visibility(a, true)\nb[7].set_visibility(a, true)\nb[8].set_visibility(a, true)\nb[9].set_visibility(a, true)\nb[10].set_visibility(a, true)\nb[11].set_visibility(a, true)\nif a.bb == ba.bc or a.ap != 2 then\nb[12].set_visibility(a, true)\nb[13].set_visibility(a, true)\nb[14].set_visibility(a, true)\nend\nif a.bb == ba.bs then\nb[15].set_visibility(a, true)\nb[16].set_visibility(a, true)\nend\nif a.bb == ba.bc then b[19].set_visibility(a, true) end\nif a.bb == ba.bc then\nb[21].set_text_for(a, \"LAST SURVIVOR\")\nb[21].set_visibility(a, true)\nb[27].set_text_for(a, \"With one Survivor left, they get 2x health and shields that recharge twice as fast.\")\nb[27].set_visibility(a, true)\nb[30].set_text_for(a, \"They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING.\")\nb[30].set_visibility(a, true)\nb[28].set_text_for(a, \"WAVE AWARDS\")\nb[28].set_visibility(a, true)\nb[29].set_text_for(a, \"Most kills in a wave: your next weapon from the arsenal is free, any you like.\")\nb[29].set_visibility(a, true)\nb[31].set_text_for(a, \"Most props placed (the break before counts): next placeable or equipment free.\")\nb[31].set_visibility(a, true)\nend\nif a.bb == ba.bs then\nb[21].set_text_for(a, \"BUILD A BASE\")\nb[21].set_visibility(a, true)\nb[27].set_text_for(a, \"Flashlight picks up the closest prop (8 ft). Press again to drop it: quick but rough.\")\nb[27].set_visibility(a, true)\nb[30].set_text_for(a, \"Prop Placer (20 points) is more accurate: buy one, pick up a prop, then throw the grav lift.\")\nb[30].set_visibility(a, true)\nb[28].set_text_for(a, \"THE ARSENAL\")\nb[28].set_visibility(a, true)\nb[29].set_text_for(a, \"Ability 1 opens it: near the quartermaster in waves, anywhere in warmup and breaks.\")\nb[29].set_visibility(a, true)\nb[31].set_text_for(a, \"Placeables come as a grav lift: throw it and it's built where it lands. All gear opens by wave.\")\nb[31].set_visibility(a, true)\nend\nb[17].set_visibility(a, true)\nend\nif a.bb == ba.cv then\nex()\nb[4].set_visibility(a, true)\nb[5].set_visibility(a, true)\nb[7].set_visibility(a, true)\nb[15].set_visibility(a, true)\nif au == 0 then\nb[8].set_visibility(a, true)\nb[9].set_visibility(a, true)\nb[10].set_visibility(a, true)\nb[11].set_visibility(a, true)\nb[12].set_visibility(a, true)\nb[13].set_visibility(a, true)\nb[14].set_visibility(a, true)\nb[19].set_visibility(a, true)\nb[24].set_visibility(a, true)\nb[25].set_visibility(a, true)\nb[26].set_visibility(a, true)\nif a == a9 and df == 0 then b[20].set_visibility(a, true) end\nend\nif c0 != k then b[16].set_visibility(a, true) end\nb[21].set_text_for(a, \"BOSSES\")\nb[21].set_visibility(a, true)\nb[27].set_text_for(a, \"The Infected with the most kills picks a boss at the start of each wave.\")\nb[27].set_visibility(a, true)\nb[30].set_text_for(a, \"Bosses start in wave 2. Click the gold card to cycle through them.\")\nb[30].set_visibility(a, true)\nend\nend\n",
+      "megalo_traits": [
+        {
+          "resistance": 12
+        },
+        {
+          "damage": 10,
+          "speed": 10
+        },
+        {
+          "speed": 7
+        },
+        {
+          "speed": 4
+        },
+        {
+          "shields": 3
+        },
+        {
+          "shields": 1
+        },
+        {
+          "damage": 8
+        },
+        {
+          "damage": 4
+        },
+        {
+          "grenade_regeneration": 2
+        },
+        {
+          "resistance": 6
+        },
+        {
+          "damage": 9,
+          "shields": 2,
+          "speed": 9
+        },
+        {
+          "damage": 10,
+          "speed": 8
+        },
+        {
+          "damage": 9,
+          "speed": 9
+        },
+        {
+          "speed": 10
+        },
+        {
+          "camouflage": 4,
+          "headshots": 2,
+          "recharge": 4,
+          "speed": 9
+        },
+        {
+          "ammo": 3,
+          "recharge": 9
+        }
+      ],
+      "objects": {},
+      "globals": [],
+      "team_initial": [],
+      "options": {
+        "break_seconds": {
+          "value": 60.0,
+          "min": 10.0,
+          "max": 300.0
+        },
+        "free_shop": {
+          "value": 1.0,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "gun_cap": {
+          "value": 100.0,
+          "min": 10.0,
+          "max": 160.0
+        },
+        "kill_points": {
+          "value": 10.0,
+          "min": 0.0,
+          "max": 1000.0
+        },
+        "min_players": {
+          "value": 2.0,
+          "min": 1.0,
+          "max": 16.0
+        },
+        "placeable_limit": {
+          "value": 4.0,
+          "min": 0.0,
+          "max": 16.0
+        },
+        "quartermaster_radius": {
+          "value": 30.0,
+          "min": 10.0,
+          "max": 100.0
+        },
+        "start_infected_percent": {
+          "value": 10.0,
+          "min": 1.0,
+          "max": 50.0
+        },
+        "start_points": {
+          "value": 100.0,
+          "min": 0.0,
+          "max": 10000.0
+        },
+        "test_keys": {
+          "value": 1.0,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "tier_step_waves": {
+          "value": 1.0,
+          "min": 1.0,
+          "max": 3.0
+        },
+        "warmup_seconds": {
+          "value": 45.0,
+          "min": 5.0,
+          "max": 300.0
+        },
+        "wave1_seconds": {
+          "value": 120.0,
+          "min": 30.0,
+          "max": 900.0
+        },
+        "wave_bonus": {
+          "value": 25.0,
+          "min": 0.0,
+          "max": 1000.0
+        },
+        "wave_count": {
+          "value": 5.0,
+          "min": 1.0,
+          "max": 10.0
+        },
+        "wave_increase_seconds": {
+          "value": 15.0,
+          "min": 0.0,
+          "max": 120.0
+        }
+      },
+      "functions": {},
+      "on_round_start": [],
+      "on_round_end": [],
+      "on_join": [],
+      "on_leave": [],
+      "on_tick": [],
+      "seed": 0
+    }
+  },
+  "options": {
+    "respawn.seconds": 5,
+    "rounds.limit": 1,
+    "rounds.minutes": 0,
+    "rounds.teams": 1
+  },
+  "map": null
+}

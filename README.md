@@ -2,12 +2,12 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.50** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.52** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/flood-survival-v0.50.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.50**. Tested on The Pit.
+1. Put [`modes/flood-survival-v0.52.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.52**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
@@ -35,8 +35,9 @@ Players who join after wave 2 starts begin as Infected.
   - Equipment (ammo refill, cover, bubble shield, regenerator, trip mine, radar jammer, camo, invincibility).
   - Placeables (machine gun, Hunter barrier, plasma cannon, missile pod): you get a **grav lift**, and the item is built where it lands. Throw it where you're aiming.
   - **Prop Placer** (20 points, one use): the next map prop you pick up comes with a grav lift, so you can throw it into place.
-- **Base building (Flashlight):** stand within 8 ft of a map prop (crate, barrier, sandbags...) and press **Flashlight** to pick it up; it rides 5 ft in front of you. Press Flashlight again to let go of it there, turned your way. With a Prop Placer you can throw the grav lift instead, and the prop lands where the lift does. Works on any map: the script uses the map's own props.
+- **Base building (Flashlight):** stand within 8 ft of a map prop (crate, barrier, sandbags...) and press **Flashlight** to pick it up; it rides 5 ft in front of you. Press Flashlight again to let go of it there, turned your way (not within 4 ft of anyone; a prop someone just placed is theirs for 5 s). With a Prop Placer you can throw the grav lift instead, and the prop lands where the lift does. Works on any map: the script uses the map's own props.
 - **Points:** 10 per kill, 25 per wave survived, 100 to start.
+- **Wave awards:** at the end of each wave (not the last), the living Survivor with the most kills gets their next weapon free (any open one), and the one who placed the most props gets their next placeable or equipment free. Each award period is the break before the wave plus the wave.
 - **The quartermaster:** a Marine at the first Survivor's spawn. During waves the arsenal opens only near him. Ammo comes only from the arsenal's Ammo refill (20 points): at the quartermaster during a wave, anywhere in a break.
 
 ## Infected
@@ -59,9 +60,9 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 
 ## Status and next steps
 
-- **Size:** 53.5 KiB of 64, about **10.5 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
+- **Size:** 56.3 KiB of 64, about **7.7 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
 - **Untested in game:** the bosses, the Sword Spartan, the equipment fix, the health bar and the prices. The checklist is in [docs/testing.md](docs/testing.md).
-- **Done:** roadmap step 7 (v0.47, untested: the Last Survivor bonuses and alert), roadmap step 4 (v0.44-v0.45: how-to cards for building and the arsenal beside the trait screen, and for bosses beside the Infected picker), the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
+- **Done:** roadmap step 11 (v0.52, untested: wave awards), roadmap step 6 (v0.51, untested: prop safety), roadmap step 7 (v0.47, untested: the Last Survivor bonuses and alert), roadmap step 4 (v0.44-v0.45: how-to cards for building and the arsenal beside the trait screen, and for bosses beside the Infected picker), the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
 
 ### Limits other than space (v0.38)
 
@@ -73,7 +74,7 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 | Infected classes | 16 / 16 | 0 | Full: new bosses (step 3) have to be body swaps on the existing boss classes |
 | Survivor classes | 4 / 16 | 12 | Room for Survivor roles |
 | Per-player numbers, objects, timers | all full | 0 | New per-player state must share a slot or go in the free perk bits (11 used), on the player's body (lost on death) or in team variables |
-| Global numbers / objects / players / timers | 10/12, 3/16, 2/8, 3/8 | plenty | Fine for round-wide state |
+| Global numbers / objects / players / timers | 12/12, 3/16, 4/8, 3/8 | numbers full since v0.47 | Fine for round-wide state |
 
 ### Roadmap (in this order, set 2026-10-25)
 
@@ -86,12 +87,12 @@ Costs are rough mode KiB, after short names. Time is a rough guess at the pace o
 | 3 | ~~**Boss variety**~~ **Tried in v0.40-v0.43, both new bosses dropped** (see Done above); the three original bosses stay. | ~0.5 each | body swaps | 1-1.5 h | No Infected classes are free after step 2, so new bosses are body swaps on the existing boss classes (as the Shifter Stalker does), which needs no class. Agreed on 2026-10-25 |
 | 4 | ~~**How-to cards**~~ **Done in v0.44.** left and right of the trait screen in warmup: building (Flashlight, Prop Placer) and the arsenal | ~0.4 | 2 widgets | 0.5 h | |
 | 5 | **Invisible-prop filter**, tried in Test 13 first | ~0.2 | — | 0.5-1 h | e.g. skip objects with 0 health |
-| 6 | **Prop safety:** a short cooldown before someone else can take a prop you just placed, and **no prop placed 0-4 ft from any player** (a grav lift spot or drop that close is refused), so nobody gets pushed up or out of the map | ~0.4 | object timer | 0.5-1 h | |
+| 6 | ~~**Prop safety**~~ **Done in v0.51 (untested).** a short cooldown before someone else can take a prop you just placed, and **no prop placed 0-4 ft from any player** (a grav lift spot or drop that close is refused), so nobody gets pushed up or out of the map | ~0.4 | object timer | 0.5-1 h | |
 | 7 | ~~**Last Survivor**~~ **Done in v0.47 (untested).** the last one standing gets 2x health, a bottomless magazine and faster shield recharge (same shield amount), with a HUD alert | ~0.3 | the last trait set | 0.5 h | |
 | 8 | ~~Redemption~~ | — | — | — | Not for now: the Flood are already the weaker side. Maybe later |
 | 9 | **Horde armour** (maybe): Infected near other Infected take less damage | ~0.6 | a trait set | 0.5-1 h | No trait set left after step 7: two sets would have to be merged first |
 | 10 | **Boss abilities** | ~0.3-0.5 each | — | 1-2 h | |
-| 11 | **Wave awards:** "achievements" and point bonuses for the top earners and killers after each wave | ~0.5 | 1-2 widgets | 1 h | |
+| 11 | ~~**Wave awards**~~ **Done in v0.52 (untested):** most kills = next weapon free, most props placed = next placeable or equipment free. Planned as: "achievements" and point bonuses for the top earners and killers after each wave | ~0.5 | 1-2 widgets | 1 h | |
 | 12 | **Frozen, breakable props:** some placed props stay put (no physics), take damage and break or vanish | ? | object vars | 1-2 h | Needs a test first: can a script freeze scenery and give it health? |
 | 13 | **Survivor roles** (e.g. an engineer who places teleporters or reaches high spots) | ~1-2 | Survivor classes, perk bits | 2-3 h | Needs a feasibility check; map teleporters may be movable as props |
 | 14 | **Vehicles page back:** Mongoose, Warthog, Ghost... by grav lift, on maps that have them | ~4 | — | 1-1.5 h | After everything above; the v0.14 code is a starting point |

@@ -1,6 +1,6 @@
-# Flood Survival v0.50: rules
+# Flood Survival v0.52: rules
 
-Everything a player or host needs, as built in v0.50. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.50**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.52. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.52**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -15,11 +15,13 @@ Everything a player or host needs, as built in v0.50. Launch: **Host Game → Ga
 
 New players are Survivors until wave 2 starts, then Infected. Survivors earn 10 points per kill and 25 per wave survived (start 100).
 
+**Wave awards.** When a wave ends (not the last one), the living Survivor with the most kills and the one who placed the most props each get an award; ties are picked at random, and you need at least 1. Kills and props count from the end of the last wave, so the break before a wave counts too, and each prop counts once per wave however often it's moved. **Most kills:** your next weapon from the arsenal is free, any open one. **Most props placed:** your next placeable or equipment is free (not Ammo refill). Everyone sees 'Wave N awards: most kills N, most props placed N'; winners get their own message, and the points line shows the award until it's used. Winning the same award again before using it doesn't stack. Turning Infected loses it.
+
 ## Survivors
 
 ### Traits (before the first spawn)
 
-While you pick, a **LAST SURVIVOR** card stands on the left: "With one Survivor left, they get 2x health and shields that recharge twice as fast." / "They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING."
+While you pick, a **WAVE AWARDS** card stands on the right: "Most kills in a wave: your next weapon from the arsenal is free, any you like." / "Most props placed (the break before counts): next placeable or equipment free." A **LAST SURVIVOR** card stands on the left: "With one Survivor left, they get 2x health and shields that recharge twice as fast." / "They also never reload (bottomless mag), and everyone sees LAST SURVIVOR STANDING."
 
 The arsenal shows two how-to cards beside it:
 - **BUILD A BASE** (left): "Flashlight picks up the closest prop (8 ft). Press again to drop it: quick but rough." / "Prop Placer (20 points) is more accurate: buy one, pick up a prop, then throw the grav lift."
@@ -65,7 +67,7 @@ The weapons run in that order across both pages: page 1 is the six wave 1 weapon
 - Plasma Cannon and Missile Pod show "not on this map" unless the map has one.
 - Everything is FREE while `free_shop` = 1 (testing), traits included.
 
-**Base building with map props:** any object on the map that isn't a body, vehicle, weapon or equipment counts as a prop (crates, barriers, sandbags; invisible markers too, so pick what you can see). Press **Flashlight** within 8 ft to pick up the nearest one, and again to let go of it where it is (5 ft in front of you), turned your way. Static props may keep their old facing: use a Prop Placer to set it. Props someone else carries can't be taken. You drop it if you die. **Prop Placer** (20 points, one use): the next prop you pick up (or the one you carry when you buy it) comes with a grav lift. Throw it and the prop lands where the lift stops, facing your way, and the Prop Placer is used up. Press Flashlight instead and you keep it for the next prop. Its card says "ready" while you have one. Props can't be put back: they stay where they were left until the round ends.
+**Base building with map props:** any object on the map that isn't a body, vehicle, weapon or equipment counts as a prop (crates, barriers, sandbags; invisible markers too, so pick what you can see). Press **Flashlight** within 8 ft to pick up the nearest one, and again to let go of it where it is (5 ft in front of you), turned your way. Static props may keep their old facing: use a Prop Placer to set it. Props someone else carries can't be taken, and a prop someone just placed is theirs for 5 s ("Someone just placed that prop: wait a few seconds"). **No prop within 4 ft of anyone:** a Flashlight drop that close to another player (or any body, the quartermaster and the nest included) is refused and you keep carrying it; a Prop Placer grav lift that lands within 4 ft of anyone, you included, is refused and comes back to you ("Too close to someone: grav lift returned"). You drop it if you die. **Prop Placer** (20 points, one use): the next prop you pick up (or the one you carry when you buy it) comes with a grav lift. Throw it and the prop lands where the lift stops, facing your way, and the Prop Placer is used up. Press Flashlight instead and you keep it for the next prop. Its card says "ready" while you have one. Props can't be put back: they stay where they were left until the round ends.
 
 **Quartermaster:** a standing Marine, made once in front of the first Survivor. It shows red, as an enemy, which can't be changed. During waves the arsenal opens only within 30 ft of him. There is no free ammo: buy the arsenal's Ammo refill (20 points), at the quartermaster during a wave or anywhere in a break.
 

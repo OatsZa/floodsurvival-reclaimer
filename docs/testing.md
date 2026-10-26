@@ -2,12 +2,12 @@
 
 Two players plus **Ability 4** (with `test_keys` = 1) to skip timers is the quickest way. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
 
-## Still to test (v0.50)
+## Still to test (v0.52)
 
 Fill in and paste back. Items already answered are in "Confirmed in game" below.
 
 ```text
-FLOOD SURVIVAL v0.50 RESULTS
+FLOOD SURVIVAL v0.52 RESULTS
 -- Fixed or changed in v0.22-v0.23 --
 E1. Bought equipment (cover, radar jammer...) stays in your hands; after using it you can buy another (no softlock)? ->
 E2. Equipment and grenades you pick up from the map are no longer deleted? ->
@@ -44,6 +44,13 @@ W1. Texts read right and fit: trait cards (Weak Arm, Grenadier, Tough), boss car
 -- New in v0.50 (trim, no change meant) --
 T1. Plays as v0.49: arsenal buys (all 4 pages, Prop Placer refused while one is ready with 'You already have a Prop Placer ready'), Infected picker (forms, Monitor in breaks, the gold boss card cycles and turns brighter when picked)? ->
 G2. Grenadier: throw both frags, then time how long until one comes back (and whether it stops at 2)? The script only switches on the engine's grenade regeneration trait, so this is the first time the speed is measured ->
+-- New in v0.51 (untested) --
+PS1. Prop safety (needs 2 players): drop a prop with Flashlight, then the other player tries Flashlight on it at once: 'Someone just placed that prop: wait a few seconds', and after about 5 s they can take it? You can take your own back at once? Drop a prop with the other player standing at it: 'Too close to someone: props can't be dropped within 4 ft' and you still carry it (if every drop is refused even with nobody near, say so)? Prop Placer: throw the grav lift at your own feet or at the other player: 'Too close to someone: grav lift returned', you get the grav lift back and still carry the prop; a throw farther away places it as before? ->
+-- New in v0.52 (untested; free_shop 0 to see the award make a price free) --
+WA1. Trait screen: 'WAVE AWARDS' card on the right, readable, not overlapping? ->
+WA2. Get a kill and place a prop (Flashlight drop) in warmup or wave 1, then end the wave (Ability 4): everyone sees 'Wave 1 awards: most kills 1, most props placed 1'? You get 'WAVE AWARDS: most kills and most props...'? The points line says 'award: next weapon and next gear free'? ->
+WA3. With free_shop 0: buying any open gun costs nothing and says 'Bought with your wave award', and the next gun costs points again? Same for a placeable or equipment (Ammo refill still costs 20)? Buying a locked item doesn't use the award? ->
+WA4. Moving the same prop again and again in one wave counts it once (a second wave with only that prop: 'most props placed 1')? With no kills the wave's top killer gets nothing? Awards gone after turning Infected? ->
 -- Not reported yet --
 T7. Sword Spartan only on wave 5? First person, sword, green-yellow? ->
 B1. No boss in wave 1; at the start of wave 2 an Infected gets the boss message, even with zero kills? ->
