@@ -246,7 +246,8 @@
               "resistance": 7,
               "shields": 1,
               "speed": 8,
-              "vehicles": 1
+              "vehicles": 1,
+              "headshots": 1
             },
             "max_active": 0
           },
@@ -365,8 +366,8 @@
             "max_active": 1
           },
           {
-            "name": "Turret Stalker",
-            "description": "Smaller, faster, weaker; turns into a turret",
+            "name": "Shifter Stalker",
+            "description": "Ability 1 turret, Ability 2 Tank, again to change back (2 at a time)",
             "team": 1,
             "cost": 0,
             "biped": "flood_stalker",
@@ -383,11 +384,11 @@
               "shields": 1,
               "vehicles": 1
             },
-            "max_active": 0
+            "max_active": 2
           },
           {
-            "name": "Tank Stalker",
-            "description": "Bigger, tougher; turns into a Tank",
+            "name": "Baby Stalker",
+            "description": "Tiny, very fast, very fragile",
             "team": 1,
             "cost": 0,
             "biped": "flood_stalker",
@@ -509,6 +510,77 @@
             },
             "max_active": 1,
             "model_variant": "default"
+          },
+          {
+            "name": "Breacher",
+            "description": "A bigger, tougher Flood Human (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_human",
+            "model_variant": "standard_fch",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 9,
+              "vehicles": 1
+            },
+            "max_active": 2
+          },
+          {
+            "name": "Jumper Brute",
+            "description": "A Flood Brute with low gravity: huge jumps (1 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_brute",
+            "model_variant": "default",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 7,
+              "shields": 1,
+              "speed": 8,
+              "vehicles": 1,
+              "gravity": 1,
+              "headshots": 1
+            },
+            "max_active": 1
+          },
+          {
+            "name": "Invis Stalker",
+            "description": "A smaller, faster Stalker that is nearly invisible (2 at a time)",
+            "team": 1,
+            "cost": 0,
+            "biped": "flood_stalker",
+            "camera": "third_person",
+            "grenades": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "traits": {
+              "pickup": 2,
+              "resistance": 4,
+              "shields": 1,
+              "speed": 5,
+              "vehicles": 1,
+              "camouflage": 3
+            },
+            "max_active": 2
           }
         ]
       }

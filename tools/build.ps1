@@ -26,6 +26,11 @@ if ($source.Contains("`r")) {
     'Line endings in the script changed to LF (saves space in the mode).'
 }
 
+# The game stops the script ("Megalo HUD exceeds ... text limits") on a text
+# over 96 bytes, which megalo-check doesn't catch.
+$long = [regex]::Matches($source, '"([^"\n]*)"') | Where-Object { [Text.Encoding]::UTF8.GetByteCount($_.Groups[1].Value) -gt 96 }
+if ($long) { throw "Texts over 96 bytes:`n$(($long | ForEach-Object { $_.Groups[1].Value }) -join "`n")" }
+
 $check = & $Exe megalo-check $rvt 2>&1 | Out-String
 if ($LASTEXITCODE -ne 0) { $check; throw 'megalo-check failed.' }
 ($check -split "`n")[0]

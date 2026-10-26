@@ -1,6 +1,6 @@
-# Flood Survival v0.37: rules
+# Flood Survival v0.43: rules
 
-Everything a player or host needs, as built in v0.37. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.37**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
+Everything a player or host needs, as built in v0.43. Launch: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.43**. At least 2 players (split-screen works); lobby teams don't matter, the script puts everyone on Survivors when the game starts. Mouse and keyboard only.
 
 ## How the round runs
 
@@ -65,21 +65,21 @@ The weapons run in that order across both pages: page 1 is the six wave 1 weapon
 
 | Tier | Opens at | Forms |
 | --- | --- | --- |
-| 1 | wave 1 | Flood Human (300% speed, 200% damage) |
-| 2 | wave 2 | Flood Brute, Flood Stalker |
-| 3 | wave 3 | Flood Elite (shields on); **Nest Stalker** (1 per team, slower, 150% health) |
-| 4 | wave 4 | **Turret Stalker** (75% size, 300% speed, 75% health); **Tank Stalker** (125% size, 125% health; its Tank form is 120%, weaker than the Flood Tank); Flood Tank (150% size, 200% health, takes 50% less damage) |
+| 1 | wave 1 | Flood Human (300% speed, 200% damage, 200 health); **Baby Stalker** (50% size, 300% speed, 40 health); **Breacher** (a Flood Human at 130% size with 300 health, same top speed and damage; 2 at a time) |
+| 2 | wave 2 | Flood Brute (immune to headshots), Flood Stalker; **Jumper Brute** (normal size, 50% gravity for huge jumps, 200% speed, immune to headshots; 1 at a time) |
+| 3 | wave 3 | Flood Elite (shields on); **Nest Stalker** (1 per team, slower, 150% health); **Invis Stalker** (85% size, 300% speed, 85 health, camouflage level 3; 2 at a time) |
+| 4 | wave 4 | **Shifter Stalker** (normal Stalker; Ability 1 turret, Ability 2 Tank form at 120% size and 125 health; 2 at a time); Flood Tank (150% size, 200% health, takes 50% less damage) |
 | 5 | **last wave (5) only** | **Sword Spartan**: first-person Spartan with an Energy Sword, 150% speed, in the Infected team's green-yellow |
 
-The picker's title says which tier opens next and in which wave. Locked cards are grey. Tiers never lock again.
+The picker's title says which tier opens next and in which wave. Locked cards are grey, and so are full ones ("Breacher / Invis Stalker / Shifter Stalker | full (2 max)", "Jumper Brute | taken", "Nest Stalker | taken"). Tiers never lock again. The picker shows the forms in tier order, two to a row.
 
 ### Special forms
 
 | Form | Key | Does |
 | --- | --- | --- |
 | Nest Stalker | Ability 1 | Build **one** nest 5 ft ahead (shielded Carrier look, 150% size, 4× health). It stays after you die; a new one can only be built once it's destroyed (and 30 s after the last). Infected get **Spawn at Nest (health N)** while it stands |
-| Turret Stalker | Ability 1 | After 1 s, turn into a turret (Pure Ranged); Ability 1 again turns back. No time limit, 3 s between changes, health share kept |
-| Tank Stalker | Ability 1 | After 1 s, turn into a Tank (120% size, normal damage) and back, the same way |
+| Flood Human, Breacher, Flood Brute, Jumper Brute, Flood Elite | Crouch | **Leap** the way you face: 0.5 s after Crouch you're thrown forward and up. Strength: Human and Breacher a bit below Brute and Elite; Brute and Elite medium; Jumper Brute the strongest (with its low gravity it goes very far). 2 s between leaps |
+| Shifter Stalker | Ability 1 / Ability 2 | After 1 s, Ability 1 turns into a turret (Pure Ranged), Ability 2 into a Tank (120% size, 125 health, normal damage). Either key turns back into the Stalker. No time limit, 3 s between changes, health share kept |
 
 ### Bosses (from wave 2)
 

@@ -2,12 +2,12 @@
 
 A wave-survival mode for Halo 3 in [Project Reclaimer](https://projectreclaimer.dev), inspired by Garry's Mod **Zombie Survival**: Survivors hold out through timed waves while the Flood grow with every Survivor they convert. One Megalo script, any stock map, nothing to install for joining players.
 
-**Version: v0.37** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
+**Version: v0.43** (work in progress, not final; called Zombie Survival up to v0.36). Needs Project Reclaimer **0.9.23** on the host and every player.
 
 ## Play it
 
-1. Put [`modes/flood-survival-v0.37.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
-2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.37**. Tested on The Pit.
+1. Put [`modes/flood-survival-v0.43.json`](modes) in `Documents\My Games\Project Reclaimer\Game Modes` (a subfolder is fine).
+2. In the game: **Host Game → Game Type → Refresh → Slayer → Flood Survival v0.43**. Tested on The Pit.
 3. You need at least **2 players** (split-screen works). Only the host needs the file.
 
 Mouse and keyboard only: controllers can't use the script's menus.
@@ -45,31 +45,32 @@ Dead Infected pick a form, then press **Spawn** (or **Spawn at Nest**). A new ti
 
 | Tier | Opens at | Forms |
 | --- | --- | --- |
-| 1 | wave 1 | Flood Human |
-| 2 | wave 2 | Flood Brute, Flood Stalker |
-| 3 | wave 3 | Flood Elite (shields), Nest Stalker (builds the team's nest) |
-| 4 | wave 4 | Turret Stalker (turns into a turret), Tank Stalker (turns into a Tank), Flood Tank |
+| 1 | wave 1 | Flood Human (200 health), Baby Stalker (tiny, fast, fragile), Breacher (big, 300 health, 2 at a time) |
+| 2 | wave 2 | Flood Brute (headshot-immune), Flood Stalker, Jumper Brute (low gravity, headshot-immune, 1 at a time) |
+| 3 | wave 3 | Flood Elite (shields), Nest Stalker (builds the team's nest), Invis Stalker (nearly invisible, 2 at a time) |
+| 4 | wave 4 | Shifter Stalker (turns into a turret or a Tank, 2 at a time), Flood Tank |
 | 5 | last wave (5) only | Sword Spartan |
 
 - **Nest Stalker:** builds one nest (Ability 1). It outlives the builder; the Infected can spawn at it until the Survivors destroy it.
-- **Turret Stalker / Tank Stalker:** Ability 1 transforms after 1 second, and back again.
+- **Leap (Crouch):** Flood Humans, Breachers, Brutes, Jumper Brutes and Elites leap the way they face: half a second after Crouch they're thrown forward and up (Humans the least, the Jumper Brute the farthest), then 2 s before the next.
+- **Shifter Stalker:** Ability 1 turns into a turret, Ability 2 into a Tank, after 1 second; either key turns it back.
 - **Breaks:** Infected who die during a break come back as harmless flying Monitors, and turn back into Flood when the wave starts.
 - **Bosses** (from wave 2): the Infected player with the most kills (picked at random if tied, so there's always one) gets one boss life, from a gold card at the top of their picker: **Juggernaut** (giant, very tough Tank), **Brute Chieftain** (giant, fastest, very tough, invincibility) or **Master Chief** (invisible, Energy Sword, no shield recharge, can be headshot).
 
 ## Status and next steps
 
-- **Size:** 44.2 KiB of 64, about **19.8 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
+- **Size:** 50.3 KiB of 64, about **13.7 KiB free**. The mode stores the script's source text, so the build compiles a copy with 1-2 letter names (`tools/shrink.ps1`, since v0.33): 56 KiB of readable source becomes 34 KiB. The readable script in `scripts/` stays the one to edit. The build proves the copy turns back into it exactly and passes the same checks. [docs/name-key.md](docs/name-key.md) says which short name is which. Rule of thumb: 1 KiB of new readable code costs about 0.6 KiB of the mode.
 - **Untested in game:** the bosses, the Sword Spartan, the equipment fix, the health bar and the prices. The checklist is in [docs/testing.md](docs/testing.md).
-- **Done:** roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
+- **Done:** the Flood leap (v0.42, proven in Test 15), roadmap step 1 (v0.36-v0.37: arsenal grouped and locked by wave, new prices), the rename to Flood Survival (v0.37), roadmap step 2 (v0.38: four new Flood forms, Turret and Tank Stalker merged into the Shifter Stalker), roadmap step 3 (v0.40-v0.43: a Flood Hunter and a Mega Carrier boss were tried and dropped: a Hunter body keeps its blue colours, and a player Carrier can't be made to respawn after its blast), the v0.27 hint trim, base building with map props (v0.32-v0.35: Flashlight pick up and drop, the one-use Prop Placer), short names (v0.33).
 
-### Limits other than space (v0.35)
+### Limits other than space (v0.38)
 
 | What | Used | Free | What it means |
 | --- | --- | --- | --- |
 | Host options | 16 / 16 | 0 | No new host setting unless two are merged (e.g. `free_shop` + `test_keys` into one test switch) |
 | Trait sets | 15 / 16 | 1 | One new stat effect (speed, damage, resistance...) for the whole list below |
-| Widgets | 23 / 32 | 9 | Room for new HUD lines or cards |
-| Infected classes | 13 / 16 | 3 | Up to 3 new forms or bosses in total |
+| Widgets | 26 / 32 | 6 | Room for new HUD lines or cards |
+| Infected classes | 16 / 16 | 0 | Full: new bosses (step 3) have to be body swaps on the existing boss classes |
 | Survivor classes | 4 / 16 | 12 | Room for Survivor roles |
 | Per-player numbers, objects, timers | all full | 0 | New per-player state must share a slot or go in the free perk bits (11 used), on the player's body (lost on death) or in team variables |
 | Global numbers / objects / players / timers | 10/12, 3/16, 2/8, 3/8 | plenty | Fine for round-wide state |
@@ -81,8 +82,8 @@ Costs are rough mode KiB, after short names. Time is a rough guess at the pace o
 | # | Step | Cost | Uses | Time | Notes |
 | --- | --- | --- | --- | --- | --- |
 | 1 | ~~**Arsenal order and price rework:**~~ **Done in v0.36.** pages ordered by the wave each item unlocks in, gear locked until its wave, new prices | ~0.5-1 | — | 1-1.5 h | Needs the unlock wave and price for each item |
-| 2 | **More Flood forms** (tier 1-3) | ~0.5 each | 1 Infected class each | 1.5-2 h | Per-class stats go in the template (free) |
-| 3 | **Boss variety** | ~0.5 each | see note | 1-1.5 h | Only 3 Infected classes are free for steps 2 and 3 together. New bosses could instead be body swaps on an existing boss class (as the Stalker transforms do), which needs no class |
+| 2 | ~~**More Flood forms** (tier 1-3)~~ **Done in v0.38.** | ~0.5 each | 1 Infected class each | 1.5-2 h | Per-class stats go in the template (free) |
+| 3 | ~~**Boss variety**~~ **Tried in v0.40-v0.43, both new bosses dropped** (see Done above); the three original bosses stay. | ~0.5 each | body swaps | 1-1.5 h | No Infected classes are free after step 2, so new bosses are body swaps on the existing boss classes (as the Shifter Stalker does), which needs no class. Agreed on 2026-10-25 |
 | 4 | **How-to cards** left and right of the trait screen in warmup: building (Flashlight, Prop Placer) and the arsenal | ~0.4 | 2 widgets | 0.5 h | |
 | 5 | **Invisible-prop filter**, tried in Test 13 first | ~0.2 | — | 0.5-1 h | e.g. skip objects with 0 health |
 | 6 | **Prop safety:** a short cooldown before someone else can take a prop you just placed, and **no prop placed 0-4 ft from any player** (a grav lift spot or drop that close is refused), so nobody gets pushed up or out of the map | ~0.4 | object timer | 0.5-1 h | |

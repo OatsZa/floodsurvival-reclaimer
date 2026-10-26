@@ -2,12 +2,12 @@
 
 Two players plus **Ability 4** (with `test_keys` = 1) to skip timers is the quickest way. Everything unlocks by wave, so 1v1 works: press Ability 4 at each wave to reach wave 5. If the HUD freezes, the script stopped: the reason is in `Documents\My Games\Project Reclaimer\Logs\client.log` (search for 'Custom game mode stopped').
 
-## Still to test (v0.37)
+## Still to test (v0.43)
 
 Fill in and paste back.
 
 ```text
-FLOOD SURVIVAL v0.37 RESULTS
+FLOOD SURVIVAL v0.43 RESULTS
 -- Fixed or changed in v0.22-v0.23 --
 E1. Bought equipment (cover, radar jammer...) stays in your hands; after using it you can buy another (no softlock)? ->
 E2. Equipment and grenades you pick up from the map are no longer deleted? ->
@@ -29,6 +29,26 @@ X2. Turret, Tank and Nest Stalker after the v0.34 fix -> v0.34 (2026-10-25): all
 A3. Arsenal: each page sorted by opening wave, prices as in rules.md (free_shop 0 to check charges)? In warmup only wave 1 gear is open; the rest is grey with 'opens in wave N', and buying it says 'That opens in wave N'? Wave 2 gear opens in the first break, wave 3 gear in the second, and so on? Plasma Cannon / Missile Pod still say 'not on this map' on The Pit? Bought guns, equipment and placeables still land as before (the item numbers changed)? ->
 -- New in v0.37 --
 N1. The mode is called Flood Survival everywhere (game type list, lobby, waiting line 'FLOOD SURVIVAL')? Pages: weapons by wave (1/4, 2/4), Placeables (3/4), Equipment (4/4)? Every card buys the item it names (the item numbers changed again)? ->
+-- New in v0.38 --
+F1. Picker: 12 forms in tier order, two to a row, nothing overlapping the title or the Spawn buttons? The boss sees the gold card as the top row with everything one row lower? ->
+F2. Baby Stalker (tier 1): half size, very fast, dies quickly (40 health)? ->
+F3. Breacher (tier 1): bigger Flood Human, tougher (150 health); a 3rd player can't take it ('full (2 max)')? ->
+F4. Jumper Brute (tier 2): huge jumps (the roster's gravity setting works?), faster than the Brute; only 1 at a time ('taken')? ->
+F5. Invis Stalker (tier 3): smaller, fast, hard to see (the roster's camouflage setting works?), 85 health? ->
+F6. Shifter Stalker (tier 4): Ability 1 turret, Ability 2 Tank (bigger, 125 health), either key back; HUD hint right? ->
+F7. Test 14 (Carrier respawn, separate mode) -> 2026-10-25: after the melee blast the player respawns at once and it is NOT counted as a death (no death line in client.log). A Carrier bomber would need the script to treat the vanished Carrier body as the death. Side finding: class bodies replace the players' own Spartan armour (test modes without a roster keep it).
+-- New in v0.39 --
+F8. Flood Brute and Jumper Brute survive headshots (a Sniper or Battle Rifle headshot does body damage only)? Invis Stalker and Shifter Stalker say 'full (2 max)' when 2 are out, and a 3rd can't take them? ->
+F9. Test 15 (leap, separate mode): see Documents\zs\tests\RUN_SHEET.md ->
+-- New in v0.40 --
+B9. Boss card cycles Juggernaut / Brute Chieftain / Master Chief only? ->
+B10. Flood Hunter -> v0.40 (2026-10-25): works, but the Hunter body stays blue (team colour doesn't apply), so it was dropped in v0.41.
+B11. Mega Carrier -> v0.41 (2026-10-25): still never respawned after its blast, even with the melee kill. Dropped in v0.43, and the Carrier isn't usable as a Flood form.
+H2. Flood Human has 200 health (the health bar shows a share, so check it takes about twice the shots)? ->
+-- New in v0.42 --
+J1. Leap -> v0.42 (2026-10-25): WORKS. v0.43: the Human and Breacher leap is stronger (9/6, was 8/5), still below Brute and Elite (10/6): noticeable? Original check: Crouch as Flood Human, Breacher, Flood Brute, Jumper Brute and Flood Elite: about half a second later you're thrown forward and up the way you face (try 4 facings)? Human shortest, Brute and Elite medium, Jumper Brute farthest? 2 s before the next leap? Other forms and Survivors don't leap? HUD says 'Crouch: leap the way you face'? ->
+J2. No stray magnums lying around after leaps, and nobody can pick one up; the arsenal's gun cap isn't affected? ->
+H3. Breacher has 300 health (tougher than the 200 Flood Human)? ->
 -- Not reported yet --
 T7. Sword Spartan only on wave 5? First person, sword, green-yellow? ->
 B1. No boss in wave 1; at the start of wave 2 an Infected gets the boss message, even with zero kills? ->

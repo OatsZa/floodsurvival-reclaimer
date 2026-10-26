@@ -132,6 +132,14 @@ class = the form current_player would spawn as. ok = 1 when only the Monitor is 
 
 Spawn as the chosen form, if it's open. The caller sets the spawn spot.
 
+**Forms since v0.38:** class 10 is the Shifter Stalker (was the Turret Stalker) and class 11 the Baby Stalker (was the Tank Stalker); classes 17-19 are the Breacher, Jumper Brute and Invis Stalker. Gravity (Jumper) and camouflage (Invis) are class traits in the template, so they cost no script trait set; speeds still come from the script's trait sets every tick. Picker cards, in tier order: 7 Human, 8 Baby Stalker, 9 Breacher, 10 Brute, 11 Stalker, 12 Jumper Brute, 13 Elite, 14 Nest Stalker, 19 Invis Stalker, 24 Shifter, 25 Tank, 26 Sword Spartan; 20 is the boss card. Rows are 54 px apart from y 165; the boss's rows are one lower. The arsenal and trait screen use the same rows.
+
+**Flood leap (v0.42):** Crouch (`on button press`) sets `leap_state` 1 and a 0.5 s `leap_wait` on the player's **body** (object.number[5-7], object.timer[0], object.object[0-3]: player slots are full, and a new body starts clean). Then every tick: state 1 places four hidden magnums labelled `zs_leap` 20 units above the body: the origin, one 30 units ahead (offsets follow the facing), and two pushed along the map's X and Y axes (`set_velocity` goes along the map's axes). State 5, 3 ticks later: `leap_cosine()` turns r (origin to ahead), s (origin to a pushed one) and d (ahead to a pushed one) into cos x100 = (s*s + r*r - d*d) / (2*s*r), shrinking them first so the squares stay small. The body gets `set_velocity(fwd * cos / 100, fwd * sin / 100, up)`, the helpers go, and state 2 waits 2 s. All four helpers fall alike, so gravity cancels out. The purge skips `zs_leap` weapons, and the object loop deletes any older than 60 ticks (a body that died mid-leap). The `leap_*` temporaries share slots with limit, count, need, price, item, picks and total: they're only used in this block and `leap_cosine()`.
+
+**Body-swap bosses (v0.40-v0.42, removed in v0.43):** a Flood Hunter and a Mega Carrier were added as picker values that deployed as the Juggernaut class and then swapped bodies. The Hunter body keeps its own blue colours, and a player Carrier never respawned after its blast (in this mode the blast leaves the player stuck; killing the body on melee didn't help). Both are gone; the code is in git history (v0.40-v0.42).
+
+**Shifter Stalker:** `form` is 0 Stalker, 1 transformed, +2 while a change is pending (2 to transform, 3 back). The `shift_tank` perk bit says which transformed form: set by Ability 2, cleared by Ability 1 when the change starts. It picks flood_tank or flood_ranged, the 125 health and the 120% size.
+
 **`function draw_picker()`**
 
 The form picker: choose a card, then Spawn, or Spawn at Nest while one stands. The chosen card is lit.
